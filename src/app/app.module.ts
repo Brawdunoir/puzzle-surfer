@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { GridComponent } from './grid/grid.component';
@@ -16,9 +17,11 @@ import { GameComponent } from './game/game.component';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
      RouterModule.forRoot([
-       { path: '', component: AppComponent },
-       { path: 'game', component: GameComponent},
+       { path: '', component: GameComponent },
+       { path: 'game', component: GameComponent },
+       { path: 'score', component: ScoreComponent },
      ])
   ],
   providers: [],
