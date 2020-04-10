@@ -7,21 +7,22 @@ import { AppComponent } from './app.component';
 import { GridComponent } from './grid/grid.component';
 import { ScoreComponent } from './score/score.component';
 import { GameComponent } from './game/game.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridComponent,
     ScoreComponent,
-    GameComponent
+    GameComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
      RouterModule.forRoot([
-       { path: '', component: GameComponent },
+       { path: '', component: HomeComponent },
        { path: 'game', component: GameComponent },
-       { path: 'score', component: ScoreComponent },
      ])
   ],
   providers: [],
