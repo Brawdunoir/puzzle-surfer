@@ -8,6 +8,9 @@ import { GridComponent } from './grid/grid.component';
 import { ScoreComponent } from './score/score.component';
 import { GameComponent } from './game/game.component';
 import { HomeComponent } from './home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,10 +23,12 @@ import { HomeComponent } from './home/home.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    MatButtonModule,
      RouterModule.forRoot([
        { path: '', component: HomeComponent },
        { path: 'game', component: GameComponent },
-     ])
+     ]),
+     BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

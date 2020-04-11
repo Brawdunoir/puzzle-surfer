@@ -1,0 +1,26 @@
+@import "../../variables.scss";
+
+:host {
+  display: flex;
+  background-color: #7edeea;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+    
+    #app_name {
+      font-weight: bold;
+      margin-top: $margin-top;
+    }
+    
+    #start_button {
+      margin-bottom: $margin-bottom;
+      width: fit-content;
+
+      i {
+        font-size: 40px;
+        color: rgba(255,255,255,0.9);
+      }
+    }
+  
+}
