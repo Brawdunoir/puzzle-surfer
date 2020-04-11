@@ -1,1 +1,7 @@
 <p>Valeur de la grille : {{ grid[2][2] }}</p>
+<div id="grid"
+[ngStyle]="{
+'height.px': nbRows * blocUnit,
+'width.px': nbColumns*blocUnit,
+'background-size.px': blocUnit}">
+</div>
