@@ -1,5 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { HostListener } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+
+export interface Tile {
+  color: string;
+}
 
 @Component({
   selector: 'app-grid',
@@ -7,34 +12,48 @@ import { HostListener } from '@angular/core';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit {
-  @Input() nbRows: number;
-  @Input() nbColumns: number;
-  blocUnit: number;
-  grid: boolean[][];
-
+  private eventsSubscription: Subscription;
+  
+  @Input() dimensions: number;
+  @Input() blocUnit: number;
+  @Input() grid: boolean[];
+  @Input() indexReceived: Observable<void>;
+  tiles: Tile[] = [];
+  
   constructor() {
   }
 
   ngOnInit(): void {
+    this.eventsSubscription = this.indexReceived.subscribe(() => this.updateTiles());
     this.initGrid();
-    this.getUnit();
-    this.grid[2][2] = true;
+    this.tiles[2].color = 'lightgreen';
+  }
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
   }
   
-  // Instancier la grille logique
+  // Instancier la grille
   initGrid() {
-    this.grid = []
-    for (let i = 0; i < this.nbRows; i++) {
-      this.grid[i] = [];
-      for (let j = 0; j < this.nbColumns; j++) {
-        this.grid[i][j] = false;
+    for (let i = 0; i < this.grid.length; i++) {
+      this.tiles.push({ color: 'lightblue' });
+    }
+  }  
+  
+  @ViewChild('overGrid') d1: ElementRef;
+  addBlocFill() {
+    this.d1.nativeElement.insertAdjacentHTML(
+      'beforeend',
+      '<div class="filled" [ngStyle]="{height.px: blocUnit, width.px: blocUnit, background-size px: blocUnit}"></div>');
+  }
+  
+  updateTiles() {
+    for (let i = 0; i < this.grid.length; i++) {
+      if (this.grid[i]) {
+        this.tiles[i].color = 'lightgreen';
+      } else {
+        this.tiles[i].color = 'lightblue';
       }
     }
-  }
-  
-  // Récupérer l'unité d'un bloc pour le background-size
-  @HostListener('window:resize', ['$event'])
-  getUnit(event?) {
-    this.blocUnit = window.innerWidth / this.nbColumns;
   }
 }
