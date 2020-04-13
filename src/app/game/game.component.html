@@ -1,10 +1,25 @@
-<app-score
-  [bestScore]="1000"
-  [currentScore]="200">
-</app-score>
-
-<app-grid
-[nbRows]="10"
-[nbColumns]="10">
-
-</app-grid>
+<div class="game_screen" style="height:100%">
+  <app-score
+    [bestScore]="1000"
+    [currentScore]="200">
+  </app-score>
+  
+  <div class="game_screen__below">
+    <app-grid
+    [dimensions]="dimensions"
+    [blocUnit]="blocUnit"
+    [grid]="grid"
+    [indexReceived]="eventIndexReceived.asObservable()">
+    </app-grid>
+    
+    <app-single-bloc
+    [blocUnit]="blocUnit"
+    [dimensions]="dimensions"
+    [grid]="grid"
+    (newIndex)="getIndex($event)">
+    
+    </app-single-bloc>
+  
+    <p style="width: auto; height: auto; background-color: aquamarine;">Voici la valeur de l'index: {{index}}</p>
+  </div>
+</div>
