@@ -14,10 +14,9 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "enableIvy": true
+    ]
   },
-  "angularCompilerOptions": {
+    "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   }
