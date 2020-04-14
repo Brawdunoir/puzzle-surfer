@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { EventEmitter } from 'protractor';
 import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-game',
@@ -10,24 +10,24 @@ import { Subject } from 'rxjs';
 export class GameComponent implements OnInit {
 
   blocUnit: number;
-  dimensions: number = 4;
-  // index: number;
+  dimensions: number = 20;
   private score: number = 0;
   eventIndexReceived: Subject<void> = new Subject<void>();
   private grid: boolean[] = [];
-
+  private piecesIsOff: boolean[] = [];
+  private notDestroy = true;
 
   constructor() { }
 
   ngOnInit(): void {
     this.getInitUnit();
     this.initGrid();
+    this.piecesIsOff = [false, false, false];
   }
 
   initGrid() {
     for (let i = 0; i < this.dimensions * this.dimensions; i++) {
       this.grid[i] = false;
-      console.log(i);
     }
   }
   // Récupérer l'unité d'un bloc pour le background-size
@@ -40,9 +40,11 @@ export class GameComponent implements OnInit {
     this.blocUnit = window.innerWidth / this.dimensions;
   }
 
-  getIndex(index: number) {
-    // this.index = index;
-    this.grid[index] = true;
+  getIndex(index: number[]) {
+    index.forEach(element => {
+      this.grid[element] = true;
+      this.score++;
+    });
 
     // On regarde si on a réussit à compléter une ligne/colonne
     this.checkGrid();
