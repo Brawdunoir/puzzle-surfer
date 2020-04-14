@@ -16,8 +16,8 @@ export class TetrisBlocComponent implements OnInit, OnDestroy {
   @Output() newIndex = new EventEmitter<number[]>();
   index: number[] = [];
 
-  // private xSource: number;
-  // private ySource: number;
+  private xSource: number;
+  private ySource: number;
 
   private unavailableLocation: boolean = false;
   private display: boolean = true;
@@ -32,25 +32,13 @@ export class TetrisBlocComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  sendIndex() {
-    if (this.unavailableLocation) {
-      this.unavailableLocation = false;
-      return;
-    }
-
-    this.newIndex.emit(this.index);
-    this.display = false;
-  }
-
-  // onDragStarted(event) {
-  //   this.xSource = event.source.getRootElement().getBoundingClientRect().x;
-  //   this.ySource = event.source.getRootElement().getBoundingClientRect().y;
-  // }
-
+  
   onDragEnded(event) {
     let coord = this.multiService.getIndex(event, this.blocUnit);
-
     let first = coord.i * this.dimensions + coord.j
+    
+    // Vider les index
+    this.index = [];
 
     // Haut tétris
     this.index.push(first + 1);
@@ -71,10 +59,23 @@ export class TetrisBlocComponent implements OnInit, OnDestroy {
       this.unavailableLocation = true;
       this.resetStyle(event);
     }
+
+    this.sendIndex();
   }
 
-  resetStyle(event) {
-    event.source.getRootElement().style.transform = 'translate3d(0, 0, 0)';
+
+  private resetStyle(event) {
+    event.source._dragRef.reset();
+  }
+  
+  private sendIndex() {
+    if (this.unavailableLocation) {
+      this.unavailableLocation = false;
+      return;
+    }
+
+    this.newIndex.emit(this.index);
+    this.display = false;
   }
 
   setMyStyles() {
