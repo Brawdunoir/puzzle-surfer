@@ -14,6 +14,7 @@ import { ScoreComponent } from './score/score.component';
 import { GameComponent } from './game/game.component';
 import { HomeComponent } from './home/home.component';
 import { SingleBlocComponent } from './single-bloc/single-bloc.component';
+import { TetrisBlocComponent } from './tetris-bloc/tetris-bloc.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { SingleBlocComponent } from './single-bloc/single-bloc.component';
     GameComponent,
     HomeComponent,
     SingleBlocComponent,
+    TetrisBlocComponent,
   ],
   imports: [
     BrowserModule,
