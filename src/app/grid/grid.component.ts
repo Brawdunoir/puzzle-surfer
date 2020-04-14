@@ -26,7 +26,6 @@ export class GridComponent implements OnInit {
   ngOnInit(): void {
     this.eventsSubscription = this.indexReceived.subscribe(() => this.updateTiles());
     this.initGrid();
-    this.tiles[2].color = 'lightgreen';
   }
 
   ngOnDestroy() {
@@ -39,13 +38,6 @@ export class GridComponent implements OnInit {
       this.tiles.push({ color: 'lightblue' });
     }
   }  
-  
-  @ViewChild('overGrid') d1: ElementRef;
-  addBlocFill() {
-    this.d1.nativeElement.insertAdjacentHTML(
-      'beforeend',
-      '<div class="filled" [ngStyle]="{height.px: blocUnit, width.px: blocUnit, background-size px: blocUnit}"></div>');
-  }
   
   updateTiles() {
     for (let i = 0; i < this.grid.length; i++) {
