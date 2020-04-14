@@ -1,0 +1,12 @@
+.bloc-container {
+  position: relative;
+
+
+  &__bloc {
+    background-color: lightgreen;
+    position: absolute;
+    top: 0;
+    left: 0;
+    outline: white 1px solid;
+  }
+}
