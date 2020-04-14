@@ -1,3 +1,3 @@
 <div cdkDrag cdkDragBoundary=".game_screen__below" (cdkDragEnded)="onDragEnded($event)" [ngStyle]="setMyStyles()"
-(cdkDragEnded)="sendIndex()">
+(cdkDragEnded)="sendIndex()" (cdkDragStarted)="onDragStarted($event)">
 </div>

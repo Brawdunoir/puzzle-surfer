@@ -1,68 +1,73 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+
+import { MultiService } from '../multi.service';
 
 @Component({
   selector: 'app-single-bloc',
   templateUrl: './single-bloc.component.html',
   styleUrls: ['./single-bloc.component.scss']
 })
-export class SingleBlocComponent implements OnInit {
+export class SingleBlocComponent implements OnInit, OnDestroy {
 
-  @Output() newIndex = new EventEmitter<number>();
   @Input() blocUnit: number;
   @Input() dimensions: number;
   @Input() grid: boolean[];
-  index: number;
+
+  @Output() newIndex = new EventEmitter<number[]>();
+  index: number[] = [];
+
+  private xSource: number;
+  private ySource: number;
+
+  private unavailableLocation: boolean = false;
+  private display: boolean = true;
   
-  constructor() {
+  constructor(private multiService : MultiService) {
     
   }
   
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+  }
+
   sendIndex() {
+    if (this.unavailableLocation) {
+      this.unavailableLocation = false;
+      return;
+    }
+
     this.newIndex.emit(this.index);
+    this.display = false;
+  }
+
+  onDragStarted(event) {
+    this.xSource = event.source.getRootElement().getBoundingClientRect().x;
+    this.ySource = event.source.getRootElement().getBoundingClientRect().y;
   }
   
   onDragEnded(event) {
-    let element = event.source.getRootElement();
-    let grid = document.querySelector('.game_screen__below');
-    
-    let x: number;
-    let y: number;
+    let coord = this.multiService.getIndex(event, this.blocUnit);
 
-    let i: number;
-    let j: number;
+    this.index.push(coord.i * this.dimensions + coord.j);
 
-    x = (element.getBoundingClientRect().x + this.blocUnit / 2 - grid.getBoundingClientRect().x);
-    y = (element.getBoundingClientRect().y + this.blocUnit / 2 - grid.getBoundingClientRect().y);
-    console.log('x: ' + x + ' y: ' + y);
-
-    i = Math.trunc(y / this.blocUnit);
-    j = Math.trunc(x / this.blocUnit);
-
-    this.index = i * this.dimensions + j;
+    this.index.forEach(i => {
+      if (this.grid[i]) {
+        this.unavailableLocation = true;
+      }
+    });
+    if (Math.max(...this.index) > this.grid.length) {
+      this.unavailableLocation = true;
+    }
   }
-  
-  // getPosition(event) {
-  //   let offsetLeft = 0;
-  //   let offsetTop = 0;
-
-  //   let el = event.srcElement;
-    
-  //   while (el) {
-  //     offsetLeft += el.offsetLeft;
-  //     offsetTop += el.offsetTop;
-  //     el = el.parentElement.parentElement;
-  //   }
-  //   return { offsetTop: offsetTop, offsetLeft: offsetLeft }
-  // }
   
   setMyStyles() {
     let styles = {
       'height': this.blocUnit + 'px',
       'width': this.blocUnit + 'px',
       'backgroundColor': 'lightgreen',
+      'display': this.display ? '' : 'none',
     };
     return styles;
   }
