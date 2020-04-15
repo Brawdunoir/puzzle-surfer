@@ -1,16 +1,3 @@
-<!-- <p>Valeur de la grille[2] : {{ grid[2] }}</p>
-<p>Valeur de la grille[3] : {{ grid[3] }}</p> -->
-<!-- <div id="grid"
-[ngStyle]="{
-'height.px': nbRows * blocUnit,
-'width.px': dimensions*blocUnit,
-'background-size.px': blocUnit}">
-
-<div class="overGrid">
-</div>
-
-</div> -->
-
 <mat-grid-list cols={{dimensions}} rowHeight={{blocUnit}}>
   <mat-grid-tile *ngFor="let tile of tiles" [colspan]=1 [rowspan]=1 [style.background]="tile.color">
   </mat-grid-tile>

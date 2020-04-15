@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { MultiService } from '../multi.service';
+import { Tile } from '../tile-item';
+import { BasicService } from '../basic.service';
 
-export interface Tile {
-  color: string;
-}
 
 @Component({
   selector: 'app-grid',
@@ -14,38 +14,32 @@ export interface Tile {
 export class GridComponent implements OnInit {
   private eventsSubscription: Subscription;
   
-  @Input() dimensions: number;
-  @Input() blocUnit: number;
-  @Input() grid: boolean[];
-  @Input() indexReceived: Observable<void>;
+  dimensions: number;
+  blocUnit: number;
+  // grid: boolean[];
+  // @Input() indexReceived: Observable<void>;
   tiles: Tile[] = [];
   
-  constructor() {
+  constructor(private multiService: MultiService, private basic: BasicService) {
   }
 
   ngOnInit(): void {
-    this.eventsSubscription = this.indexReceived.subscribe(() => this.updateTiles());
-    this.initGrid();
+    this.blocUnit = this.basic.blocUnit;
+    this.dimensions = this.basic.dimensions;
+    this.tiles = this.basic.tiles;
   }
 
   ngOnDestroy() {
-    this.eventsSubscription.unsubscribe();
-  }
+    // this.eventsSubscription.unsubscribe();
+  } 
   
-  // Instancier la grille
-  initGrid() {
-    for (let i = 0; i < this.grid.length; i++) {
-      this.tiles.push({ color: 'lightblue' });
-    }
-  }  
-  
-  updateTiles() {
-    for (let i = 0; i < this.grid.length; i++) {
-      if (this.grid[i]) {
-        this.tiles[i].color = 'lightgreen';
-      } else {
-        this.tiles[i].color = 'lightblue';
-      }
-    }
-  }
+  // updateTiles() {
+  //   for (let i = 0; i < this.grid.length; i++) {
+  //     if (this.grid[i]) {
+  //       this.tiles[i].color = 'lightgreen';
+  //     } else {
+  //       this.tiles[i].color = 'lightblue';
+  //     }
+  //   }
+  // }
 }
