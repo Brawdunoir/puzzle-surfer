@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { TetrisBlocComponent } from '../tetris-bloc/tetris-bloc.component';
 import {  PieceDirective1, PieceDirective2, PieceDirective3 } from '../piece.directive';
 import { PieceItem } from '../piece-item';
-import { PieceComponent } from '../piece.component';
 import { PieceService } from '../piece.service';
 import { MultiService } from '../multi.service';
 import { BasicService } from '../basic.service';
