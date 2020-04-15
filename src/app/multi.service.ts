@@ -1,26 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { BasicService } from './basic.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MultiService {
+  
+  constructor(private basic: BasicService) { }
 
-  getIndex(event, blocUnit) {
+  getIndex(event) {
     let element = event.source.getRootElement();
     let grid = document.querySelector('.game_screen__below');
 
-    let x: number;
-    let y: number;
-
-    x = (element.getBoundingClientRect().x + blocUnit / 2 - grid.getBoundingClientRect().x);
-    y = (element.getBoundingClientRect().y + blocUnit / 2 - grid.getBoundingClientRect().y);
-    console.log('x: ' + x + ' y: ' + y);
+    let x = (element.getBoundingClientRect().x + this.basic.blocUnit / 2 - grid.getBoundingClientRect().x);
+    let y = (element.getBoundingClientRect().y + this.basic.blocUnit / 2 - grid.getBoundingClientRect().y);
 
     return {
-      i: Math.trunc(y / blocUnit),
-      j: Math.trunc(x / blocUnit)
+      i: Math.trunc(y / this.basic.blocUnit),
+      j: Math.trunc(x / this.basic.blocUnit)
     }
   }
 
-  constructor() { }
 }
