@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ViewContainerRef } from '@angular/core'
 
 
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { GameComponent } from './game/game.component';
 import { HomeComponent } from './home/home.component';
 import { SingleBlocComponent } from './single-bloc/single-bloc.component';
 import { TetrisBlocComponent } from './tetris-bloc/tetris-bloc.component';
+import { PieceDirective1, PieceDirective2, PieceDirective3 } from './piece.directive';
 
 
 @NgModule({
@@ -26,6 +28,9 @@ import { TetrisBlocComponent } from './tetris-bloc/tetris-bloc.component';
     HomeComponent,
     SingleBlocComponent,
     TetrisBlocComponent,
+    PieceDirective1,
+    PieceDirective2,
+    PieceDirective3,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,7 @@ import { TetrisBlocComponent } from './tetris-bloc/tetris-bloc.component';
      BrowserAnimationsModule
   ],
   providers: [],
+  entryComponents: [ TetrisBlocComponent, SingleBlocComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
