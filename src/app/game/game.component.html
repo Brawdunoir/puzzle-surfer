@@ -1,42 +1,21 @@
 <div class="game_screen" style="height:100%">
-  <app-score
-    [bestScore]="score"
-    [currentScore]="score">
+  <app-score>
   </app-score>
-  
+    
   <div class="game_screen__below" style="height: max-content;">
-    <app-grid
-    [dimensions]="dimensions"
-    [blocUnit]="blocUnit"
-    [grid]="grid"
-    [indexReceived]="eventIndexReceived.asObservable()">
+    <app-grid>
     </app-grid>
 
     <mat-grid-list cols="3" rowHeight="3:1" style="background-color: cornsilk; height: 100px;">
-      <mat-grid-tile *ngFor="let pieces of piecesIsOff" [colspan]=1 [rowspan]=1 style="height: 100px;">
-        <app-tetris-bloc *ngIf="notDestroy"
-        [blocUnit]="blocUnit"
-        [dimensions]="dimensions"
-        [grid]="grid"
-        (newIndex)="getIndex($event)"
-        >
-        </app-tetris-bloc>
+      <mat-grid-tile [colspan]=1 [rowspan]=1 style="height: 100px;">
+        <ng-template appPiece1></ng-template>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]=1 [rowspan]=1 style="height: 100px;">
+        <ng-template appPiece2></ng-template>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]=1 [rowspan]=1 style="height: 100px;">
+        <ng-template appPiece3></ng-template>
       </mat-grid-tile>
     </mat-grid-list>
-
-    <!-- <app-piece-holder
-    [blocUnit]="blocUnit"
-    [dimensions]="dimensions"
-    [grid]="grid"
-    (newIndex)="getIndex($event)">
-
-    </app-piece-holder> -->
-    
-    
-  
-    <!-- <p style="width: auto; height: auto; background-color: aquamarine;">Voici la valeur de l'index: {{index}}</p> -->
   </div>
 </div>
-    <app-tetris-bloc>
-  
-    </app-tetris-bloc>
