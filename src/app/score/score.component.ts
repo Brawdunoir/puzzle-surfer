@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { ScoreService } from '../score.service';
 
 @Component({
   selector: 'app-score',
@@ -7,12 +7,14 @@ import { Input } from '@angular/core';
   styleUrls: ['./score.component.scss']
 })
 export class ScoreComponent implements OnInit {
-  @Input() bestScore;
-  @Input() currentScore;
+  bestScore;
+  currentScore;
 
-  constructor() { }
+  constructor(private scoreService: ScoreService) { }
 
   ngOnInit(): void {
+    this.currentScore = this.scoreService.score;
+    this.bestScore = this.scoreService.score;
   }
 
 }
