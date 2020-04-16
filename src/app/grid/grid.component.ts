@@ -11,12 +11,9 @@ import { BasicService } from '../basic.service';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit {
-  private eventsSubscription: Subscription;
 
   dimensions: number;
   blocUnit: number;
-  // grid: boolean[];
-  // @Input() indexReceived: Observable<void>;
   tiles: Tile[] = [];
 
   constructor(private multiService: MultiService, private basic: BasicService) {
