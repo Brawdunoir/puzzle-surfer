@@ -68,7 +68,7 @@ export class PieceService {
         { x: 1, y: 2 },
         { x: 0, y: 1 },
       ],
-      jumps: [1, this.dim, this.dim + 1, 2 * this.dim],
+      jumps: [1, this.dim, this.dim + 1, 2 * this.dim + 1],
       color: '#fff59d',
     },
     {
