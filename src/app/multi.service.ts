@@ -17,8 +17,8 @@ export class MultiService {
     const element = event.source.getRootElement();
     const grid = document.querySelector('.game_screen__below');
 
-    const x = (element.getBoundingClientRect().x + this.basic.blocUnit / 2 - grid.getBoundingClientRect().x);
-    const y = (element.getBoundingClientRect().y + this.basic.blocUnit / 2 - grid.getBoundingClientRect().y);
+    const x = Math.round(element.getBoundingClientRect().x + this.basic.blocUnit / 2 - grid.getBoundingClientRect().x);
+    const y = Math.round(element.getBoundingClientRect().y + this.basic.blocUnit / 2 - grid.getBoundingClientRect().y);
 
     const i = Math.trunc(y / this.basic.blocUnit);
     const j = Math.trunc(x / this.basic.blocUnit);
