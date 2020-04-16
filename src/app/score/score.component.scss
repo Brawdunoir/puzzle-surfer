@@ -1,0 +1,18 @@
+.score {
+  background-color: #0c0c0c;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 8px;
+
+  &__text {
+    margin: 0;
+    font-weight: 200;
+    font-size: 2vh;
+
+    &_bold {
+      font-weight: 900;
+    }
+  }
+}

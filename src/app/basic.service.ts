@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Tile } from './tile-item';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BasicService {
-
   dimensions = 9; // TODO mettre ca dans les paramètres
   blocUnit: number;
   grid: boolean[] = [];
@@ -28,12 +27,16 @@ export class BasicService {
     }
   }
 
-  updateGrid(index: number[], filled: boolean, color: string = this.defaultColor) {
-    index.forEach(element => {
+  updateGrid(
+    index: number[],
+    filled: boolean,
+    color: string = this.defaultColor
+  ) {
+    index.forEach((element) => {
       this.grid[element] = filled;
       this.tiles[element].color = color;
     });
   }
 
-  constructor() { }
+  constructor() {}
 }

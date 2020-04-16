@@ -7,10 +7,9 @@ import { PieceService } from '../piece.service';
 @Component({
   selector: 'app-common-bloc',
   templateUrl: './common-bloc.component.html',
-  styleUrls: ['./common-bloc.component.scss']
+  styleUrls: ['./common-bloc.component.scss'],
 })
 export class CommonBlocComponent {
-
   // ! ID of the piece, that's only its position in piece.service
   PIECE_ID = this.pieceService.random;
 
@@ -24,9 +23,12 @@ export class CommonBlocComponent {
   private display = true;
   private getBack = false;
 
-  constructor(private multiService: MultiService, private basic: BasicService,
-              private gameService: GameService, private pieceService: PieceService) {
-  }
+  constructor(
+    private multiService: MultiService,
+    private basic: BasicService,
+    private gameService: GameService,
+    private pieceService: PieceService
+  ) {}
 
   onDragStarted() {
     this.isScale = false;
@@ -44,7 +46,6 @@ export class CommonBlocComponent {
     }
   }
 
-
   resetStyle(event: any) {
     event.source._dragRef.reset();
     this.isScale = true;
@@ -53,7 +54,9 @@ export class CommonBlocComponent {
 
   setStyleContainer() {
     const styles = {
-      transition: this.getBack ? 'transform 300ms cubic-bezier(.21,.74,.04,1.02)' : 'initial',
+      transition: this.getBack
+        ? 'transform 300ms cubic-bezier(.21,.74,.04,1.02)'
+        : 'initial',
     };
     return styles;
   }
@@ -63,7 +66,9 @@ export class CommonBlocComponent {
       'height.px': this.blocUnit * height,
       'width.px': this.blocUnit * width,
       display: this.display ? '' : 'none',
-      transform: this.isScale ? 'scale(0.5) translateY(0)' : 'scale(1) translateY(0)',
+      transform: this.isScale
+        ? 'scale(0.5) translateY(0)'
+        : 'scale(1) translateY(0)',
     };
     return styles;
   }
@@ -74,9 +79,8 @@ export class CommonBlocComponent {
       'width.px': this.blocUnit,
       'left.px': this.blocUnit * left,
       'top.px': this.blocUnit * top,
-      'background-color': color
+      'background-color': color,
     };
     return styles;
   }
-
 }

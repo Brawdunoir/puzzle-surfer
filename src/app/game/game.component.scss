@@ -1,0 +1,15 @@
+.game_screen {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__below {
+    padding: 0 5px;
+    margin: auto 0;
+
+    mat-grid-list {
+      background-color: transparent !important;
+    }
+  } 
+}

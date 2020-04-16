@@ -1,4 +1,4 @@
-<mat-grid-list cols={{dimensions}} rowHeight={{blocUnit}}>
-  <mat-grid-tile *ngFor="let tile of tiles" [colspan]=1 [rowspan]=1 [style.background]="tile.color">
+<mat-grid-list cols="{{ dimensions }}" rowHeight="{{ blocUnit }}">
+  <mat-grid-tile *ngFor="let tile of tiles" [colspan]="1" [rowspan]="1" [style.background]="tile.color">
   </mat-grid-tile>
 </mat-grid-list>
