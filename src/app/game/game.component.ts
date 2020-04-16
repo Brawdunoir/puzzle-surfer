@@ -13,13 +13,13 @@ import { CommonBlocComponent } from '../common-bloc/common-bloc.component';
 })
 export class GameComponent implements OnInit {
 
-  // pieces: PieceItem[];
   @ViewChild(PieceDirective1, { static: true }) pieceHost1: PieceDirective1;
   @ViewChild(PieceDirective2, { static: true }) pieceHost2: PieceDirective2;
   @ViewChild(PieceDirective3, { static: true }) pieceHost3: PieceDirective3;
-  currentPieceIndex = -1;
 
   viewContainerArray: ViewContainerRef[] = [];
+
+  gameEnd: boolean;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private pieceService: PieceService, private basic: BasicService,
@@ -35,6 +35,10 @@ export class GameComponent implements OnInit {
     this.gameService.dropPiece.subscribe(value => {
       this.loadComponent();
     });
+    this.gameService.gameEnd.subscribe(value => {
+      this.gameEnd = value;
+    });
+
   }
 
   loadComponent() {
