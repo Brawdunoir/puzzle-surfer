@@ -5,11 +5,27 @@
   justify-content: space-between;
 
   &__below {
-    padding: 0 5px;
     margin: auto 0;
 
     mat-grid-list {
       background-color: transparent !important;
+
+      mat-grid-tile {
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          right: -1px;
+          bottom: 30%;
+          top: 30%;
+          width: 2px;
+          background-color: #201f1e;
+        }
+
+        &:last-child::before {
+          display: none;
+        }
+      }
     }
   } 
 }

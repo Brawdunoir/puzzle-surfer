@@ -28,7 +28,7 @@ export class CommonBlocComponent {
     private basic: BasicService,
     private gameService: GameService,
     private pieceService: PieceService
-  ) {}
+  ) { }
 
   onDragStarted() {
     this.isScale = false;
@@ -67,8 +67,8 @@ export class CommonBlocComponent {
       'width.px': this.blocUnit * width,
       display: this.display ? '' : 'none',
       transform: this.isScale
-        ? 'scale(0.5) translateY(0)'
-        : 'scale(1) translateY(0)',
+        ? 'scale(0.5)'
+        : 'scale(1)',
     };
     return styles;
   }
