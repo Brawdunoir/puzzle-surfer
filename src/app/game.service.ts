@@ -81,30 +81,33 @@ export class GameService {
 
   isEnd(): void {
     let end = true;
-    // On parcourt les pièces
-    for (const id of this.currentPiecesID) {
-      // On récupère les jumps de la pièce
-      const jumps = this.pieceService.formes[id].jumps;
-      // On parcourt toute la grille
+    this.currentPiecesID.forEach(id => {
+      const positions = this.pieceService.formes[id].positions;
       for (let i = 0; i < this.basic.grid.length; i++) {
-        let positionPossible = true;
-        jumps.forEach(jump => {
-          if (this.basic.grid[i + jump] || i + jump > this.basic.grid.length) {
-            positionPossible = false;
-          }
+        let possitionValide = true;
+        positions.forEach(position => {
+          if (this.basic.grid[i + position.x + this.basic.dimensions * position.y] ||
+            position.y * this.basic.dimensions + i > this.basic.grid.length ||
+            i - (Math.trunc(i / this.basic.dimensions) * this.basic.dimensions) + position.x > this.basic.dimensions) {
+            possitionValide = false;
+            }
         });
-        if (positionPossible) {
+        if (possitionValide) {
           end = false;
-          break;
         }
       }
-    }
+    });
 
-    this.gameEnd.next(end);
+    if (end) {
+      this.gameEnd.next(end);
+    }
   }
+  // this.basic.grid[i + position.x + this.basic.dimensions * position.y]
+  // position.y + i > this.basic.dimensions * this.basic.dimensions
+  // position.x + i > this.basic.dimensions
 
   restart() {
-    this.basic.init();
+    this.basic.restartGrid();
     this.currentPiecesID.slice(0, this.currentPiecesID.length);
     this.dropPiece.next(null);
   }
