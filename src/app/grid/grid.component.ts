@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { HostListener } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MultiService } from '../multi.service';
 import { Tile } from '../tile-item';
 import { BasicService } from '../basic.service';
@@ -13,13 +12,13 @@ import { BasicService } from '../basic.service';
 })
 export class GridComponent implements OnInit {
   private eventsSubscription: Subscription;
-  
+
   dimensions: number;
   blocUnit: number;
   // grid: boolean[];
   // @Input() indexReceived: Observable<void>;
   tiles: Tile[] = [];
-  
+
   constructor(private multiService: MultiService, private basic: BasicService) {
   }
 
@@ -28,18 +27,4 @@ export class GridComponent implements OnInit {
     this.dimensions = this.basic.dimensions;
     this.tiles = this.basic.tiles;
   }
-
-  ngOnDestroy() {
-    // this.eventsSubscription.unsubscribe();
-  } 
-  
-  // updateTiles() {
-  //   for (let i = 0; i < this.grid.length; i++) {
-  //     if (this.grid[i]) {
-  //       this.tiles[i].color = 'lightgreen';
-  //     } else {
-  //       this.tiles[i].color = 'lightblue';
-  //     }
-  //   }
-  // }
 }

@@ -7,14 +7,15 @@ import { ScoreService } from '../score.service';
   styleUrls: ['./score.component.scss']
 })
 export class ScoreComponent implements OnInit {
-  bestScore;
-  currentScore;
+  bestScore = 0; // TODO Changer pour enregistrer le score dans de la data
+  currentScore = 0;
 
   constructor(private scoreService: ScoreService) { }
 
   ngOnInit(): void {
-    this.currentScore = this.scoreService.score;
-    this.bestScore = this.scoreService.score;
+    this.scoreService.addScoreEvent.subscribe(value => {
+      this.currentScore += value;
+      this.bestScore += value;
+    });
   }
-
 }
