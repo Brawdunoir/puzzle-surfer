@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScoreService {
 
-  score: number = 0;
+  addScoreEvent: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  addScore(number: number) {
-    this.score += number;
+  addScore(score: number) {
+    this.addScoreEvent.next(score);
   }
 
   constructor() { }

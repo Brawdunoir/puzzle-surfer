@@ -15,26 +15,26 @@ export class GameService {
   constructor(private basic: BasicService, private scoreService: ScoreService) { }
 
 
-  uponIndexReceived(index: number[], idPiece: number) {
-    this.basic.updateGrid(index, true);
+  uponIndexReceived(index: number[], idPiece: number, color: string) {
+    this.basic.updateGrid(index, true, color);
+    this.scoreService.addScore(index.length);
 
     this.checkGridComplete();
 
     this.delPiecesID(idPiece);
-    console.log(this.currentPiecesID.length);
 
-    if (this.currentPiecesID.length == 0) {
-      console.log("ici");
+    // Il n'y a plus de pièces, on en reconstruit
+    if (this.currentPiecesID.length === 0) {
       this.dropPiece.next(null);
     }
-    
+
     this.isEnd();
   }
 
   checkGridComplete() {
     let col: boolean;
     let lig: boolean;
-    let dim = this.basic.dimensions;
+    const dim = this.basic.dimensions;
     // On vérifie si c'est complet
     for (let i = 0; i < dim; i++) {
       lig = true;
@@ -71,8 +71,6 @@ export class GameService {
   }
 
   delPiecesID(id: number) {
-    console.log(this.currentPiecesID);
-    console.log(id);
     const index = this.currentPiecesID.indexOf(id, 0);
     if (index > -1) {
       this.currentPiecesID.splice(index, 1);

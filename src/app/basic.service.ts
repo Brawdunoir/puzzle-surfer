@@ -6,10 +6,11 @@ import { Tile } from './tile-item';
 })
 export class BasicService {
 
-  dimensions: number = 9; //TODO mettre ca dans les paramètres
+  dimensions = 9; // TODO mettre ca dans les paramètres
   blocUnit: number;
   grid: boolean[] = [];
   tiles: Tile[] = [];
+  protected defaultColor: '#131418';
 
   init() {
     this.getInitUnit();
@@ -23,14 +24,14 @@ export class BasicService {
   initGrid(): void {
     for (let i = 0; i < this.dimensions * this.dimensions; i++) {
       this.grid[i] = false;
-      this.tiles.push({ color: 'lightblue' });
+      this.tiles.push({ color: this.defaultColor });
     }
   }
 
-  updateGrid(index: number[], filled: boolean) {
+  updateGrid(index: number[], filled: boolean, color: string = this.defaultColor) {
     index.forEach(element => {
       this.grid[element] = filled;
-      filled ? this.tiles[element].color = 'lightgreen' : this.tiles[element].color = 'lightblue'
+      this.tiles[element].color = color;
     });
   }
 
