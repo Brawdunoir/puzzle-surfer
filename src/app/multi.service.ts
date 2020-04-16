@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BasicService } from './basic.service';
 import { PieceService } from './piece.service';
 
