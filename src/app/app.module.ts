@@ -15,6 +15,7 @@ import { GameComponent } from './game/game.component';
 import { HomeComponent } from './home/home.component';
 import { PieceDirective1, PieceDirective2, PieceDirective3 } from './piece.directive';
 import { CommonBlocComponent } from './common-bloc/common-bloc.component';
+import { EndGameMenuComponent } from './end-game-menu/end-game-menu.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { CommonBlocComponent } from './common-bloc/common-bloc.component';
     PieceDirective2,
     PieceDirective3,
     CommonBlocComponent,
+    EndGameMenuComponent,
   ],
   imports: [
     BrowserModule,
