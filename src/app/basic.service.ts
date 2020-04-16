@@ -5,10 +5,10 @@ import { Tile } from './tile-item';
   providedIn: 'root',
 })
 export class BasicService {
-  dimensions = 9; // TODO mettre ca dans les paramètres
+  dimensions = 5; // TODO mettre ca dans les paramètres
   blocUnit: number;
-  grid: boolean[] = [];
-  tiles: Tile[] = [];
+  grid: boolean[];
+  tiles: Tile[];
   protected defaultColor: '#131418';
 
   init() {
@@ -21,6 +21,9 @@ export class BasicService {
   }
 
   initGrid(): void {
+    this.tiles = [];
+    this.grid = [];
+
     for (let i = 0; i < this.dimensions * this.dimensions; i++) {
       this.grid[i] = false;
       this.tiles.push({ color: this.defaultColor });
