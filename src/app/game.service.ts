@@ -88,7 +88,7 @@ export class GameService {
         positions.forEach(position => {
           if (this.basic.grid[i + position.x + this.basic.dimensions * position.y] ||
             position.y * this.basic.dimensions + i > this.basic.grid.length ||
-            i - (Math.trunc(i / this.basic.dimensions) * this.basic.dimensions) + position.x > this.basic.dimensions) {
+            i - (Math.trunc(i / this.basic.dimensions) * this.basic.dimensions) + position.x >= this.basic.dimensions) {
             possitionValide = false;
             }
         });
