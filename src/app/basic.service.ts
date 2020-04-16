@@ -7,9 +7,8 @@ import { Tile } from './tile-item';
 export class BasicService {
   dimensions = 5; // TODO mettre ca dans les paramètres
   blocUnit: number;
-  grid: boolean[];
-  tiles: Tile[];
-  protected defaultColor: '#131418';
+  grid: boolean[] = [];
+  tiles: Tile[] = [];
 
   init() {
     this.getInitUnit();
@@ -26,14 +25,14 @@ export class BasicService {
 
     for (let i = 0; i < this.dimensions * this.dimensions; i++) {
       this.grid[i] = false;
-      this.tiles.push({ color: this.defaultColor });
+      this.tiles.push({ color: '' });
     }
   }
 
   updateGrid(
     index: number[],
     filled: boolean,
-    color: string = this.defaultColor
+    color: string = ''
   ) {
     index.forEach((element) => {
       this.grid[element] = filled;
@@ -41,5 +40,5 @@ export class BasicService {
     });
   }
 
-  constructor() {}
+  constructor() { }
 }
