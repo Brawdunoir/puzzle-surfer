@@ -72,6 +72,18 @@ export class PieceService {
       color: '#fff59d',
     },
     {
+      // * Small Cube
+      dimensions: {
+        x: 1,
+        y: 1
+      },
+      positions: [
+        { x: 0, y: 0 },
+      ],
+      jumps: [0],
+      color: '#304ffe',
+    },
+    {
       // * Medium Cube
       dimensions: {
         x: 2,
@@ -122,34 +134,27 @@ export class PieceService {
       jumps: [1, this.dim, this.dim + 1, this.dim + 2, 2 * this.dim + 1],
       color: '#d50000',
     },
-    {
-      // * Medium Cross
-      dimensions: {
-        x: 3,
-        y: 3
-      },
-      positions: [
-        { x: 0, y: 1 },
-        { x: 1, y: 0 },
-        { x: 1, y: 1 },
-        { x: 2, y: 1 },
-        { x: 1, y: 2 },
-      ],
-      jumps: [1, this.dim, this.dim + 1, this.dim + 2, 2 * this.dim + 1],
-      color: '#d50000',
-    },
-    {
-      // * Small Cube
-      dimensions: {
-        x: 1,
-        y: 1
-      },
-      positions: [
-        { x: 0, y: 0 },
-      ],
-      jumps: [0],
-      color: '#304ffe',
-    },
+    // {
+    //   // * Large Cross
+    //   dimensions: {
+    //     x: 5,
+    //     y: 5
+    //   },
+    //   positions: [
+    //     { x: 2, y: 0 },
+    //     { x: 2, y: 1 },
+    //     { x: 0, y: 2 },
+    //     { x: 1, y: 2 },
+    //     { x: 2, y: 2 },
+    //     { x: 3, y: 2 },
+    //     { x: 4, y: 2 },
+    //     { x: 2, y: 3 },
+    //     { x: 2, y: 4 },
+    //   ],
+    //   jumps: [2, this.dim + 2, 2 * this.dim, 2 * this.dim + 1, 2 * this.dim + 2, 2 * this.dim + 3,
+    //     2 * this.dim + 4, 3 * this.dim + 2, 4 * this.dim + 2],
+    //   color: '#d50000',
+    // },
     {
       // * 2 Horizontal Line
       dimensions: {

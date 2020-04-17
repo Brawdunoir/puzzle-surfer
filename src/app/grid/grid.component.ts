@@ -12,16 +12,14 @@ import { BasicService } from '../basic.service';
 })
 export class GridComponent implements OnInit {
 
-  dimensions: number;
-  blocUnit: number;
+  dimensions = this.basic.dimensions;
+  blocUnit = this.basic.blocUnit;
   tiles: Tile[] = [];
 
   constructor(private multiService: MultiService, private basic: BasicService) {
   }
 
   ngOnInit(): void {
-    this.blocUnit = this.basic.blocUnit;
-    this.dimensions = this.basic.dimensions;
     this.tiles = this.basic.tiles;
   }
 }
