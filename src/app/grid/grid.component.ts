@@ -21,5 +21,9 @@ export class GridComponent implements OnInit {
 
   ngOnInit(): void {
     this.tiles = this.basic.tiles;
+
+    this.basic.updateTileEvent.subscribe(value =>
+      // this.tiles = value;
+    console.log('trigger'))
   }
 }

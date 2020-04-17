@@ -35,10 +35,12 @@ export class GameComponent implements OnInit {
     this.gameService.dropPiece.subscribe(value => {
       this.loadComponent();
     });
-    this.gameService.gameEnd.subscribe(value => {
-      this.gameEnd = value;
+    this.gameService.gameEnd.subscribe(() => {
+      this.gameEnd = true;
     });
-
+    this.gameService.gameRestart.subscribe(() => {
+      this.gameEnd = false;
+    })
   }
 
   loadComponent() {
