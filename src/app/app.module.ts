@@ -46,7 +46,6 @@ import { EndGameMenuComponent } from './end-game-menu/end-game-menu.component';
     BrowserAnimationsModule,
   ],
   providers: [],
-  // entryComponents: [ TetrisBlocComponent, SingleBlocComponent ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
