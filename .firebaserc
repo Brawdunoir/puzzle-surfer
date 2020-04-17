@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "puzzle-surfer": {
+      "hosting": {
+        "puzzle-surfer": [
+          "puzzle-surfer"
+        ]
+      }
+    }
+  }
+}
