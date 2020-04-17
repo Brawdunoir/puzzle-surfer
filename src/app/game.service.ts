@@ -24,6 +24,7 @@ export class GameService {
     this.checkGridComplete();
 
     this.delPiecesID(idPiece);
+    console.log(this.currentPiecesID);
 
     // Il n'y a plus de pièces, on en reconstruit
     if (this.currentPiecesID.length === 0) {
@@ -81,23 +82,27 @@ export class GameService {
 
   isEnd(): void {
     let end = true;
-    this.currentPiecesID.forEach(id => {
+    for (const id of this.currentPiecesID) {
       const positions = this.pieceService.formes[id].positions;
       for (let i = 0; i < this.basic.grid.length; i++) {
-        let possitionValide = true;
+        let positionValide = true;
         positions.forEach(position => {
           if (this.basic.grid[i + position.x + this.basic.dimensions * position.y] ||
-            position.y * this.basic.dimensions + i > this.basic.grid.length ||
+            position.y * this.basic.dimensions + i >= this.basic.grid.length ||
             i - (Math.trunc(i / this.basic.dimensions) * this.basic.dimensions) + position.x >= this.basic.dimensions) {
-            possitionValide = false;
+            positionValide = false;
             }
         });
-        if (possitionValide) {
+        if (positionValide) {
           end = false;
+          break;
         }
       }
-    });
-
+      if (!end) {
+        break;
+      }
+    }
+    console.log(end);
     if (end) {
       this.gameEnd.next(end);
     }
@@ -107,7 +112,7 @@ export class GameService {
   // position.x + i > this.basic.dimensions
 
   restart() {
-    this.basic.restartGrid();
+    this.basic.restart();
     this.currentPiecesID.slice(0, this.currentPiecesID.length);
     this.dropPiece.next(null);
   }
