@@ -10,7 +10,7 @@ import { PieceService } from '../piece.service';
   styleUrls: ['./common-bloc.component.scss'],
 })
 export class CommonBlocComponent {
-  // ! ID of the piece, that's only its position in piece.service
+
   PIECE_ID = this.pieceService.random;
 
   blocUnit = this.basic.blocUnit;

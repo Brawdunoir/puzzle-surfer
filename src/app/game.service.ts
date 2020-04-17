@@ -25,7 +25,6 @@ export class GameService {
     this.checkGridComplete();
 
     this.delPiecesID(idPiece);
-    console.log(this.currentPiecesID);
 
     // Il n'y a plus de pièces, on en reconstruit
     if (this.currentPiecesID.length === 0) {

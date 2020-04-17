@@ -40,7 +40,7 @@ export class GameComponent implements OnInit {
     });
     this.gameService.gameRestart.subscribe(() => {
       this.gameEnd = false;
-    })
+    });
   }
 
   loadComponent() {
