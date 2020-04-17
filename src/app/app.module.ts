@@ -16,8 +16,6 @@ import { HomeComponent } from './home/home.component';
 import { PieceDirective1, PieceDirective2, PieceDirective3 } from './piece.directive';
 import { CommonBlocComponent } from './common-bloc/common-bloc.component';
 import { EndGameMenuComponent } from './end-game-menu/end-game-menu.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -43,8 +41,7 @@ import { environment } from '../environments/environment';
        { path: '', component: HomeComponent },
        { path: 'game', component: GameComponent },
      ]),
-     BrowserAnimationsModule,
-     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+     BrowserAnimationsModule
   ],
   providers: [],
   // entryComponents: [ TetrisBlocComponent, SingleBlocComponent ],
