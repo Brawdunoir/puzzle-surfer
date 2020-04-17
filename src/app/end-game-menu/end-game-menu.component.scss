@@ -1,0 +1,73 @@
+@import "../../variables";
+
+:host {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+
+  .windows {
+    z-index: 2;
+    margin: auto;
+    min-height: 200px;
+    width: 80%;
+    background-color: $grey;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h1 {
+      text-align: center;
+      margin: auto;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: $white;
+    }
+
+    &__inside {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-gap: 10px;
+      margin: 0 10px 10px;
+
+      button {
+        border-radius: 7px;
+        padding: 4px;
+        background-color: $lighter-dark;
+      }
+
+      button:nth-child(1) {
+        grid-row: 1;
+        grid-column: 1;
+      }
+
+      button:nth-child(2) {
+        grid-row: 1;
+        grid-column: 2;
+      }
+
+      button:nth-child(3) {
+        grid-row: 2;
+        grid-column: 1 / span 2;
+        width: 100%;
+      }
+    }
+  }
+
+  .background {
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.75);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+}

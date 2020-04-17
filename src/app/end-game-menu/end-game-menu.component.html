@@ -1,6 +1,19 @@
-<div>
-  <h1>{{message}}</h1>
-  <button routerLink="" (click)="restart()">Home</button>
-  <button (click)="restart()">Settings</button>
-  <button (click)="restart()">Recommencer</button>
+<div class="windows">
+  <h1>{{ message }}</h1>
+
+  <div class="windows__inside">
+    <button mat-raised-button routerLink="" (click)="restart()">
+      <i class="material-icons-round">home</i>
+    </button>
+
+    <button mat-raised-button>
+      <i class="material-icons-round">settings</i>
+    </button>
+
+    <button mat-raised-button (click)="restart()">
+      <i class="material-icons-round">refresh</i>
+    </button>
+  </div>
 </div>
+
+<div class="background"></div>
