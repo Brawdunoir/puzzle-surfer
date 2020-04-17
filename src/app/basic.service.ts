@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class BasicService {
-  dimensions = 5; // TODO mettre ca dans les paramètres
+  dimensions = 15; // TODO mettre ca dans les paramètres
   blocUnit: number;
   grid: boolean[] = [];
   tiles: Tile[] = [];
@@ -43,16 +43,12 @@ export class BasicService {
     this.sendUpdates();
   }
 
-  updateGrid(
-    index: number[],
-    filled: boolean,
-    color: string = ''
-    ) {
-      index.forEach((element) => {
+  updateGrid(index: number[], filled: boolean, color: string = '') {
+    index.forEach((element) => {
       this.grid[element] = filled;
       this.tiles[element].color = color;
-      });
-      this.sendUpdates();
+    });
+    this.sendUpdates();
   }
 
   sendUpdates() {
@@ -60,5 +56,5 @@ export class BasicService {
     this.updateTileEvent.next(this.tiles);
   }
 
-  constructor() { }
+  constructor() {}
 }
