@@ -1,4 +1,12 @@
 <mat-grid-list cols="{{ dimensions }}" rowHeight="{{ blocUnit }}">
-  <mat-grid-tile *ngFor="let tile of tiles" [colspan]="1" [rowspan]="1" [style.background]="tile.color">
+  <mat-grid-tile
+    *ngFor="let tile of tiles"
+    [colspan]="1"
+    [rowspan]="1"
+    [ngStyle]="{
+      background: tile.color,
+      transform: 'scale(' + tile.filled + ')'
+    }"
+  >
   </mat-grid-tile>
 </mat-grid-list>

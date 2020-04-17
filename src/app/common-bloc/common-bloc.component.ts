@@ -28,18 +28,19 @@ export class CommonBlocComponent {
     private basic: BasicService,
     private gameService: GameService,
     private pieceService: PieceService
-  ) { }
+  ) {}
 
   onDragStarted() {
     this.isScale = false;
     this.getBack = false;
   }
 
-  onDragEnded(event: any) {
+  async onDragEnded(event: any) {
     const index: number[] = this.multiService.getIndex(event, this.JUMPS);
 
     if (this.multiService.isSuitable(index)) {
       this.gameService.uponIndexReceived(index, this.PIECE_ID, this.COLOR);
+      await this.delay(100);
       this.display = false;
     } else {
       this.resetStyle(event);
@@ -66,9 +67,7 @@ export class CommonBlocComponent {
       'height.px': this.blocUnit * height,
       'width.px': this.blocUnit * width,
       display: this.display ? '' : 'none',
-      transform: this.isScale
-        ? 'scale(0.5)'
-        : 'scale(1)',
+      transform: this.isScale ? 'scale(0.5)' : 'scale(1)',
     };
     return styles;
   }
@@ -81,6 +80,11 @@ export class CommonBlocComponent {
       'top.px': this.blocUnit * top,
       'background-color': color,
     };
+
     return styles;
+  }
+
+  delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

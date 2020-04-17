@@ -30,7 +30,7 @@ export class BasicService {
 
     for (let i = 0; i < this.dimensions * this.dimensions; i++) {
       this.grid[i] = false;
-      this.tiles.push({ color: '' });
+      this.tiles.push({ color: '', filled: 0.5 });
     }
     this.sendUpdates();
   }
@@ -39,6 +39,7 @@ export class BasicService {
     for (let i = 0; i < this.grid.length; i++) {
       this.grid[i] = false;
       this.tiles[i].color = this.defaultColor;
+      this.tiles[i].filled = 0.4;
     }
     this.sendUpdates();
   }
@@ -47,6 +48,7 @@ export class BasicService {
     index.forEach((element) => {
       this.grid[element] = filled;
       this.tiles[element].color = color;
+      this.tiles[element].filled = filled ? 0.9 : 0.4;
     });
     this.sendUpdates();
   }
