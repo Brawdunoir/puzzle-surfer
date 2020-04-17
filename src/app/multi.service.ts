@@ -53,7 +53,7 @@ export class MultiService {
         suitable = false;
       }
     });
-    if (Math.max(...index) > this.basic.grid.length) {
+    if (Math.max(...index) >= this.basic.grid.length) {
       suitable = false;
     }
 
