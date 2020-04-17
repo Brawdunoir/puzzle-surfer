@@ -1,5 +1,9 @@
+@import "../../variables";
+
 mat-grid-tile {
   border-radius: 5px;
-  background-color: #11100f;
-  transform: scale(0.97);
+  background-color: $dark;
+  transform: scale(0.87);
+  border: 1px $white solid;
+  box-sizing: border-box;
 }

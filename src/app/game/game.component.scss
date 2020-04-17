@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .game_screen {
   overflow: hidden;
   display: flex;
@@ -12,14 +14,14 @@
 
       mat-grid-tile {
         &::before {
-          content: '';
+          content: "";
           display: block;
           position: absolute;
           right: -1px;
           bottom: 30%;
           top: 30%;
           width: 2px;
-          background-color: #201f1e;
+          background-color: $lighter-dark;
         }
 
         &:last-child::before {
@@ -27,5 +29,5 @@
         }
       }
     }
-  } 
+  }
 }
