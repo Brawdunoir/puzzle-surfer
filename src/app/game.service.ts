@@ -12,7 +12,7 @@ export class GameService {
   currentPiecesID: number[] = []; // ID de chaque pièce présente sur l'écran
 
   gameEnd: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
-  inGameRestart: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
+  onGameRestart: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
   onEmptyPiece: BehaviorSubject<any> = new BehaviorSubject(null); // Permet de charger de nouvelles pièces.
 
   constructor(
@@ -124,7 +124,7 @@ export class GameService {
   // position.x + i > this.basic.dimensions
 
   restart() {
-    this.inGameRestart.next(true);
+    this.onGameRestart.next(true);
 
     this.basic.restart();
     this.currentPiecesID.splice(0, this.currentPiecesID.length);
