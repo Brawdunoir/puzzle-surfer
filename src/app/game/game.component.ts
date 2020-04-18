@@ -32,13 +32,13 @@ export class GameComponent implements OnInit {
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost3.viewContainerRef);
 
-    this.gameService.dropPiece.subscribe(value => {
+    this.gameService.onPieceDrop.subscribe(value => {
       this.loadComponent();
     });
-    this.gameService.gameEnd.subscribe(() => {
+    this.gameService.onGameEnd.subscribe(() => {
       this.gameEnd = true;
     });
-    this.gameService.gameRestart.subscribe(() => {
+    this.gameService.onGameRestart.subscribe(() => {
       this.gameEnd = false;
     });
   }
