@@ -80,6 +80,7 @@ export class CommonBlocComponent {
       'left.px': this.blocUnit * left,
       'top.px': this.blocUnit * top,
       'background-color': color,
+      'box-shadow': this.isScale ? 'initial' : this.variable.tileShadow,
     };
 
     return styles;
