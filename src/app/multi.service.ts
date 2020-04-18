@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BasicService } from './basic.service';
-import { PieceService } from './piece.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MultiService {
-  constructor(
-    private basic: BasicService,
-    private pieceService: PieceService
-  ) {}
+  constructor(private basic: BasicService) {}
 
   getIndex(event: any, jumps: number[]) {
     return this.getPieceIndex(this.getFirstIndex(event), jumps);
