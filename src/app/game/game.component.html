@@ -1,24 +1,23 @@
-<div class="game_screen" style="height:100%">
-  <app-score>
-  </app-score>
+<div class="game_screen">
+  <app-score> </app-score>
 
-  <div class="game_screen__below" style="height: max-content;">
-    <app-grid>
-    </app-grid>
+  <div class="game_screen__below">
+    <app-grid></app-grid>
 
-    <mat-grid-list cols="3" rowHeight="3:1" style="height: 100px;">
-      <mat-grid-tile [colspan]=1 [rowspan]=1 style="height: 100px;">
+    <mat-grid-list cols="3" rowHeight="3:1">
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
         <ng-template appPiece1></ng-template>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]=1 [rowspan]=1 style="height: 100px;">
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
         <ng-template appPiece2></ng-template>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]=1 [rowspan]=1 style="height: 100px;">
+
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
         <ng-template appPiece3></ng-template>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
 
-  <app-end-game-menu *ngIf="gameEnd">
-  </app-end-game-menu>
+  <app-end-game-menu *ngIf="gameEnd"> </app-end-game-menu>
 </div>

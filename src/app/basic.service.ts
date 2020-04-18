@@ -21,7 +21,8 @@ export class BasicService {
   }
 
   getInitUnit(): void {
-    this.blocUnit = window.innerWidth / this.dimensions;
+    const gridEl: any = document.querySelector('app-grid mat-grid-list');
+    this.blocUnit = gridEl.offsetWidth / this.dimensions;
   }
 
   initGrid(): void {
