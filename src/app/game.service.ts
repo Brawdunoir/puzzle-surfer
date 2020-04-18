@@ -3,6 +3,7 @@ import { BasicService } from './basic.service';
 import { ScoreService } from './score.service';
 import { BehaviorSubject } from 'rxjs';
 import { PieceService } from './piece.service';
+import { VariableService } from './variable.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +18,15 @@ export class GameService {
   constructor(
     private basic: BasicService,
     private scoreService: ScoreService,
-    private pieceService: PieceService
+    private pieceService: PieceService,
+    private variable: VariableService
   ) {}
 
   async uponIndexReceived(index: number[], idPiece: number, color: string) {
     this.basic.updateGrid(index, true, color);
     this.scoreService.addScore(index.length);
 
-    await this.delay(200);
+    await this.variable.delay(this.variable.tileDeleteDelay);
 
     this.checkGridComplete();
 
@@ -127,9 +129,5 @@ export class GameService {
     this.basic.restart();
     this.currentPiecesID.slice(0, this.currentPiecesID.length);
     this.dropPiece.next(null);
-  }
-
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
