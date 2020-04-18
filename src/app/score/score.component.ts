@@ -22,14 +22,14 @@ export class ScoreComponent implements OnInit, OnDestroy {
       this.bestScore += value;
     });
 
-    this.gameService.onGameRestart.subscribe(() => {
+    this.gameService.inGameRestart.subscribe(() => {
       this.restart();
     });
   }
 
   ngOnDestroy(): void {
     this.scoreService.addScoreEvent.unsubscribe();
-    this.gameService.onGameRestart.unsubscribe();
+    this.gameService.inGameRestart.unsubscribe();
   }
 
   restart(): void {

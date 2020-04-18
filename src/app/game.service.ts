@@ -11,8 +11,8 @@ import { VariableService } from './variable.service';
 export class GameService {
   currentPiecesID: number[] = []; // ID de chaque pièce présente sur l'écran
 
-  onGameEnd: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
-  onGameRestart: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
+  gameEnd: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
+  inGameRestart: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
   onEmptyPiece: BehaviorSubject<any> = new BehaviorSubject(null); // Permet de charger de nouvelles pièces.
 
   constructor(
@@ -22,7 +22,7 @@ export class GameService {
     private variable: VariableService
   ) {}
 
-  async onIndexReceived(index: number[], idPiece: number, color: string) {
+  async uponIndexReceived(index: number[], idPiece: number, color: string) {
     this.basic.updateGrid(index, true, color);
     this.scoreService.addScore(index.length);
 
@@ -31,7 +31,7 @@ export class GameService {
     this.checkGridComplete();
 
     this.delPiecesID(idPiece);
-    
+
     // Il n'y a plus de pièces, on en reconstruit
     if (this.currentPiecesID.length === 0) {
       this.onEmptyPiece.next(null);
@@ -116,12 +116,16 @@ export class GameService {
       }
     }
     if (end) {
-      this.onGameEnd.next(end);
+      this.gameEnd.next(end);
     }
   }
+  // this.basic.grid[i + position.x + this.basic.dimensions * position.y]
+  // position.y + i > this.basic.dimensions * this.basic.dimensions
+  // position.x + i > this.basic.dimensions
 
   restart() {
-    this.onGameRestart.next(true);
+    this.inGameRestart.next(true);
+
     this.basic.restart();
     this.currentPiecesID.splice(0, this.currentPiecesID.length);
     this.onEmptyPiece.next(null);
