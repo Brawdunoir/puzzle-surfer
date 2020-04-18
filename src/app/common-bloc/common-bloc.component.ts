@@ -3,6 +3,7 @@ import { MultiService } from '../multi.service';
 import { BasicService } from '../basic.service';
 import { GameService } from '../game.service';
 import { PieceService } from '../piece.service';
+import { VariableService } from '../variable.service';
 
 @Component({
   selector: 'app-common-bloc',
@@ -10,7 +11,6 @@ import { PieceService } from '../piece.service';
   styleUrls: ['./common-bloc.component.scss'],
 })
 export class CommonBlocComponent {
-
   PIECE_ID = this.pieceService.random;
 
   blocUnit = this.basic.blocUnit;
@@ -27,7 +27,8 @@ export class CommonBlocComponent {
     private multiService: MultiService,
     private basic: BasicService,
     private gameService: GameService,
-    private pieceService: PieceService
+    private pieceService: PieceService,
+    private variable: VariableService
   ) {}
 
   onDragStarted() {
@@ -40,7 +41,7 @@ export class CommonBlocComponent {
 
     if (this.multiService.isSuitable(index)) {
       this.gameService.uponIndexReceived(index, this.PIECE_ID, this.COLOR);
-      await this.delay(100);
+      await this.variable.delay(this.variable.tilePutDelay);
       this.display = false;
     } else {
       this.resetStyle(event);
@@ -55,9 +56,7 @@ export class CommonBlocComponent {
 
   setStyleContainer() {
     const styles = {
-      transition: this.getBack
-        ? 'transform 300ms cubic-bezier(.21,.74,.04,1.02)'
-        : 'initial',
+      transition: this.getBack ? this.variable.pieceTransition : 'initial',
     };
     return styles;
   }
@@ -67,7 +66,9 @@ export class CommonBlocComponent {
       'height.px': this.blocUnit * height,
       'width.px': this.blocUnit * width,
       display: this.display ? '' : 'none',
-      transform: this.isScale ? 'scale(0.5)' : 'scale(1)',
+      transform: this.isScale
+        ? this.variable.pieceHalf
+        : this.variable.pieceFull,
     };
     return styles;
   }
@@ -82,9 +83,5 @@ export class CommonBlocComponent {
     };
 
     return styles;
-  }
-
-  delay(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

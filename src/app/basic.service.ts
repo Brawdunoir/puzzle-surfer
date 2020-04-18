@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Tile } from './tile-item';
 import { BehaviorSubject } from 'rxjs';
+import { VariableService } from './variable.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BasicService {
-  dimensions = 15; // TODO mettre ca dans les paramètres
+  dimensions = 12; // TODO mettre ca dans les paramètres
   blocUnit: number;
   grid: boolean[] = [];
   tiles: Tile[] = [];
-  defaultColor = '#11100f';
 
   updateGridEvent: BehaviorSubject<boolean[]> = new BehaviorSubject(this.grid);
   updateTileEvent: BehaviorSubject<Tile[]> = new BehaviorSubject(this.tiles);
@@ -30,7 +30,7 @@ export class BasicService {
 
     for (let i = 0; i < this.dimensions * this.dimensions; i++) {
       this.grid[i] = false;
-      this.tiles.push({ color: '', filled: 0.5 });
+      this.tiles.push({ color: '', filled: this.variable.tileHalf });
     }
     this.sendUpdates();
   }
@@ -38,8 +38,8 @@ export class BasicService {
   restart() {
     for (let i = 0; i < this.grid.length; i++) {
       this.grid[i] = false;
-      this.tiles[i].color = this.defaultColor;
-      this.tiles[i].filled = 0.5;
+      this.tiles[i].color = this.variable.defaultColor;
+      this.tiles[i].filled = this.variable.tileHalf;
     }
     this.sendUpdates();
   }
@@ -48,7 +48,9 @@ export class BasicService {
     index.forEach((element) => {
       this.grid[element] = filled;
       this.tiles[element].color = color;
-      this.tiles[element].filled = filled ? 0.9 : 0.5;
+      this.tiles[element].filled = filled
+        ? this.variable.tileFull
+        : this.variable.tileHalf;
     });
     this.sendUpdates();
   }
@@ -58,5 +60,5 @@ export class BasicService {
     this.updateTileEvent.next(this.tiles);
   }
 
-  constructor() {}
+  constructor(private variable: VariableService) {}
 }
