@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ScoreService } from '../score.service';
 import { GameService } from '../game.service';
 
@@ -7,7 +7,7 @@ import { GameService } from '../game.service';
   templateUrl: './score.component.html',
   styleUrls: ['./score.component.scss'],
 })
-export class ScoreComponent implements OnInit {
+export class ScoreComponent implements OnInit, OnDestroy {
   bestScore = 0; // TODO Changer pour enregistrer le score dans de la data
   currentScore = 0;
 
@@ -25,6 +25,11 @@ export class ScoreComponent implements OnInit {
     this.gameService.onGameRestart.subscribe(() => {
       this.restart();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.scoreService.addScoreEvent.unsubscribe();
+    this.gameService.onGameRestart.unsubscribe();
   }
 
   restart(): void {
