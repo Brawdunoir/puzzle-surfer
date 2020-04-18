@@ -7,7 +7,7 @@ import { VariableService } from './variable.service';
   providedIn: 'root',
 })
 export class BasicService {
-  dimensions = 7; // TODO mettre ca dans les paramètres
+  dimensions = 12; // TODO mettre ca dans les paramètres
   blocUnit: number;
   grid: boolean[] = [];
   tiles: Tile[] = [];
