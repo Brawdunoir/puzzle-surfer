@@ -40,7 +40,7 @@ export class CommonBlocComponent {
     const index: number[] = this.multiService.getIndex(event, this.JUMPS);
 
     if (this.multiService.isSuitable(index)) {
-      this.gameService.uponIndexReceived(index, this.PIECE_ID, this.COLOR);
+      this.gameService.onIndexReceived(index, this.PIECE_ID, this.COLOR);
       await this.variable.delay(this.variable.tilePutDelay);
       this.display = false;
     } else {

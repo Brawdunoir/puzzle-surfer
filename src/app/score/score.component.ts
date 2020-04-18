@@ -22,7 +22,7 @@ export class ScoreComponent implements OnInit {
       this.bestScore += value;
     });
 
-    this.gameService.gameRestart.subscribe(() => {
+    this.gameService.onGameRestart.subscribe(() => {
       this.restart();
     });
   }
