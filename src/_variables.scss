@@ -1,7 +1,30 @@
-$margin-top: 200px;
-$margin-bottom: 150px;
-
 $dark: #1b1a19;
 $lighter-dark: #292827;
 $grey: #484644;
 $white: #d2d0ce;
+
+$border-radius: 5px;
+
+$tile-transform: scale(0.9);
+$tile-transform__tiny: scale(0.5);
+$tile-transition: transform 100ms ease-in-out, background-color 75ms ease-in-out;
+
+@keyframes rainbow {
+  from {
+    filter: hue-rotate(0deg);
+  }
+
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes rainbowLessSaturate {
+  from {
+    filter: hue-rotate(0deg) saturate(10%) brightness(66%);
+  }
+
+  to {
+    filter: hue-rotate(360deg) saturate(10%) brightness(66%);
+  }
+}
