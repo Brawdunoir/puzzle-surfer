@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
 import { PieceDirective1, PieceDirective2, PieceDirective3 } from '../piece.directive';
 import { PieceService } from '../piece.service';
 import { BasicService } from '../basic.service';
@@ -11,7 +11,7 @@ import { CommonBlocComponent } from '../common-bloc/common-bloc.component';
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
 
   @ViewChild(PieceDirective1, { static: true }) pieceHost1: PieceDirective1;
   @ViewChild(PieceDirective2, { static: true }) pieceHost2: PieceDirective2;
@@ -32,7 +32,7 @@ export class GameComponent implements OnInit {
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost3.viewContainerRef);
 
-    this.gameService.onPieceDrop.subscribe(value => {
+    this.gameService.onEmptyPiece.subscribe(value => {
       this.loadComponent();
     });
     this.gameService.onGameEnd.subscribe(() => {
@@ -41,6 +41,12 @@ export class GameComponent implements OnInit {
     this.gameService.onGameRestart.subscribe(() => {
       this.gameEnd = false;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.gameService.onEmptyPiece.unsubscribe();
+    this.gameService.onGameEnd.unsubscribe();
+    this.gameService.onGameRestart.unsubscribe();
   }
 
   loadComponent() {

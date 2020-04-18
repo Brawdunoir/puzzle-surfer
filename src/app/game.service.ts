@@ -13,7 +13,7 @@ export class GameService {
 
   onGameEnd: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
   onGameRestart: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
-  onPieceDrop: BehaviorSubject<any> = new BehaviorSubject(null); // Permet de charger de nouvelles pièces.
+  onEmptyPiece: BehaviorSubject<any> = new BehaviorSubject(null); // Permet de charger de nouvelles pièces.
 
   constructor(
     private basic: BasicService,
@@ -34,7 +34,7 @@ export class GameService {
     
     // Il n'y a plus de pièces, on en reconstruit
     if (this.currentPiecesID.length === 0) {
-      this.onPieceDrop.next(null);
+      this.onEmptyPiece.next(null);
     }
 
     this.isEnd();
@@ -124,6 +124,6 @@ export class GameService {
     this.onGameRestart.next(true);
     this.basic.restart();
     this.currentPiecesID.splice(0, this.currentPiecesID.length);
-    this.onPieceDrop.next(null);
+    this.onEmptyPiece.next(null);
   }
 }
