@@ -11,9 +11,10 @@ import { VariableService } from '../variable.service';
   styleUrls: ['./common-bloc.component.scss'],
 })
 export class CommonBlocComponent {
-  PIECE_ID = this.pieceService.random;
 
   blocUnit = this.basic.blocUnit;
+
+  PIECE_ID = this.pieceService.random;
   POSITIONS = this.pieceService.formes[this.PIECE_ID].positions;
   DIMENSIONS = this.pieceService.formes[this.PIECE_ID].dimensions;
   JUMPS = this.pieceService.formes[this.PIECE_ID].jumps;

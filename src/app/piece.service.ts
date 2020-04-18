@@ -5,10 +5,6 @@ import { BasicService } from './basic.service';
   providedIn: 'root',
 })
 export class PieceService {
-  random: number;
-
-  dim = this.basic.dimensions;
-
   color = {
     tetris: '#ba68c8',
     cube: '#fff176',
@@ -17,6 +13,11 @@ export class PieceService {
     crooked: '#ff8a65',
     l: '#e57373',
   };
+
+  random: number;
+  dim = this.basic.dimensions;
+
+  formesInGameID: number[] = [];
 
   formes = [
     {
@@ -649,7 +650,27 @@ export class PieceService {
 
   constructor(private basic: BasicService) {}
 
+  /** Retourne un nombre random d'une pièce afin qu'elle soit créé
+   *  dans GameComponent grâce à un CommonBlocComponent.
+   */
   getRandomID(): void {
-    this.random = Math.floor(Math.random() * Math.floor(this.formes.length));
+    const i = Math.floor(Math.random() * Math.floor(this.formesInGameID.length));
+    this.random = this.formesInGameID[i];
+    console.log(this.random);
   }
+
+  /** Garder que l'id de certaines pièces
+   *  adpatées à la taille de la grille.
+   */
+  init() {
+    this.formesInGameID = [];
+    for (let i = 0; i < this.formes.length; i++) {
+      const forme = this.formes[i];
+      if (forme.dimensions.x <= Math.round(this.dim / 3) &&
+          forme.dimensions.y <= Math.round(this.dim / 3)) {
+        this.formesInGameID.push(i);
+      }
+    }
+  }
+
 }
