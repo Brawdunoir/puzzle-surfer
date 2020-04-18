@@ -1,18 +1,27 @@
-import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
-import { PieceDirective1, PieceDirective2, PieceDirective3 } from '../piece.directive';
+import {
+  Component,
+  OnInit,
+  ComponentFactoryResolver,
+  ViewContainerRef,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
+import {
+  PieceDirective1,
+  PieceDirective2,
+  PieceDirective3,
+} from '../piece.directive';
 import { PieceService } from '../piece.service';
 import { BasicService } from '../basic.service';
 import { GameService } from '../game.service';
 import { CommonBlocComponent } from '../common-bloc/common-bloc.component';
 
-
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit, OnDestroy {
-
   @ViewChild(PieceDirective1, { static: true }) pieceHost1: PieceDirective1;
   @ViewChild(PieceDirective2, { static: true }) pieceHost2: PieceDirective2;
   @ViewChild(PieceDirective3, { static: true }) pieceHost3: PieceDirective3;
@@ -21,9 +30,12 @@ export class GameComponent implements OnInit, OnDestroy {
 
   gameEnd: boolean;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-              private pieceService: PieceService, private basic: BasicService,
-              private gameService: GameService) { }
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private pieceService: PieceService,
+    private basic: BasicService,
+    private gameService: GameService
+  ) {}
 
   ngOnInit(): void {
     this.basic.init();
@@ -32,21 +44,21 @@ export class GameComponent implements OnInit, OnDestroy {
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost3.viewContainerRef);
 
-    this.gameService.onEmptyPiece.subscribe(value => {
+    this.gameService.onEmptyPiece.subscribe((value) => {
       this.loadComponent();
     });
-    this.gameService.onGameEnd.subscribe(() => {
+    this.gameService.gameEnd.subscribe(() => {
       this.gameEnd = true;
     });
-    this.gameService.onGameRestart.subscribe(() => {
+    this.gameService.inGameRestart.subscribe(() => {
       this.gameEnd = false;
     });
   }
 
   ngOnDestroy(): void {
     this.gameService.onEmptyPiece.unsubscribe();
-    this.gameService.onGameEnd.unsubscribe();
-    this.gameService.onGameRestart.unsubscribe();
+    this.gameService.gameEnd.unsubscribe();
+    this.gameService.inGameRestart.unsubscribe();
   }
 
   loadComponent() {
@@ -56,7 +68,9 @@ export class GameComponent implements OnInit, OnDestroy {
       // On enregistre son id
       this.gameService.addPiecesID(this.pieceService.random);
       // Préparer la recette de cette pièce
-      const ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(CommonBlocComponent);
+      const ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        CommonBlocComponent
+      );
       // Initialiser la vue
       const viewContainer = i;
       // Nettoyer l'ancien component du DOM
