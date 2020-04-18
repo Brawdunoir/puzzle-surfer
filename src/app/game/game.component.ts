@@ -47,7 +47,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameService.onEmptyPiece.subscribe((value) => {
       this.loadComponent();
     });
-    this.gameService.gameEnd.subscribe(() => {
+    this.gameService.onGameEnd.subscribe(() => {
       this.gameEnd = true;
     });
     this.gameService.onGameRestart.subscribe(() => {
@@ -57,7 +57,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.gameService.onEmptyPiece.unsubscribe();
-    this.gameService.gameEnd.unsubscribe();
+    this.gameService.onGameEnd.unsubscribe();
     this.gameService.onGameRestart.unsubscribe();
   }
 
