@@ -11,7 +11,7 @@ import { VariableService } from './variable.service';
 export class GameService {
   currentPiecesID: number[] = []; // ID de chaque pièce présente sur l'écran
 
-  gameEnd: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
+  onGameEnd: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
   onGameRestart: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
   onEmptyPiece: BehaviorSubject<any> = new BehaviorSubject(null); // Permet de charger de nouvelles pièces.
 
@@ -116,7 +116,7 @@ export class GameService {
       }
     }
     if (end) {
-      this.gameEnd.next(end);
+      this.onGameEnd.next(end);
     }
   }
   // this.basic.grid[i + position.x + this.basic.dimensions * position.y]
