@@ -99,6 +99,14 @@
         #amoled {
           background-color: black;
         }
+
+        #sepia {
+          background-color: burlywood;
+        }
+
+        #amoled {
+          background-color: darken($color: #000000, $amount: 0);
+        }
       }
     }
   }
