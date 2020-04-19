@@ -54,10 +54,11 @@ export class MultiService {
       if (element < 0) {
         suitable = false;
       }
+
+      if (element > this.basic.grid.length) {
+        suitable = false;
+      }
     });
-    if (Math.max(...index) > this.basic.grid.length) {
-      suitable = false;
-    }
 
     return suitable;
   }
