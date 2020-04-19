@@ -654,9 +654,10 @@ export class PieceService {
    *  dans GameComponent grâce à un CommonBlocComponent.
    */
   getRandomID(): void {
-    const i = Math.floor(Math.random() * Math.floor(this.formesInGameID.length));
+    const i = Math.floor(
+      Math.random() * Math.floor(this.formesInGameID.length)
+    );
     this.random = this.formesInGameID[i];
-    console.log(this.random);
   }
 
   /** Garder que l'id de certaines pièces
@@ -666,11 +667,12 @@ export class PieceService {
     this.formesInGameID = [];
     for (let i = 0; i < this.formes.length; i++) {
       const forme = this.formes[i];
-      if (forme.dimensions.x <= Math.round(this.dim / 3) &&
-          forme.dimensions.y <= Math.round(this.dim / 3)) {
+      if (
+        forme.dimensions.x <= Math.round(this.dim / 3) &&
+        forme.dimensions.y <= Math.round(this.dim / 3)
+      ) {
         this.formesInGameID.push(i);
       }
     }
   }
-
 }
