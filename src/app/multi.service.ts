@@ -21,12 +21,12 @@ export class MultiService {
         this.basic.blocUnit / 2 -
         grid.getBoundingClientRect().x
     );
-    const y = Math.round(
-      element.getBoundingClientRect().y +
-        this.basic.blocUnit / 2 -
-        grid.getBoundingClientRect().y -
-        this.variable.pieceTranslate
-    );
+    const y =
+      Math.round(
+        element.getBoundingClientRect().y +
+          this.basic.blocUnit / 2 -
+          grid.getBoundingClientRect().y
+      ) - this.variable.pieceTranslate;
 
     const i = Math.trunc(y / this.basic.blocUnit);
     const j = Math.trunc(x / this.basic.blocUnit);
@@ -48,6 +48,10 @@ export class MultiService {
     let suitable = true;
     index.forEach((element) => {
       if (this.basic.grid[element]) {
+        suitable = false;
+      }
+
+      if (element < 0) {
         suitable = false;
       }
     });
