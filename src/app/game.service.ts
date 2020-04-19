@@ -119,9 +119,6 @@ export class GameService {
       this.onGameEnd.next(end);
     }
   }
-  // this.basic.grid[i + position.x + this.basic.dimensions * position.y]
-  // position.y + i > this.basic.dimensions * this.basic.dimensions
-  // position.x + i > this.basic.dimensions
 
   restart() {
     this.onGameRestart.next(true);
