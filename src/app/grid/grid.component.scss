@@ -7,7 +7,7 @@ mat-grid-list {
   background-color: transparent !important;
 
   mat-grid-tile {
-    border-radius: 5px;
+    border-radius: $border-radius;
     background-color: $dark;
     transform: $tile-transform__tiny;
     transition: $tile-transition;
