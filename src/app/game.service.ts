@@ -22,9 +22,13 @@ export class GameService {
     private variable: VariableService
   ) {}
 
-  async uponIndexReceived(index: number[], idPiece: number, color: string) {
-    this.basic.updateGrid(index, true, color);
-    this.scoreService.addScore(index.length);
+  async uponIndexReceived(
+    indexArray: number[],
+    idPiece: number,
+    color: string
+  ): Promise<void> {
+    this.basic.updateGrid(indexArray, true, color);
+    this.scoreService.addScore(indexArray.length);
 
     await this.variable.delay(this.variable.tileDeleteDelay);
 
@@ -40,32 +44,37 @@ export class GameService {
     this.isEnd();
   }
 
-  checkGridComplete() {
+  checkGridComplete(): void {
     let col: boolean;
     let lig: boolean;
     const dim = this.basic.dimensions;
+
     // On vérifie si c'est complet
     for (let i = 0; i < dim; i++) {
       lig = true;
       col = true;
+
       for (let j = 0; j < dim; j++) {
         // Lignes
         if (!this.basic.grid[i * dim + j]) {
           lig = false;
         }
+
         // Colonnes
         if (!this.basic.grid[i + j * dim]) {
           col = false;
         }
       }
+
       // On retire si c'est toujours vrai
-      // TODO Optimiser ceci (updateGrid est déjà une boucle)
       if (lig) {
         for (let j = 0; j < dim; j++) {
           this.basic.updateGrid([i * dim + j], false);
         }
+
         this.scoreService.addScore(dim);
       }
+
       if (col) {
         for (let j = 0; j < dim; j++) {
           this.basic.updateGrid([i + j * dim], false);
@@ -87,12 +96,13 @@ export class GameService {
   }
 
   isEnd(): void {
-    let end = true;
     for (const id of this.currentPiecesID) {
       const positions = this.pieceService.formes[id].positions;
+
       for (let i = 0; i < this.basic.grid.length; i++) {
-        let positionValide = true;
-        positions.forEach((position) => {
+        let validPosition = true;
+
+        for (const position of positions) {
           if (
             this.basic.grid[
               i + position.x + this.basic.dimensions * position.y
@@ -103,24 +113,20 @@ export class GameService {
               position.x >=
               this.basic.dimensions
           ) {
-            positionValide = false;
+            validPosition = false;
           }
-        });
-        if (positionValide) {
-          end = false;
-          break;
+        }
+
+        if (validPosition) {
+          return;
         }
       }
-      if (!end) {
-        break;
-      }
     }
-    if (end) {
-      this.onGameEnd.next(end);
-    }
+
+    this.onGameEnd.next(true);
   }
 
-  restart() {
+  restart(): void {
     this.onGameRestart.next(true);
 
     this.basic.restart();

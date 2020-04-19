@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MultiService } from '../multi.service';
+import { IndexService } from '../index.service';
 import { BasicService } from '../basic.service';
 import { GameService } from '../game.service';
 import { PieceService } from '../piece.service';
@@ -11,7 +11,6 @@ import { VariableService } from '../variable.service';
   styleUrls: ['./common-bloc.component.scss'],
 })
 export class CommonBlocComponent {
-
   blocUnit = this.basic.blocUnit;
 
   PIECE_ID = this.pieceService.random;
@@ -25,7 +24,7 @@ export class CommonBlocComponent {
   private getBack = false;
 
   constructor(
-    private multiService: MultiService,
+    private multiService: IndexService,
     private basic: BasicService,
     private gameService: GameService,
     private pieceService: PieceService,
