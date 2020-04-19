@@ -44,11 +44,11 @@ export class IndexService {
     return index;
   }
 
-  isSuitable(index: number[]): boolean {
-    for (const element of index) {
-      const alreadyExisting = this.basic.grid[element];
-      const negativeIndex = element < 0;
-      const outOfRangeIndex = element > this.basic.grid.length;
+  isSuitable(indexArray: number[]): boolean {
+    for (const index of indexArray) {
+      const alreadyExisting = this.basic.grid[index];
+      const negativeIndex = index < 0;
+      const outOfRangeIndex = index > this.basic.grid.length;
 
       if (alreadyExisting || negativeIndex || outOfRangeIndex) {
         return false;
