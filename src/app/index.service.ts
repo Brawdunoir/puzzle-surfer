@@ -8,7 +8,7 @@ import { VariableService } from './variable.service';
 export class IndexService {
   constructor(private basic: BasicService, private variable: VariableService) {}
 
-  getIndex(event: any, jumps: number[]): number[] {
+  get(event: any, jumps: number[]): number[] {
     return this.getFromPiece(this.getFirst(event), jumps);
   }
 

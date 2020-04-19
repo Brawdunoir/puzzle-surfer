@@ -17,7 +17,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.scoreService.addScoreEvent.subscribe((value) => {
+    this.scoreService.update.subscribe((value) => {
       this.currentScore += value;
     });
 
@@ -27,7 +27,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.scoreService.addScoreEvent.unsubscribe();
+    this.scoreService.update.unsubscribe();
     this.gameService.onGameRestart.unsubscribe();
   }
 

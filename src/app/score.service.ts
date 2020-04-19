@@ -5,10 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ScoreService {
-  addScoreEvent: BehaviorSubject<number> = new BehaviorSubject(0);
+  update: BehaviorSubject<number> = new BehaviorSubject(0);
 
   add(score: number) {
-    this.addScoreEvent.next(score);
+    this.update.next(score);
   }
 
   calculate(dim: number, combo: number): number {
