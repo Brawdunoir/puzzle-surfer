@@ -45,21 +45,16 @@ export class MultiService {
   }
 
   isSuitable(index: number[]) {
-    let suitable = true;
-    index.forEach((element) => {
-      if (this.basic.grid[element]) {
-        suitable = false;
-      }
+    for (const element of index) {
+      const alreadyExisting = this.basic.grid[element];
+      const negativeIndex = element < 0;
+      const outOfRangeIndex = element > this.basic.grid.length;
 
-      if (element < 0) {
-        suitable = false;
+      if (alreadyExisting || negativeIndex || outOfRangeIndex) {
+        return false;
       }
+    }
 
-      if (element > this.basic.grid.length) {
-        suitable = false;
-      }
-    });
-
-    return suitable;
+    return true;
   }
 }
