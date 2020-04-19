@@ -37,7 +37,7 @@ export class CommonBlocComponent {
   }
 
   async onDragEnded(event: any) {
-    const index: number[] = this.multiService.getIndex(event, this.JUMPS);
+    const index: number[] = this.multiService.get(event, this.JUMPS);
 
     if (this.multiService.isSuitable(index)) {
       this.gameService.uponIndexReceived(index, this.PIECE_ID, this.COLOR);
