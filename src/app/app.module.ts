@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { AppComponent } from './app.component';
 import { GridComponent } from './grid/grid.component';
@@ -19,6 +20,7 @@ import {
 } from './piece.directive';
 import { CommonBlocComponent } from './common-bloc/common-bloc.component';
 import { EndGameMenuComponent } from './end-game-menu/end-game-menu.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { EndGameMenuComponent } from './end-game-menu/end-game-menu.component';
     PieceDirective3,
     CommonBlocComponent,
     EndGameMenuComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +42,11 @@ import { EndGameMenuComponent } from './end-game-menu/end-game-menu.component';
     MatButtonModule,
     DragDropModule,
     MatGridListModule,
+    MatSliderModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'game', component: GameComponent },
+      { path: 'settings', component: SettingsComponent },
     ]),
     BrowserAnimationsModule,
   ],
