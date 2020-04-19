@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { GameService } from './game.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScoreService {
-
   addScoreEvent: BehaviorSubject<number> = new BehaviorSubject(0);
 
-  addScore(score: number) {
+  add(score: number) {
     this.addScoreEvent.next(score);
   }
 
-  constructor() { }
+  calculate(dim: number, combo: number): number {
+    if (combo < 1) {
+      return 0;
+    }
+
+    return Math.round(0.4 * Math.pow(combo, 2) + 1 * combo) * dim;
+  }
+
+  constructor() {}
 }

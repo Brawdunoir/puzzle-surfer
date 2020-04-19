@@ -17,7 +17,7 @@ export class GameService {
 
   constructor(
     private basic: BasicService,
-    private scoreService: ScoreService,
+    private score: ScoreService,
     private pieceService: PieceService,
     private variable: VariableService
   ) {}
@@ -28,7 +28,6 @@ export class GameService {
     color: string
   ): Promise<void> {
     this.basic.updateGrid(indexArray, true, color);
-    this.scoreService.addScore(indexArray.length);
 
     await this.variable.delay(this.variable.tileDeleteDelay);
 
@@ -45,19 +44,18 @@ export class GameService {
   }
 
   checkGridComplete(): void {
-    let col: boolean;
-    let lig: boolean;
     const dim = this.basic.dimensions;
+    let combo = 0;
 
     // On vérifie si c'est complet
     for (let i = 0; i < dim; i++) {
-      lig = true;
-      col = true;
+      let col = true;
+      let row = true;
 
       for (let j = 0; j < dim; j++) {
         // Lignes
         if (!this.basic.grid[i * dim + j]) {
-          lig = false;
+          row = false;
         }
 
         // Colonnes
@@ -67,20 +65,23 @@ export class GameService {
       }
 
       // On retire si c'est toujours vrai
-      if (lig) {
+      if (row) {
         for (let j = 0; j < dim; j++) {
           this.basic.updateGrid([i * dim + j], false);
         }
-
-        this.scoreService.addScore(dim);
+        combo++;
       }
 
       if (col) {
         for (let j = 0; j < dim; j++) {
           this.basic.updateGrid([i + j * dim], false);
         }
-        this.scoreService.addScore(dim);
+        combo++;
       }
+    }
+
+    if (combo > 0) {
+      this.score.add(this.score.calculate(dim, combo));
     }
   }
 
