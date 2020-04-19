@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MultiService } from './multi.service';
+import { IndexService } from './index.service';
 
-describe('MultiService', () => {
-  let service: MultiService;
+describe('IndexService', () => {
+  let service: IndexService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MultiService);
+    service = TestBed.inject(IndexService);
   });
 
   it('should be created', () => {

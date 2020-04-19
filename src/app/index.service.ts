@@ -5,16 +5,16 @@ import { VariableService } from './variable.service';
 @Injectable({
   providedIn: 'root',
 })
-export class MultiService {
+export class IndexService {
   constructor(private basic: BasicService, private variable: VariableService) {}
 
-  getIndex(event: any, jumps: number[]) {
-    return this.getPieceIndex(this.getFirstIndex(event), jumps);
+  getIndex(event: any, jumps: number[]): number[] {
+    return this.getFromPiece(this.getFirst(event), jumps);
   }
 
-  getFirstIndex(event: any) {
+  getFirst(event: any): number {
     const element = event.source.getRootElement();
-    const grid = document.querySelector('.game_screen__below');
+    const grid = document.querySelector('.game_screen__below mat-grid-list');
 
     const x = Math.round(
       element.getBoundingClientRect().x +
@@ -34,17 +34,17 @@ export class MultiService {
     return i * this.basic.dimensions + j;
   }
 
-  getPieceIndex(firstIndex: number, jumps: number[]) {
+  getFromPiece(firstIndex: number, jumps: number[]): number[] {
     const index: number[] = [];
 
-    jumps.forEach((jump) => {
+    for (const jump of jumps) {
       index.push(firstIndex + jump);
-    });
+    }
 
     return index;
   }
 
-  isSuitable(index: number[]) {
+  isSuitable(index: number[]): boolean {
     for (const element of index) {
       const alreadyExisting = this.basic.grid[element];
       const negativeIndex = element < 0;
