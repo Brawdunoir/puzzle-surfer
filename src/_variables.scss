@@ -3,24 +3,21 @@
   --font-secondary: #605e5c;
   --background:#faf9f8;
   --background-secondary: #edebe9;
+  --shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
 }
 .dark {
   --font:#faf9f8;
   --font-secondary: #e1dfdd;
   --background:#11100f;
   --background-secondary: #1b1a19;
+  --shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.232), 0 0.3px 0.9px 0 rgba(0,0,0,.208);
 }
 .amoled {
   --font:#faf9f8;
   --font-secondary: #e1dfdd;
   --background:#000;
   --background-secondary: #11100f;
-}
-.sepia {
-  --font:#2A2C05;
-  --font-secondary: #2A2C05;
-  --background:#EFE0B9;
-  --background-secondary: rgb(233, 209, 149);
+  --shadow: 0;
 }
 
 $max-width: 600px;

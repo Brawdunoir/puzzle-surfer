@@ -11,13 +11,15 @@
     align-items: center;
     max-width: $max-width;
     margin: 0 auto;
+    box-shadow: var(--shadow);
 
     &__text {
       margin: 0;
       font-weight: 200;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       padding: .6em 0;
-
+      text-transform: uppercase;
+      
       &_bold {
         font-weight: 900;
       }
