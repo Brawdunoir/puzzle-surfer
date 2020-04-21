@@ -10,6 +10,21 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: var(--background);
+
+  &.accessibility .bloc-container__bloc::before,
+  &.accessibility mat-grid-tile::before {
+    content: "";
+    display: block;
+    height: 33%;
+    width: 33%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--font);
+    border-radius: 50%;
+    mix-blend-mode: soft-light;
+  }
 }
 
 html,

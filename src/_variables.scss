@@ -1,32 +1,45 @@
+/*
+* * THEMES
+*/
 .light {
-  --font:#1b1a19;
+  --font: #1b1a19;
   --font-secondary: #605e5c;
-  --background:#faf9f8;
+  --background: #faf9f8;
   --background-secondary: #edebe9;
-  --shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.132), 0 0.3px 0.9px 0 rgba(0,0,0,.108);
+  --shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132),
+    0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
 }
+
 .dark {
-  --font:#faf9f8;
+  --font: #faf9f8;
   --font-secondary: #e1dfdd;
-  --background:#11100f;
+  --background: #11100f;
   --background-secondary: #1b1a19;
-  --shadow: 0 1.6px 3.6px 0 rgba(0,0,0,.232), 0 0.3px 0.9px 0 rgba(0,0,0,.208);
+  --shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.232),
+    0 0.3px 0.9px 0 rgba(0, 0, 0, 0.208);
 }
+
 .amoled {
-  --font:#faf9f8;
+  --font: #faf9f8;
   --font-secondary: #e1dfdd;
-  --background:#000;
+  --background: #000;
   --background-secondary: #11100f;
   --shadow: 0;
 }
 
-$max-width: 600px;
+/*
+* * VARIABLES
+*/
+$max-width: 700px;
 $border-radius: 0.3em;
 
 $tile-transform: scale(0.9);
 $tile-transform__tiny: scale(0.5);
 $tile-transition: transform 100ms ease-in-out;
 
+/*
+* * KEYFRAMES
+*/
 @keyframes rainbow {
   from {
     filter: hue-rotate(0deg);
