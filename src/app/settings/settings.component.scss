@@ -28,24 +28,22 @@
     background-color: var(--background);
     height: 100%;
     width: 100%;
-    background-color: var(--grey);
     position: fixed;
 
-    #header {
-      background-color: var(--font);
-      height: 50px;
-      width: 100%;
+    #settings {
+      max-width: $max-width;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
-      h1 {
-        margin: 0 20px;
-        text-transform: uppercase;
-        color: var(--background);
-        letter-spacing: 0.05em;
-        font-size: 22px;
-        font-weight: 500;
+      p {
+        margin: 0;
+        text-transform: capitalize;
+        color: var(--font);
+        letter-spacing: 0.02em;
+        font-size: 1.5rem;
+        font-weight: 400;
       }
 
       &__dimensions {
@@ -54,12 +52,7 @@
         flex-direction: column;
 
         p {
-          margin: 0;
-          text-transform: capitalize;
-          color: var(--background);
-          letter-spacing: 0.02em;
-          font-size: 1rem;
-          font-weight: 400;
+          margin-bottom: 25px;
         }
 
         mat-slider {
