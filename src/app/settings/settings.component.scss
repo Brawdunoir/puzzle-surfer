@@ -28,35 +28,15 @@
     background-color: $grey;
     height: 100%;
     width: 100%;
-<<<<<<< HEAD
-    background-color: var(--grey);
-=======
->>>>>>> origin/develop
     position: fixed;
 
-<<<<<<< HEAD
-    #header {
-      background-color: var(--font);
-      height: 50px;
-      width: 100%;
-=======
     #settings {
       max-width: $max-width;
       margin: 0 auto;
->>>>>>> origin/develop
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
-<<<<<<< HEAD
-      h1 {
-        margin: 0 20px;
-        text-transform: uppercase;
-        color: var(--background);
-        letter-spacing: 0.05em;
-        font-size: 22px;
-        font-weight: 500;
-=======
       p {
         margin: 0;
         text-transform: capitalize;
@@ -64,7 +44,6 @@
         letter-spacing: 0.02em;
         font-size: 1.5rem;
         font-weight: 400;
->>>>>>> origin/develop
       }
 
       &__dimensions {
@@ -73,16 +52,7 @@
         flex-direction: column;
 
         p {
-<<<<<<< HEAD
-          margin: 0;
-          text-transform: capitalize;
-          color: var(--background);
-          letter-spacing: 0.02em;
-          font-size: 1rem;
-          font-weight: 400;
-=======
           margin-bottom: 25px;
->>>>>>> origin/develop
         }
 
         mat-slider {
