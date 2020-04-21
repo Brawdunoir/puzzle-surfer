@@ -10,14 +10,14 @@
   #page {
     height: 100%;
     width: 100%;
-    background-color: $grey;
+    background-color: var(--grey);
     position: fixed;
     // display: flex;
     // flex-direction: column;
     // justify-content: space-between;
 
     #header {
-      background-color: $dark;
+      background-color: var(--font);
       height: 50px;
       width: 100%;
       display: flex;
@@ -28,7 +28,7 @@
       h1 {
         margin: 0 20px;
         text-transform: uppercase;
-        color: $white;
+        color: var(--background);
         letter-spacing: 0.05em;
         font-size: 22px;
         font-weight: 500;
@@ -43,7 +43,7 @@
         p {
           margin: 0;
           text-transform: capitalize;
-          color: $white;
+          color: var(--background);
           letter-spacing: 0.02em;
           font-size: 1rem;
           font-weight: 400;
