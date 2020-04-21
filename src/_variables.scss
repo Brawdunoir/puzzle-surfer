@@ -1,14 +1,34 @@
-$dark: #1b1a19;
-$lighter-dark: #292827;
-$grey: #484644;
-$white: #d2d0ce;
+.light {
+  --font:#1b1a19;
+  --font-secondary: #605e5c;
+  --background:#faf9f8;
+  --background-secondary: #edebe9;
+}
+.dark {
+  --font:#faf9f8;
+  --font-secondary: #e1dfdd;
+  --background:#11100f;
+  --background-secondary: #1b1a19;
+}
+.amoled {
+  --font:#faf9f8;
+  --font-secondary: #e1dfdd;
+  --background:#000;
+  --background-secondary: #11100f;
+}
+.sepia {
+  --font:#2A2C05;
+  --font-secondary: #2A2C05;
+  --background:#EFE0B9;
+  --background-secondary: rgb(233, 209, 149);
+}
 
 $max-width: 600px;
 $border-radius: 0.3em;
 
 $tile-transform: scale(0.9);
 $tile-transform__tiny: scale(0.5);
-$tile-transition: transform 100ms ease-in-out, background-color 75ms ease-in-out;
+$tile-transition: transform 100ms ease-in-out;
 
 @keyframes rainbow {
   from {
@@ -22,10 +42,20 @@ $tile-transition: transform 100ms ease-in-out, background-color 75ms ease-in-out
 
 @keyframes rainbowLessSaturate {
   from {
-    filter: hue-rotate(0deg) saturate(10%) brightness(66%);
+    filter: hue-rotate(0deg) saturate(40%) brightness(8%);
   }
 
   to {
-    filter: hue-rotate(360deg) saturate(10%) brightness(66%);
+    filter: hue-rotate(360deg) saturate(40%) brightness(8%);
+  }
+}
+
+@keyframes scaling {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
   }
 }
