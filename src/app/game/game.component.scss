@@ -25,7 +25,7 @@
           transform: translateY(-50%);
           height: 2em;
           width: 2px;
-          background-color: $dark;
+          background-color: var(--background-secondary);
         }
 
         &:last-child::before {

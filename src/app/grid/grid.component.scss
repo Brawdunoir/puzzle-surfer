@@ -8,8 +8,9 @@ mat-grid-list {
 
   mat-grid-tile {
     border-radius: $border-radius;
-    background-color: $dark;
+    background-color: var(--background-secondary);
     transform: $tile-transform__tiny;
     transition: $tile-transition;
+    box-shadow: var(--shadow);
   }
 }

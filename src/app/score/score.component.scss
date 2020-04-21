@@ -1,9 +1,10 @@
 @import "../../variables";
 
 :host {
-  background-color: $dark;
-  color: $white;
+  background-color: var(--background-secondary);
+  color: var(--font);
   display: block;
+  box-shadow: var(--shadow);
 
   .score {
     display: flex;
@@ -14,9 +15,10 @@
 
     &__text {
       margin: 0;
-      font-weight: 300;
-      font-size: 1.1rem;
-      padding: 0.5em;
+      font-weight: 200;
+      font-size: 1.05rem;
+      padding: 0.6em 0;
+      text-transform: uppercase;
 
       &_bold {
         font-weight: 900;

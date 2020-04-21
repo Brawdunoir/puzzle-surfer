@@ -49,7 +49,7 @@ export class BasicService {
   restart(): void {
     for (let i = 0; i < this.grid.length; i++) {
       this.grid[i] = false;
-      this.tiles[i].color = this.variable.defaultColor;
+      this.tiles[i].color = '';
       this.tiles[i].filled = this.variable.tileHalf;
     }
 

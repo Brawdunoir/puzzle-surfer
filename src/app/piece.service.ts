@@ -7,7 +7,7 @@ import { BasicService } from './basic.service';
 export class PieceService {
   color = {
     tetris: '#ba68c8',
-    cube: '#fff176',
+    cube: '#7986cb',
     line: '#4fc3f7',
     doubleLine: '#81c784',
     crooked: '#ff8a65',

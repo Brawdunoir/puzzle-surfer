@@ -1,15 +1,45 @@
-$dark: #1b1a19;
-$lighter-dark: #292827;
-$grey: #484644;
-$white: #d2d0ce;
+/*
+* * THEMES
+*/
+.light {
+  --font: #1b1a19;
+  --font-secondary: #605e5c;
+  --background: #faf9f8;
+  --background-secondary: #edebe9;
+  --shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132),
+    0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
+}
 
-$max-width: 600px;
+.dark {
+  --font: #faf9f8;
+  --font-secondary: #e1dfdd;
+  --background: #11100f;
+  --background-secondary: #1b1a19;
+  --shadow: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.232),
+    0 0.3px 0.9px 0 rgba(0, 0, 0, 0.208);
+}
+
+.amoled {
+  --font: #faf9f8;
+  --font-secondary: #e1dfdd;
+  --background: #000;
+  --background-secondary: #11100f;
+  --shadow: 0;
+}
+
+/*
+* * VARIABLES
+*/
+$max-width: 700px;
 $border-radius: 0.3em;
 
 $tile-transform: scale(0.9);
 $tile-transform__tiny: scale(0.5);
-$tile-transition: transform 100ms ease-in-out, background-color 75ms ease-in-out;
+$tile-transition: transform 100ms ease-in-out;
 
+/*
+* * KEYFRAMES
+*/
 @keyframes rainbow {
   from {
     filter: hue-rotate(0deg);
@@ -22,10 +52,20 @@ $tile-transition: transform 100ms ease-in-out, background-color 75ms ease-in-out
 
 @keyframes rainbowLessSaturate {
   from {
-    filter: hue-rotate(0deg) saturate(10%) brightness(66%);
+    filter: hue-rotate(0deg) saturate(40%) brightness(8%);
   }
 
   to {
-    filter: hue-rotate(360deg) saturate(10%) brightness(66%);
+    filter: hue-rotate(360deg) saturate(40%) brightness(8%);
+  }
+}
+
+@keyframes scaling {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
   }
 }
