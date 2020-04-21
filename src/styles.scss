@@ -35,6 +35,7 @@ mat-grid-tile {
     left: 0;
     border-radius: $border-radius;
     transform: $tile-transform;
+    box-shadow: var(--shadow);
   }
 }
 
