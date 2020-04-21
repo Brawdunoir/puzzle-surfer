@@ -8,7 +8,7 @@ $border-radius: 0.3em;
 
 $tile-transform: scale(0.9);
 $tile-transform__tiny: scale(0.5);
-$tile-transition: transform 100ms ease-in-out, background-color 75ms ease-in-out;
+$tile-transition: transform 100ms ease-in-out;
 
 @keyframes rainbow {
   from {
