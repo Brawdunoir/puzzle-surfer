@@ -8,13 +8,13 @@
   left: 0;
 
   #header {
-    background-color: $dark;
+    background-color: var(--background-secondary);
     width: 100%;
 
     h1 {
       padding: 0.5em;
       text-transform: uppercase;
-      color: $white;
+      color: var(--font);
       letter-spacing: 0.05em;
       font-size: 1.7rem;
       font-weight: 500;
@@ -25,7 +25,7 @@
   }
 
   #page {
-    background-color: $grey;
+    background-color: var(--background);
     height: 100%;
     width: 100%;
     background-color: var(--grey);
@@ -96,19 +96,15 @@
         }
 
         #sombre {
-          background-color: $lighter-dark;
+          background-color: grey;
         }
 
         #clair {
-          background-color: $white;
-        }
-
-        #sepia {
-          background-color: burlywood;
+          background-color: white;
         }
 
         #amoled {
-          background-color: darken($color: #000000, $amount: 0);
+          background-color: black;
         }
       }
     }
