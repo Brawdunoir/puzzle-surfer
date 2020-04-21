@@ -24,7 +24,7 @@ export class CommonBlocComponent {
   private getBack = false;
 
   constructor(
-    private multiService: IndexService,
+    private indexService: IndexService,
     private basic: BasicService,
     private gameService: GameService,
     private pieceService: PieceService,
@@ -37,9 +37,9 @@ export class CommonBlocComponent {
   }
 
   async onDragEnded(event: any) {
-    const index: number[] = this.multiService.get(event, this.JUMPS);
+    const index: number[] = this.indexService.get(event, this.JUMPS);
 
-    if (this.multiService.isSuitable(index)) {
+    if (this.indexService.isSuitable(index)) {
       this.gameService.uponIndexReceived(index, this.PIECE_ID, this.COLOR);
       await this.variable.delay(this.variable.tilePutDelay);
       this.display = false;
@@ -68,7 +68,7 @@ export class CommonBlocComponent {
       display: this.display ? '' : 'none',
       transform: this.isScale
         ? this.variable.pieceHalf
-        : this.variable.pieceFull,
+        : this.variable.pieceFull(this.blocUnit * height),
     };
     return styles;
   }
