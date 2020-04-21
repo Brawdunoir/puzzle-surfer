@@ -73,5 +73,5 @@ export class BasicService {
     this.updateTileEvent.next(this.tiles);
   }
 
-  constructor(private variable: VariableService, private storage : StorageService) {}
+  constructor(private variable: VariableService, private storage: StorageService) {}
 }
