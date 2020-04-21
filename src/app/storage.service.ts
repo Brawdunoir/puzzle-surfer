@@ -17,7 +17,7 @@ export class StorageService {
   }
 
   delete(key: string): void {
-    this.storage.deleteItem(key);
+    this.storage.removeItem(key);
   }
 
   deleteAll(): void {

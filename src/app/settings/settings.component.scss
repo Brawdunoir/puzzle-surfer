@@ -7,24 +7,48 @@
   bottom: 0;
   left: 0;
 
+  #header {
+    background-color: $dark;
+    width: 100%;
+
+    h1 {
+      padding: 0.5em;
+      text-transform: uppercase;
+      color: $white;
+      letter-spacing: 0.05em;
+      font-size: 1.7rem;
+      font-weight: 500;
+      max-width: $max-width;
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
   #page {
+    background-color: $grey;
     height: 100%;
     width: 100%;
+<<<<<<< HEAD
     background-color: var(--grey);
+=======
+>>>>>>> origin/develop
     position: fixed;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: space-between;
 
+<<<<<<< HEAD
     #header {
       background-color: var(--font);
       height: 50px;
       width: 100%;
+=======
+    #settings {
+      max-width: $max-width;
+      margin: 0 auto;
+>>>>>>> origin/develop
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: left;
+      flex-direction: column;
+      justify-content: space-between;
 
+<<<<<<< HEAD
       h1 {
         margin: 0 20px;
         text-transform: uppercase;
@@ -32,43 +56,84 @@
         letter-spacing: 0.05em;
         font-size: 22px;
         font-weight: 500;
+=======
+      p {
+        margin: 0;
+        text-transform: capitalize;
+        color: $white;
+        letter-spacing: 0.02em;
+        font-size: 1.5rem;
+        font-weight: 400;
+>>>>>>> origin/develop
       }
-    }
 
-      #settings {
+      &__dimensions {
+        margin: 1.3em 1em 1.5em;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
 
         p {
+<<<<<<< HEAD
           margin: 0;
           text-transform: capitalize;
           color: var(--background);
           letter-spacing: 0.02em;
           font-size: 1rem;
           font-weight: 400;
+=======
+          margin-bottom: 25px;
+>>>>>>> origin/develop
         }
 
-        &__dimensions {
-          margin: 20px 15px 30px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-
-          p {
-            margin-bottom: 25px;  
-          }
-
-          mat-slider {
-            align-items: center;
-            width: 70%;
-            margin: auto;
-          }
-        }
-        
-        &__style, &__color {
-          margin: 0 15px 30px;
+        mat-slider {
+          align-items: center;
+          width: 70%;
+          margin: auto;
         }
       }
+
+      &__style,
+      &__color {
+        margin: 0 1em;
+
+        &__container {
+          margin: 2.5em 4.5em;
+          justify-content: space-between;
+          flex-direction: row;
+          display: flex;
+        }
+
+        .theme {
+          border-radius: 50%;
+          height: 2.1em;
+          width: 2.1em;
+          display: flex;
+
+          &__inside {
+            position: relative;
+            margin: auto;
+            height: 90%;
+            width: 90%;
+            border-radius: 50%;
+          }
+        }
+
+        #sombre {
+          background-color: $lighter-dark;
+        }
+
+        #clair {
+          background-color: $white;
+        }
+
+        #sepia {
+          background-color: burlywood;
+        }
+
+        #amoled {
+          background-color: darken($color: #000000, $amount: 0);
+        }
+      }
+    }
   }
 }

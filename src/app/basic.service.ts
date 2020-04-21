@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Tile } from './tile-item';
 import { BehaviorSubject } from 'rxjs';
 import { VariableService } from './variable.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BasicService {
-  dimensions = 12; // TODO mettre ca dans les paramètres
+  dimensions = this.getDimensions();
   blocUnit: number;
   grid: boolean[] = [];
   tiles: Tile[] = [];
@@ -15,7 +16,15 @@ export class BasicService {
   updateGridEvent: BehaviorSubject<boolean[]> = new BehaviorSubject(this.grid);
   updateTileEvent: BehaviorSubject<Tile[]> = new BehaviorSubject(this.tiles);
 
+  getDimensions(): number {
+    if (this.storage.get('dimensions') === null) {
+      return 12; // Valeur par défaut
+    }
+    return +this.storage.get('dimensions');
+  }
+
   init() {
+    this.getDimensions();
     this.getInitUnit();
     this.initGrid();
   }
@@ -64,5 +73,5 @@ export class BasicService {
     this.updateTileEvent.next(this.tiles);
   }
 
-  constructor(private variable: VariableService) {}
+  constructor(private variable: VariableService, private storage: StorageService) {}
 }
