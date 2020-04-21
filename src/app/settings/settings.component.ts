@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VariableService } from '../variable.service';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-settings',
@@ -18,12 +19,12 @@ export class SettingsComponent implements OnInit {
   currentStyle = 'amoled';
   currentColor = 'sepia';
 
-  constructor(private variables: VariableService) {}
+  constructor(private variables: VariableService, private storage: StorageService) {}
 
   ngOnInit(): void {}
 
   changeGridDimension(event: any) {
-    // TODO changer avec service localStorage.
+    this.storage.store('dimensions', event.value);
   }
 
   setFocus(theme: string, value: string) {
