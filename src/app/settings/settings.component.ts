@@ -20,11 +20,7 @@ export class SettingsComponent implements OnInit {
   currentStyle = 'amoled';
   currentColor = 'sepia';
 
-  constructor(
-    private variables: VariableService,
-    private storage: StorageService,
-    private basic: BasicService
-  ) {}
+  constructor(private storage: StorageService, private basic: BasicService) {}
 
   ngOnInit(): void {}
 
