@@ -13,7 +13,7 @@ export class SettingsService {
     const currentTheme = this.storage.get('theme');
     return currentTheme ? currentTheme : 'light';
   }
-f
+
   setTheme(theme: string): void {
     this.clearTheme();
     this.body.add(theme);
