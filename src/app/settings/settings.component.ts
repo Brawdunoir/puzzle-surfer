@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { StorageService } from '../storage.service';
 import { BasicService } from '../basic.service';
 import { SettingsService } from '../settings.service';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-settings',
@@ -20,14 +21,15 @@ export class SettingsComponent implements OnInit {
   constructor(
     private storage: StorageService,
     private basic: BasicService,
-    private settings: SettingsService
+    private settings: SettingsService,
+    private game: GameService,
   ) {}
 
   ngOnInit(): void {}
 
   changeGridDimension(event: any) {
     this.storage.store('dimensions', event.value);
-    this.gameService.triggerRestart();
+    this.game.triggerRestart();
   }
 
   selectTheme(event: any): void {
