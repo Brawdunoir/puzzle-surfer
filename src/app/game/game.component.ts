@@ -89,8 +89,8 @@ export class GameComponent implements OnInit, OnDestroy {
     }
   }
 
-  popMenu() {
-    this.displayMenu = true;
+  menu(event: boolean): void {
     this.messageMenu = 'pause';
+    this.displayMenu = event;
   }
 }

@@ -13,15 +13,30 @@
     max-width: $max-width;
     margin: 0 auto;
 
-    &__text {
+    &__text,
+    &__menu {
       margin: 0;
       font-weight: 200;
       font-size: 1.05rem;
       padding: 0.6em 0;
       text-transform: uppercase;
+      width: 100%;
+      text-align: center;
+    }
 
-      &_bold {
-        font-weight: 900;
+    &__text_bold {
+      font-weight: 900;
+    }
+
+    &__menu {
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      transition: color 200ms ease-in-out;
+
+      &:hover,
+      &:focus {
+        color: var(--font-secondary);
       }
     }
   }

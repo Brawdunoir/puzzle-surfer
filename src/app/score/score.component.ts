@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { ScoreService } from '../score.service';
 import { GameService } from '../game.service';
 
@@ -13,6 +19,8 @@ export class ScoreComponent implements OnInit, OnDestroy {
 
   update: any;
   myRestart: any;
+
+  @Output() visibility = new EventEmitter<boolean>();
 
   constructor(
     private scoreService: ScoreService,
@@ -39,5 +47,9 @@ export class ScoreComponent implements OnInit, OnDestroy {
       this.bestScore = this.currentScore;
     }
     this.currentScore = 0;
+  }
+
+  showMenu(): void {
+    this.visibility.emit(true);
   }
 }

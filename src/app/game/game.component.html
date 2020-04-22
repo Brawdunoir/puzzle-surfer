@@ -1,8 +1,7 @@
-<div class="game_screen">
-  <app-score> </app-score>
-  <button (click)="popMenu()">Menu</button>
+<div class="game-screen">
+  <app-score (visibility)="menu($event)"></app-score>
 
-  <div class="game_screen__below">
+  <div class="game-screen__below">
     <app-grid></app-grid>
 
     <mat-grid-list cols="3" rowHeight="3:1">
@@ -20,5 +19,9 @@
     </mat-grid-list>
   </div>
 
-  <app-end-game-menu *ngIf="displayMenu" [message]="messageMenu"></app-end-game-menu>
+  <app-end-game-menu
+    *ngIf="displayMenu"
+    [message]="messageMenu"
+    (visibility)="menu($event)"
+  ></app-end-game-menu>
 </div>

@@ -1,7 +1,19 @@
-<div cdkDrag class="bloc-container" [ngStyle]="setStyleContainer()" cdkDragBoundary=".game_screen__below"
-  (cdkDragEnded)="onDragEnded($event)" (cdkDragStarted)="onDragStarted()">
-  <div class="bloc-container__sub" [ngStyle]="setStyleSub(DIMENSIONS.x, DIMENSIONS.y)">
-    <div *ngFor="let position of POSITIONS" class="bloc-container__bloc"
-      [ngStyle]="setStyleTile(position.x, position.y, COLOR)"></div>
+<div
+  cdkDrag
+  class="bloc-container"
+  [ngStyle]="setStyleContainer()"
+  cdkDragBoundary=".game-screen__below"
+  (cdkDragEnded)="onDragEnded($event)"
+  (cdkDragStarted)="onDragStarted()"
+>
+  <div
+    class="bloc-container__sub"
+    [ngStyle]="setStyleSub(DIMENSIONS.x, DIMENSIONS.y)"
+  >
+    <div
+      *ngFor="let position of POSITIONS"
+      class="bloc-container__bloc"
+      [ngStyle]="setStyleTile(position.x, position.y, COLOR)"
+    ></div>
   </div>
 </div>

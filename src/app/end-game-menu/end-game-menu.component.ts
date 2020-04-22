@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { GameService } from '../game.service';
 
 @Component({
@@ -8,10 +8,15 @@ import { GameService } from '../game.service';
 })
 export class EndGameMenuComponent {
   @Input() message: string;
+  @Output() visibility = new EventEmitter<boolean>();
 
-  constructor(private gameService: GameService) {}
+  constructor(private game: GameService) {}
 
   restart() {
-    this.gameService.triggerRestart();
+    this.game.triggerRestart();
+  }
+
+  hide(): void {
+    this.visibility.emit(false);
   }
 }

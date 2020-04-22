@@ -13,7 +13,7 @@ export class IndexService {
 
   getFirst(event: any): number {
     const element = event.source.getRootElement();
-    const grid = document.querySelector('.game_screen__below mat-grid-list');
+    const grid = document.querySelector('.game-screen__below mat-grid-list');
 
     const x = Math.round(
       element.getBoundingClientRect().x +
