@@ -23,5 +23,11 @@
     *ngIf="displayMenu"
     [message]="messageMenu"
     (visibility)="menu($event)"
+    (settingsState)="showSettings($event)"
   ></app-end-game-menu>
+
+  <app-settings
+    *ngIf="displaySettings"
+    (settingsState)="showSettings($event)"
+  ></app-settings>
 </div>

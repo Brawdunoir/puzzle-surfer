@@ -9,6 +9,7 @@ import { GameService } from '../game.service';
 export class EndGameMenuComponent {
   @Input() message: string;
   @Output() visibility = new EventEmitter<boolean>();
+  @Output() settingsState = new EventEmitter<boolean>();
 
   constructor(private game: GameService) {}
 
@@ -18,5 +19,9 @@ export class EndGameMenuComponent {
 
   hide(): void {
     this.visibility.emit(false);
+  }
+
+  showSettings(): void {
+    this.settingsState.emit(true);
   }
 }

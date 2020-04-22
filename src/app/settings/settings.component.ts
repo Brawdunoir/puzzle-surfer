@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { VariableService } from '../variable.service';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { StorageService } from '../storage.service';
 import { BasicService } from '../basic.service';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -14,13 +14,14 @@ export class SettingsComponent implements OnInit {
   max = 30;
   value = this.basic.getDimensions();
   color = 'primary';
-  // Themes
-  nbStyle = 4;
-  nbColor = 3;
-  currentStyle = 'amoled';
-  currentColor = 'sepia';
 
-  constructor(private storage: StorageService, private basic: BasicService) {}
+  @Output() settingsState = new EventEmitter<boolean>();
+
+  constructor(
+    private storage: StorageService,
+    private basic: BasicService,
+    private settings: SettingsService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -28,21 +29,11 @@ export class SettingsComponent implements OnInit {
     this.storage.store('dimensions', event.value);
   }
 
-  setFocus(theme: string, value: string) {
-    const style = {
-      'background-color': value === this.currentStyle ? 'black' : 'white',
-    };
-    const color = {
-      'background-color': value === this.currentColor ? 'black' : 'white',
-    };
-    return theme === 'color' ? color : style;
+  selectTheme(event: any): void {
+    this.settings.setTheme(event.currentTarget.id);
   }
 
-  changeTheme(theme: string, value: string): void {
-    if (theme === 'color') {
-      this.currentColor = value;
-    } else {
-      this.currentStyle = value;
-    }
+  close(): void {
+    this.settingsState.emit(false);
   }
 }

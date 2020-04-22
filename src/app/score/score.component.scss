@@ -33,6 +33,8 @@
       background-color: transparent;
       cursor: pointer;
       transition: color 200ms ease-in-out;
+      color: var(--font);
+      font-weight: 200;
 
       &:hover,
       &:focus {

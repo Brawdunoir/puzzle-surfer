@@ -15,6 +15,7 @@ import { PieceService } from '../piece.service';
 import { BasicService } from '../basic.service';
 import { GameService } from '../game.service';
 import { CommonBlocComponent } from '../common-bloc/common-bloc.component';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-game',
@@ -28,6 +29,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   viewContainerArray: ViewContainerRef[] = [];
 
+  displaySettings: boolean;
   displayMenu: boolean;
   messageMenu: string;
 
@@ -39,7 +41,8 @@ export class GameComponent implements OnInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private pieceService: PieceService,
     private basic: BasicService,
-    private gameService: GameService
+    private gameService: GameService,
+    private settings: SettingsService
   ) {}
 
   init() {
@@ -48,6 +51,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.settings.setTheme(this.settings.getTheme());
     this.init();
     this.viewContainerArray.push(this.pieceHost1.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);
@@ -92,5 +96,9 @@ export class GameComponent implements OnInit, OnDestroy {
   menu(event: boolean): void {
     this.messageMenu = 'pause';
     this.displayMenu = event;
+  }
+
+  showSettings(event: boolean): void {
+    this.displaySettings = event;
   }
 }
