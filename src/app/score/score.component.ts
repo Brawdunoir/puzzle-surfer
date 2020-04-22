@@ -20,7 +20,7 @@ export class ScoreComponent implements OnInit, OnDestroy {
   update: any;
   myRestart: any;
 
-  @Output() visibility = new EventEmitter<boolean>();
+  @Output() menuState = new EventEmitter<boolean>();
 
   constructor(
     private scoreService: ScoreService,
@@ -56,6 +56,6 @@ export class ScoreComponent implements OnInit, OnDestroy {
   }
 
   showMenu(): void {
-    this.visibility.emit(true);
+    this.menuState.emit(true);
   }
 }

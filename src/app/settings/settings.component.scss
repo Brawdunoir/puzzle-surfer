@@ -1,103 +1,88 @@
 @import "../../variables";
 
-:host {
-  position: fixed;
+.background {
+  z-index: 1;
+
+  position: absolute;
+  width: 100%;
+  height: 100%;
   top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+}
+
+#page {
+  z-index: 2;
+
+  width: 90%;
+  max-width: $max-width;
+  border-radius: $border-radius;
+  overflow: hidden;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 
   #header {
     background-color: var(--background-secondary);
-    width: 100%;
+    box-shadow: var(--shadow);
 
-    h1 {
-      padding: 0.5em;
+    &__title {
+      padding: 0.6em 0.8em;
       text-transform: uppercase;
       color: var(--font);
       letter-spacing: 0.05em;
-      font-size: 1.7rem;
-      font-weight: 500;
-      max-width: $max-width;
-      margin: 0 auto;
-      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin: 0;
     }
   }
 
-  #page {
+  .settings {
     background-color: var(--background);
-    height: 100%;
-    width: 100%;
-    position: fixed;
+    padding: 0 1em;
 
-    #settings {
-      max-width: $max-width;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      p {
-        margin: 0;
+    &__container {
+      .settings__title {
         text-transform: capitalize;
         color: var(--font);
-        letter-spacing: 0.02em;
-        font-size: 1.5rem;
-        font-weight: 400;
+        letter-spacing: 0.03em;
+        font-size: 1.05rem;
+        font-weight: 500;
+        margin: 0;
+        padding-top: 0.9em;
       }
 
-      &__dimensions {
-        margin: 1.3em 1em 1.5em;
+      mat-slider {
+        align-items: center;
+        width: 100%;
+        margin: auto;
+        padding: 0;
+      }
+
+      .settings__bubble-container {
         display: flex;
-        flex-direction: column;
+        padding: 1em;
 
-        p {
-          margin-bottom: 25px;
+        .settings__bubble + .settings__bubble {
+          margin-left: 1.5em;
         }
 
-        mat-slider {
-          align-items: center;
-          width: 70%;
-          margin: auto;
-        }
-      }
-
-      &__style,
-      &__color {
-        margin: 0 1em;
-
-        &__container {
-          margin: 2.5em 4.5em;
-          justify-content: space-between;
-          flex-direction: row;
-          display: flex;
-        }
-
-        .theme {
+        .settings__bubble {
+          height: 50px;
+          width: 50px;
           border-radius: 50%;
-          height: 2.1em;
-          width: 2.1em;
-          display: flex;
+          border: 2px grey solid;
+          cursor: pointer;
 
-          &__inside {
-            position: relative;
-            margin: auto;
-            height: 90%;
-            width: 90%;
-            border-radius: 50%;
+          &#light {
+            background-color: #faf9f8;
           }
-        }
-
-        #sombre {
-          background-color: grey;
-        }
-
-        #clair {
-          background-color: white;
-        }
-
-        #amoled {
-          background-color: black;
+          &#dark {
+            background-color: #11100f;
+          }
+          &#amoled {
+            background-color: #000;
+          }
         }
       }
     }

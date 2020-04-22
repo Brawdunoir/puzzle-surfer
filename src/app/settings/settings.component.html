@@ -1,12 +1,11 @@
 <div id="page">
   <div id="header">
-    <h1>settings</h1>
+    <h1 id="header__title">settings</h1>
   </div>
-  <button routerLink='/game'>Retour</button>
 
-  <div id="settings">
-    <div id="settings__dimensions">
-      <p>grid dimensions</p>
+  <div class="settings">
+    <div class="settings__container">
+      <h2 class="settings__title">grid dimensions</h2>
 
       <mat-slider
         [min]="min"
@@ -18,65 +17,28 @@
       ></mat-slider>
     </div>
 
-    <div id="settings__style">
-      <p>style</p>
-      <div id="settings__style__container">
-        <div
-          (click)="changeTheme('style', 'sombre')"
-          class="theme"
-          [ngStyle]="setFocus('style', 'sombre')"
-        >
-          <div class="theme__inside" id="sombre"></div>
-        </div>
-        <div
-          (click)="changeTheme('style', 'amoled')"
-          class="theme"
-          [ngStyle]="setFocus('style', 'amoled')"
-        >
-          <div class="theme__inside" id="amoled"></div>
-        </div>
-        <div
-          (click)="changeTheme('style', 'clair')"
-          class="theme"
-          [ngStyle]="setFocus('style', 'clair')"
-        >
-          <div class="theme__inside" id="clair"></div>
-        </div>
-        <div
-          (click)="changeTheme('style', 'sepia')"
-          class="theme"
-          [ngStyle]="setFocus('style', 'sepia')"
-        >
-          <div class="theme__inside" id="sepia"></div>
-        </div>
-      </div>
-    </div>
+    <div class="settings__container">
+      <h2 class="settings__title">theme</h2>
 
-    <div id="settings__color">
-      <p>color</p>
-      <div id="settings__color__container">
+      <div class="settings__bubble-container">
         <div
-          (click)="changeTheme('color', 'sombre')"
-          class="theme"
-          [ngStyle]="setFocus('color', 'sombre')"
-        >
-          <div class="theme__inside" id="sombre"></div>
-        </div>
+          (click)="selectTheme($event)"
+          class="settings__bubble"
+          id="light"
+        ></div>
         <div
-          (click)="changeTheme('color', 'clair')"
-          class="theme"
-          [ngStyle]="setFocus('color', 'clair')"
-        >
-          <div class="theme__inside" id="clair"></div>
-        </div>
+          (click)="selectTheme($event)"
+          class="settings__bubble"
+          id="dark"
+        ></div>
         <div
-          (click)="changeTheme('color', 'sepia')"
-          class="theme"
-          [ngStyle]="setFocus('color', 'sepia')"
-        >
-          <div class="theme__inside" id="sepia"></div>
-        </div>
+          (click)="selectTheme($event)"
+          class="settings__bubble"
+          id="amoled"
+        ></div>
       </div>
     </div>
   </div>
 </div>
+
+<div class="background" (click)="close()"></div>
