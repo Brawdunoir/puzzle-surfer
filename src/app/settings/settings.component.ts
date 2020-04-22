@@ -11,7 +11,7 @@ import { SettingsService } from '../settings.service';
 export class SettingsComponent implements OnInit {
   // Slider
   min = 8;
-  max = 30;
+  max = 20;
   value = this.basic.getDimensions();
   color = 'primary';
 
