@@ -59,7 +59,6 @@ export class IndexService {
   }
 
   outOfRange(coord: Coordonnee): boolean {
-    console.log(coord);
     if (coord.x >= this.basic.dimensions || coord.y >= this.basic.dimensions) {
       return true;
     }

@@ -4,6 +4,7 @@ import { ScoreService } from './score.service';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { PieceService } from './piece.service';
 import { VariableService } from './variable.service';
+import { IndexService } from './index.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,8 @@ export class GameService {
     private basic: BasicService,
     private score: ScoreService,
     private pieceService: PieceService,
-    private variable: VariableService
+    private variable: VariableService,
+    private index: IndexService,
   ) {}
 
   async uponIndexReceived(
@@ -39,7 +41,6 @@ export class GameService {
     if (this.currentPiecesID.length === 0) {
       this.reloadPiece.next(true);
     }
-
     this.isEnd();
   }
 
@@ -98,32 +99,14 @@ export class GameService {
 
   isEnd(): void {
     for (const id of this.currentPiecesID) {
-      const positions = this.pieceService.formes[id].positions;
-
       for (let i = 0; i < this.basic.grid.length; i++) {
-        let validPosition = true;
+        const indexArray = this.index.getFromPiece(i, this.pieceService.formes[id].jumps);
 
-        for (const position of positions) {
-          if (
-            this.basic.grid[
-              i + position.x + this.basic.dimensions * position.y
-            ] ||
-            position.y * this.basic.dimensions + i >= this.basic.grid.length ||
-            i -
-              Math.trunc(i / this.basic.dimensions) * this.basic.dimensions +
-              position.x >=
-              this.basic.dimensions
-          ) {
-            validPosition = false;
-          }
-        }
-
-        if (validPosition) {
+        if (this.index.isSuitable(indexArray)) {
           return;
         }
       }
     }
-
     this.end.next();
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VariableService } from '../variable.service';
 import { StorageService } from '../storage.service';
 import { BasicService } from '../basic.service';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-settings',
@@ -20,12 +21,14 @@ export class SettingsComponent implements OnInit {
   currentStyle = 'amoled';
   currentColor = 'sepia';
 
-  constructor(private variables: VariableService, private storage: StorageService, private basic: BasicService) {}
+  // tslint:disable-next-line: max-line-length
+  constructor(private variables: VariableService, private storage: StorageService, private basic: BasicService, private gameService: GameService) {}
 
   ngOnInit(): void {}
 
   changeGridDimension(event: any) {
     this.storage.store('dimensions', event.value);
+    this.gameService.triggerRestart();
   }
 
   setFocus(theme: string, value: string) {
