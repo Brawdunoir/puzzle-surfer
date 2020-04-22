@@ -4,6 +4,11 @@ import { Subject } from 'rxjs';
 import { VariableService } from './variable.service';
 import { StorageService } from './storage.service';
 
+export interface Coordonnee {
+  x: number;
+  y: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,18 +26,18 @@ export class BasicService {
     private storage: StorageService
   ) {}
 
+  init() {
+    this.getDimensions();
+    this.getInitUnit();
+    this.initGrid();
+  }
+
   getDimensions(): number {
     if (!this.storage.get('dimensions')) {
       return this.variable.defaultGridSize;
     }
 
     return +this.storage.get('dimensions');
-  }
-
-  init() {
-    this.getDimensions();
-    this.getInitUnit();
-    this.initGrid();
   }
 
   getInitUnit(): void {
@@ -60,6 +65,12 @@ export class BasicService {
     }
 
     this.sendUpdates();
+  }
+
+  indexToCoord(index: number): Coordonnee {
+    const y = index % this.dimensions;
+    const x = Math.trunc(index / this.dimensions);
+    return { x, y };
   }
 
   updateGrid(indexArray: number[], filled: boolean, color: string = ''): void {

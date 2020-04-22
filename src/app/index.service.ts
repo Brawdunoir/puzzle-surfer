@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BasicService } from './basic.service';
+import { BasicService, Coordonnee } from './basic.service';
 
 @Injectable({
   providedIn: 'root',
@@ -48,13 +48,22 @@ export class IndexService {
     for (const index of indexArray) {
       const alreadyExisting = this.basic.grid[index];
       const negativeIndex = index < 0;
-      const outOfRangeIndex = index > this.basic.grid.length;
+      const outOfRange = this.outOfRange(this.basic.indexToCoord(index));
 
-      if (alreadyExisting || negativeIndex || outOfRangeIndex) {
+      if (alreadyExisting || negativeIndex || outOfRange) {
         return false;
       }
     }
 
     return true;
+  }
+
+  outOfRange(coord: Coordonnee): boolean {
+    console.log(coord);
+    if (coord.x >= this.basic.dimensions || coord.y >= this.basic.dimensions) {
+      return true;
+    }
+
+    return false;
   }
 }
