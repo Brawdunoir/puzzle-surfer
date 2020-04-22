@@ -1,5 +1,6 @@
 <div class="game_screen">
   <app-score> </app-score>
+  <button (click)="popMenu()">Menu</button>
 
   <div class="game_screen__below">
     <app-grid></app-grid>
@@ -19,5 +20,5 @@
     </mat-grid-list>
   </div>
 
-  <app-end-game-menu *ngIf="gameEnd"> </app-end-game-menu>
+  <app-end-game-menu *ngIf="displayMenu" [message]="messageMenu"></app-end-game-menu>
 </div>

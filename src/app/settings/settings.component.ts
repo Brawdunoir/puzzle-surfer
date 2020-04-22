@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VariableService } from '../variable.service';
 import { StorageService } from '../storage.service';
+import { BasicService } from '../basic.service';
 
 @Component({
   selector: 'app-settings',
@@ -11,7 +12,7 @@ export class SettingsComponent implements OnInit {
   // Slider
   min = 8;
   max = 30;
-  value = 10;
+  value = this.basic.getDimensions();
   color = 'primary';
   // Themes
   nbStyle = 4;
@@ -19,7 +20,7 @@ export class SettingsComponent implements OnInit {
   currentStyle = 'amoled';
   currentColor = 'sepia';
 
-  constructor(private variables: VariableService, private storage: StorageService) {}
+  constructor(private variables: VariableService, private storage: StorageService, private basic: BasicService) {}
 
   ngOnInit(): void {}
 

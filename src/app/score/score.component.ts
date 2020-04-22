@@ -11,24 +11,27 @@ export class ScoreComponent implements OnInit, OnDestroy {
   bestScore = 0; // TODO Changer pour enregistrer le score dans de la data
   currentScore = 0;
 
+  update: any;
+  myRestart: any;
+
   constructor(
     private scoreService: ScoreService,
     private gameService: GameService
   ) {}
 
   ngOnInit(): void {
-    this.scoreService.update.subscribe((value) => {
+    this.update = this.scoreService.update.subscribe((value) => {
       this.currentScore += value;
     });
 
-    this.gameService.onGameRestart.subscribe(() => {
+    this.myRestart = this.gameService.restart.subscribe(() => {
       this.restart();
     });
   }
 
   ngOnDestroy(): void {
-    this.scoreService.update.unsubscribe();
-    this.gameService.onGameRestart.unsubscribe();
+    this.update.unsubscribe();
+    this.myRestart.unsubscribe();
   }
 
   restart(): void {

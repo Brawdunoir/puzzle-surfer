@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BasicService } from './basic.service';
 import { ScoreService } from './score.service';
-import { BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { PieceService } from './piece.service';
 import { VariableService } from './variable.service';
 
@@ -11,9 +11,9 @@ import { VariableService } from './variable.service';
 export class GameService {
   currentPiecesID: number[] = []; // ID de chaque pièce présente sur l'écran
 
-  onGameEnd: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
-  onGameRestart: BehaviorSubject<boolean> = new BehaviorSubject(false); // Permet de savoir quand le jeu est terminé
-  onEmptyPiece: BehaviorSubject<any> = new BehaviorSubject(null); // Permet de charger de nouvelles pièces.
+  end: Subject<boolean> = new Subject(); // Permet de savoir quand le jeu est terminé
+  restart: Subject<boolean> = new Subject(); // Permet de savoir quand le jeu est terminé
+  reloadPiece: BehaviorSubject<any> = new BehaviorSubject(true); // Permet de charger de nouvelles pièces.
 
   constructor(
     private basic: BasicService,
@@ -37,7 +37,7 @@ export class GameService {
 
     // Il n'y a plus de pièces, on en reconstruit
     if (this.currentPiecesID.length === 0) {
-      this.onEmptyPiece.next(null);
+      this.reloadPiece.next(true);
     }
 
     this.isEnd();
@@ -124,14 +124,17 @@ export class GameService {
       }
     }
 
-    this.onGameEnd.next(true);
+    this.end.next();
   }
 
-  restart(): void {
-    this.onGameRestart.next(true);
-
+  triggerRestart(): void {
+    // Trigger restart in components
+    // ie in GameComponent, ScoreComponent
+    this.restart.next();
+    // Trigger restart in basic Service
     this.basic.restart();
+    // Remove existing pieces and reload new
     this.currentPiecesID.splice(0, this.currentPiecesID.length);
-    this.onEmptyPiece.next(null);
+    this.reloadPiece.next(true);
   }
 }

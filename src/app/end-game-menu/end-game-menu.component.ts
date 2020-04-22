@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GameService } from '../game.service';
 
 @Component({
@@ -7,11 +7,11 @@ import { GameService } from '../game.service';
   styleUrls: ['./end-game-menu.component.scss'],
 })
 export class EndGameMenuComponent {
-  message = 'Vous avez perdu !';
+  @Input() message: string;
 
   constructor(private gameService: GameService) {}
 
   restart() {
-    this.gameService.restart();
+    this.gameService.triggerRestart();
   }
 }

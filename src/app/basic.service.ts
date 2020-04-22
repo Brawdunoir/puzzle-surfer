@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Tile } from './tile-item';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { VariableService } from './variable.service';
 import { StorageService } from './storage.service';
 
@@ -13,8 +13,8 @@ export class BasicService {
   grid: boolean[] = [];
   tiles: Tile[] = [];
 
-  updateGridEvent: BehaviorSubject<boolean[]> = new BehaviorSubject(this.grid);
-  updateTileEvent: BehaviorSubject<Tile[]> = new BehaviorSubject(this.tiles);
+  updateGridEvent: Subject<boolean[]> = new Subject();
+  updateTileEvent: Subject<Tile[]> = new Subject();
 
   getDimensions(): number {
     if (this.storage.get('dimensions') === null) {
@@ -73,5 +73,8 @@ export class BasicService {
     this.updateTileEvent.next(this.tiles);
   }
 
-  constructor(private variable: VariableService, private storage: StorageService) {}
+  constructor(
+    private variable: VariableService,
+    private storage: StorageService
+  ) {}
 }

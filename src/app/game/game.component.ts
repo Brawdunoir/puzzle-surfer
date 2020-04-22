@@ -28,7 +28,12 @@ export class GameComponent implements OnInit, OnDestroy {
 
   viewContainerArray: ViewContainerRef[] = [];
 
-  gameEnd: boolean;
+  displayMenu: boolean;
+  messageMenu: string;
+
+  reloadPiece: any;
+  end: any;
+  restart: any;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -47,22 +52,22 @@ export class GameComponent implements OnInit, OnDestroy {
     this.viewContainerArray.push(this.pieceHost1.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost3.viewContainerRef);
-
-    this.gameService.onEmptyPiece.subscribe((value) => {
+    this.reloadPiece = this.gameService.reloadPiece.subscribe(() => {
       this.loadComponent();
     });
-    this.gameService.onGameEnd.subscribe(() => {
-      this.gameEnd = true;
+    this.end = this.gameService.end.subscribe(() => {
+      this.displayMenu = true;
+      this.messageMenu = 'vous avez perdu';
     });
-    this.gameService.onGameRestart.subscribe(() => {
-      this.gameEnd = false;
+    this.restart = this.gameService.restart.subscribe(() => {
+      this.displayMenu = false;
     });
   }
 
   ngOnDestroy(): void {
-    this.gameService.onEmptyPiece.unsubscribe();
-    this.gameService.onGameEnd.unsubscribe();
-    this.gameService.onGameRestart.unsubscribe();
+    this.reloadPiece.unsubscribe();
+    this.end.unsubscribe();
+    this.restart.unsubscribe();
   }
 
   loadComponent() {
@@ -82,5 +87,10 @@ export class GameComponent implements OnInit, OnDestroy {
       // Créer la pièce
       viewContainer.createComponent(ComponentFactory);
     }
+  }
+
+  popMenu() {
+    this.displayMenu = true;
+    this.messageMenu = 'pause';
   }
 }
