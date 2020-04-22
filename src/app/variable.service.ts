@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class VariableService {
+  defaultGridSize = 12;
+
   tileHalf = 0.5; // scale css property
   tileFull = 0.9;
   tilePutDelay = 100; // millisecondes

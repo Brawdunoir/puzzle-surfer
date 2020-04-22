@@ -16,10 +16,16 @@ export class BasicService {
   updateGridEvent: Subject<boolean[]> = new Subject();
   updateTileEvent: Subject<Tile[]> = new Subject();
 
+  constructor(
+    private variable: VariableService,
+    private storage: StorageService
+  ) {}
+
   getDimensions(): number {
-    if (this.storage.get('dimensions') === null) {
-      return 12; // Valeur par défaut
+    if (!this.storage.get('dimensions')) {
+      return this.variable.defaultGridSize;
     }
+
     return +this.storage.get('dimensions');
   }
 
@@ -72,9 +78,4 @@ export class BasicService {
     this.updateGridEvent.next(this.grid);
     this.updateTileEvent.next(this.tiles);
   }
-
-  constructor(
-    private variable: VariableService,
-    private storage: StorageService
-  ) {}
 }
