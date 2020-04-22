@@ -14,7 +14,7 @@ import { GameService } from '../game.service';
   styleUrls: ['./score.component.scss'],
 })
 export class ScoreComponent implements OnInit, OnDestroy {
-  bestScore = 0; // TODO Changer pour enregistrer le score dans de la data
+  bestScore = this.scoreService.getBest();
   currentScore = 0;
 
   update: any;
@@ -33,7 +33,9 @@ export class ScoreComponent implements OnInit, OnDestroy {
     });
 
     this.myRestart = this.gameService.restart.subscribe(() => {
-      this.restart();
+      this.scoreService.updateBest(this.currentScore);
+      this.bestScore = this.scoreService.getBest();
+      this.currentScore = 0;
     });
   }
 
