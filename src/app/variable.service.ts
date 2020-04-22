@@ -19,7 +19,7 @@ export class VariableService {
   constructor() {}
 
   pieceFull(translate: number): string {
-    return 'scale(1) translateY(-' + translate + 'px)';
+    return 'scale(1) translateY(-' + translate / 1.5 + 'px)';
   }
 
   delay(millisecondes: number): Promise<void> {

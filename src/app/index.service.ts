@@ -25,7 +25,8 @@ export class IndexService {
         element.getBoundingClientRect().y +
           this.basic.blocUnit / 2 -
           grid.getBoundingClientRect().y
-      ) - element.offsetHeight;
+      ) -
+      element.offsetHeight / 1.5;
 
     const i = Math.trunc(y / this.basic.blocUnit);
     const j = Math.trunc(x / this.basic.blocUnit);

@@ -30,10 +30,14 @@ export class ScoreComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.update = this.scoreService.update.subscribe((value) => {
       this.currentScore += value;
+
+      if (this.currentScore > this.bestScore) {
+        this.bestScore += value;
+        this.scoreService.updateBest(this.currentScore);
+      }
     });
 
     this.myRestart = this.gameService.restart.subscribe(() => {
-      this.scoreService.updateBest(this.currentScore);
       this.bestScore = this.scoreService.getBest();
       this.currentScore = 0;
     });
