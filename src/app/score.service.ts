@@ -25,7 +25,7 @@ export class ScoreService {
   updateBest(newBest: number): void {
     // Verify this new score is better than previous
     if (
-      isNaN(+this.storage.get('bestScore')) ||
+      !this.storage.get('bestScore') ||
       +this.storage.get('bestScore') < newBest
     ) {
       // Store it
@@ -34,7 +34,7 @@ export class ScoreService {
   }
 
   getBest(): number {
-    if (isNaN(+this.storage.get('bestScore'))) {
+    if (!this.storage.get('bestScore')) {
       return 0;
     }
     return +this.storage.get('bestScore');
