@@ -1,5 +1,5 @@
 <div class="game-screen">
-  <app-score (visibility)="menu($event)"></app-score>
+  <app-score (menuState)="menu($event)"></app-score>
 
   <div class="game-screen__below">
     <app-grid></app-grid>
@@ -22,7 +22,7 @@
   <app-end-game-menu
     *ngIf="displayMenu"
     [message]="messageMenu"
-    (visibility)="menu($event)"
+    (menuState)="menu($event)"
     (settingsState)="showSettings($event)"
   ></app-end-game-menu>
 
