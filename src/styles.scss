@@ -12,7 +12,7 @@ body {
   background-color: var(--background);
 
   &.accessibility .bloc-container__bloc::before,
-  &.accessibility mat-grid-tile::before {
+  &.accessibility app-grid .mat-grid-tile::before {
     content: "";
     display: block;
     height: 33%;
@@ -25,37 +25,47 @@ body {
     border-radius: 50%;
     mix-blend-mode: soft-light;
   }
-}
 
-html,
-body {
-  height: 100vh;
-}
+  .mat-slider-thumb,
+  .mat-slider-track-fill {
+    @include rainbowBackground;
+  }
 
-mat-grid-tile {
-  overflow: initial !important;
+  .mat-slider-track-background,
+  .mat-slider-track-background:hover {
+    background-color: var(--font) !important;
+  }
+
+  mat-grid-tile {
+    overflow: initial !important;
+  }
+
+  .bloc-container {
+    position: relative;
+    transform-origin: center;
+
+    &__sub {
+      transition: transform 150ms ease-in-out;
+    }
+
+    &__bloc {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: $border-radius;
+      transform: $tile-transform;
+      box-shadow: var(--shadow);
+    }
+  }
 }
 
 * {
   transition: color 150ms ease-in-out, background-color 200ms ease-in-out;
 }
 
-.bloc-container {
-  position: relative;
-  transform-origin: center;
-
-  &__sub {
-    transition: transform 150ms ease-in-out;
-  }
-
-  &__bloc {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: $border-radius;
-    transform: $tile-transform;
-    box-shadow: var(--shadow);
-  }
+html,
+body {
+  height: 100vh;
 }
 
 @media (min-width: 550px) {
