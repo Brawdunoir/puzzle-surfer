@@ -8,8 +8,7 @@
 
   &__below {
     width: 100%;
-    max-width: $max-width;
-    margin: 0 auto;
+    @include responsiveContainer;
 
     mat-grid-list {
       padding-bottom: 10em !important;

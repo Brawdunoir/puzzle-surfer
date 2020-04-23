@@ -9,6 +9,11 @@ $tile-transform: scale(0.9);
 $tile-transform__tiny: scale(0.5);
 $tile-transition: transform 100ms ease-in-out;
 
+@mixin responsiveContainer {
+  margin: 0 auto;
+  max-width: $max-width;
+}
+
 @mixin rainbowBackground {
   background-color: dodgerblue !important;
   animation: rainbow 6s infinite;

@@ -9,8 +9,7 @@
   .score {
     display: flex;
     align-items: center;
-    max-width: $max-width;
-    margin: 0 auto;
+    @include responsiveContainer;
 
     &__text,
     &__menu {
