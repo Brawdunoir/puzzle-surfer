@@ -28,7 +28,7 @@ body {
 
   .mat-slider-thumb,
   .mat-slider-track-fill {
-    @include rainbowBackground;
+    @include rainbowBackground();
   }
 
   .mat-slider-track-background,

@@ -36,7 +36,8 @@
 
       &:hover,
       &:focus {
-        color: var(--font-secondary);
+        color: dodgerblue;
+        animation: rainbow 6s infinite;
       }
     }
   }

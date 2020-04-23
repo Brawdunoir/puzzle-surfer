@@ -9,19 +9,21 @@ $tile-transform: scale(0.9);
 $tile-transform__tiny: scale(0.5);
 $tile-transition: transform 100ms ease-in-out;
 
+$rainbow: rainbow 6s infinite;
+
 @mixin responsiveContainer {
   margin: 0 auto;
   max-width: $max-width;
 }
 
-@mixin rainbowBackground {
-  background-color: dodgerblue !important;
-  animation: rainbow 6s infinite;
-}
-
 @mixin rainbowBorder {
   border-color: dodgerblue !important;
-  animation: rainbow 6s infinite;
+  animation: $rainbow;
+}
+
+@mixin rainbowBackground {
+  background-color: dodgerblue !important;
+  animation: $rainbow;
 }
 
 /*
