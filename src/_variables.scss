@@ -1,4 +1,25 @@
 /*
+* * VARIABLES
+*/
+$font-family: Roboto, "Helvetica Neue", sans-serif;
+$max-width: 650px;
+$border-radius: 0.3em;
+
+$tile-transform: scale(0.9);
+$tile-transform__tiny: scale(0.5);
+$tile-transition: transform 100ms ease-in-out;
+
+@mixin rainbowBackground {
+  background-color: dodgerblue !important;
+  animation: rainbow 6s infinite;
+}
+
+@mixin rainbowBorder {
+  border-color: dodgerblue !important;
+  animation: rainbow 6s infinite;
+}
+
+/*
 * * THEMES
 */
 .light {
@@ -10,7 +31,7 @@
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
 
   .settings__bubble#light {
-    border-color: dodgerblue !important;
+    @include rainbowBorder();
   }
 }
 
@@ -23,7 +44,7 @@
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.208);
 
   .settings__bubble#dark {
-    border-color: dodgerblue !important;
+    @include rainbowBorder();
   }
 }
 
@@ -35,20 +56,9 @@
   --shadow: 0;
 
   .settings__bubble#amoled {
-    border-color: dodgerblue !important;
+    @include rainbowBorder();
   }
 }
-
-/*
-* * VARIABLES
-*/
-$font-family: Roboto, "Helvetica Neue", sans-serif;
-$max-width: 650px;
-$border-radius: 0.3em;
-
-$tile-transform: scale(0.9);
-$tile-transform__tiny: scale(0.5);
-$tile-transition: transform 100ms ease-in-out;
 
 /*
 * * KEYFRAMES
