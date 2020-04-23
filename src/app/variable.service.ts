@@ -18,8 +18,18 @@ export class VariableService {
 
   constructor() {}
 
+  pieceTranslate(translate: number): number {
+    const min = 80;
+    const max = 120;
+
+    translate = translate > max ? max : translate;
+    translate = translate < min ? min : translate;
+
+    return translate;
+  }
+
   pieceFull(translate: number): string {
-    return 'scale(1) translateY(-' + translate / 1.5 + 'px)';
+    return 'scale(1) translateY(-' + this.pieceTranslate(translate) + 'px)';
   }
 
   delay(millisecondes: number): Promise<void> {
