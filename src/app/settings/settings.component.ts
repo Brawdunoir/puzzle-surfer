@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit {
     private storage: StorageService,
     private basic: BasicService,
     private settings: SettingsService,
-    private game: GameService,
+    private game: GameService
   ) {}
 
   ngOnInit(): void {}
@@ -34,6 +34,10 @@ export class SettingsComponent implements OnInit {
 
   selectTheme(event: any): void {
     this.settings.setTheme(event.currentTarget.id);
+  }
+
+  selectAccessibility(event: any): void {
+    this.settings.setAccessibility(event.currentTarget.id);
   }
 
   close(): void {

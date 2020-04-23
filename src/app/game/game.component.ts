@@ -52,6 +52,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.settings.setTheme(this.settings.getTheme());
+    this.settings.setAccessibility(this.settings.getAccessibility());
     this.init();
     this.viewContainerArray.push(this.pieceHost1.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);

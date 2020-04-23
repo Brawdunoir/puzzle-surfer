@@ -59,20 +59,26 @@
         padding: 0;
       }
 
-      .settings__bubble-container {
+      .settings__bubble-container,
+      .settings__tile-container {
         display: flex;
         padding: 1em;
 
-        .settings__bubble + .settings__bubble {
+        .settings__bubble + .settings__bubble,
+        .settings__tile + .settings__tile {
           margin-left: 1.5em;
         }
 
-        .settings__bubble {
+        .settings__bubble,
+        .settings__tile {
           height: 50px;
           width: 50px;
-          border-radius: 50%;
           border: 2px grey solid;
           cursor: pointer;
+        }
+
+        .settings__bubble {
+          border-radius: 50%;
 
           &#light {
             background-color: #faf9f8;
@@ -82,6 +88,30 @@
           }
           &#amoled {
             background-color: #000;
+          }
+        }
+
+        .settings__tile {
+          border-radius: $border-radius;
+
+          &#false,
+          &#true {
+            background-color: var(--background-secondary);
+            position: relative;
+          }
+
+          &#true::before {
+            content: "";
+            display: block;
+            height: 33%;
+            width: 33%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--font);
+            border-radius: 50%;
+            mix-blend-mode: soft-light;
           }
         }
       }

@@ -6,6 +6,7 @@ import { StorageService } from './storage.service';
 })
 export class SettingsService {
   body = document.querySelector('body').classList;
+  accessibilityClassName = 'accessibility';
 
   constructor(private storage: StorageService) {}
 
@@ -24,5 +25,17 @@ export class SettingsService {
     this.body.remove('light');
     this.body.remove('dark');
     this.body.remove('amoled');
+  }
+
+  getAccessibility(): string {
+    const currentAccessibility = this.storage.get(this.accessibilityClassName);
+    return currentAccessibility ? currentAccessibility : 'false';
+  }
+
+  setAccessibility(toggle: string): void {
+    toggle === 'true'
+      ? this.body.add(this.accessibilityClassName)
+      : this.body.remove(this.accessibilityClassName);
+    this.storage.store(this.accessibilityClassName, toggle);
   }
 }
