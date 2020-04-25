@@ -151,7 +151,7 @@ export class GameService {
     this.currentPiecesID.splice(0, this.currentPiecesID.length);
     this.reloadPiece.next(-1);
   }
-  
+
   triggerChangeDimensions() {
     // Reload dimensions in basic and change the jumps of the pieces
     this.basic.init();
