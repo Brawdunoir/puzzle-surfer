@@ -51,7 +51,7 @@ export class GameService {
       }
     }
     // Check if the user has completed a row/column
-    this.checkGridComplete();
+    this.checkComplete();
     // Check if the user has lost
     this.isEnd();
   }
@@ -63,43 +63,31 @@ export class GameService {
     this.settings.setAccessibility(this.settings.getAccessibility());
   }
 
-  checkGridComplete(): void {
+  checkComplete(): void {
     const dim = this.basic.dimensions;
+    const grid = this.basic.grid;
+    const rows = [];
+    const columns = [];
     let combo = 0;
 
-    // On vérifie si c'est complet
-    for (let i = 0; i < dim; i++) {
-      let col = true;
-      let row = true;
-
-      for (let j = 0; j < dim; j++) {
-        // Lignes
-        if (!this.basic.grid[i * dim + j]) {
-          row = false;
-        }
-
-        // Colonnes
-        if (!this.basic.grid[i + j * dim]) {
-          col = false;
-        }
+    // Check si une ligne/complète est finie
+    for (let i = 0; i < grid.length; i++) {
+      if (!grid[i]) {
+        rows[Math.trunc(i / dim)] = true;
+        columns[i % dim] = true;
       }
-
-      // On retire si c'est toujours vrai
-      if (row) {
-        for (let j = 0; j < dim; j++) {
-          this.basic.updateGrid([i * dim + j], false);
-        }
+    }
+    // Enlève les lignes/colonnes complètes
+    for (let i = 0; i < dim; i++) {
+      if (!rows[i]) {
+        this.basic.updateGridFromIndex('row', i, false);
         combo++;
       }
-
-      if (col) {
-        for (let j = 0; j < dim; j++) {
-          this.basic.updateGrid([i + j * dim], false);
-        }
+      if (!columns[i]) {
+        this.basic.updateGridFromIndex('column', i, false);
         combo++;
       }
     }
-
     if (combo > 0) {
       this.score.add(this.score.calculate(dim, combo));
     }

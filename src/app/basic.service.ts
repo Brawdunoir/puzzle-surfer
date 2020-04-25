@@ -24,7 +24,7 @@ export class BasicService {
   constructor(
     private variable: VariableService,
     private storage: StorageService
-  ) {}
+  ) { }
 
   init() {
     this.dimensions = this.getDimensions();
@@ -79,5 +79,17 @@ export class BasicService {
         ? this.variable.tileFull
         : this.variable.tileHalf;
     }
+  }
+
+  updateGridFromIndex(type: string = '', ind: number, filled: boolean, color: string = ''): void {
+    const index = [];
+    for (let i = 0; i < this.dimensions; i++) {
+      if (type === 'row') {
+        index.push(ind * this.dimensions + i);
+      } else if (type === 'column') {
+        index.push(ind + i * this.dimensions);
+      }
+    }
+    this.updateGrid(index, filled, color);
   }
 }
