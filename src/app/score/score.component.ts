@@ -32,8 +32,8 @@ export class ScoreComponent implements OnInit, OnDestroy {
       this.currentScore += value;
 
       if (this.currentScore > this.bestScore) {
-        this.bestScore += value;
         this.scoreService.updateBest(this.currentScore);
+        this.bestScore = this.scoreService.getBest();
       }
     });
 
