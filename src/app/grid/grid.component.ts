@@ -19,7 +19,7 @@ export class GridComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.tiles = this.basic.tiles;
 
-    this.update = this.basic.updateTileEvent.subscribe((value) => {
+    this.update = this.basic.update.subscribe((value) => {
       this.tiles = value;
       this.dimensions = this.basic.dimensions;
       this.blocUnit = this.basic.blocUnit;

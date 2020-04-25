@@ -18,7 +18,8 @@ export class BasicService {
   grid: boolean[] = [];
   tiles: Tile[] = [];
 
-  updateTileEvent: Subject<Tile[]> = new Subject();
+  // Trigger when dimensions has changed for grid component
+  update: Subject<Tile[]> = new Subject();
 
   constructor(
     private variable: VariableService,
@@ -53,7 +54,7 @@ export class BasicService {
       this.tiles.push({ color: '', filled: this.variable.tileHalf });
     }
 
-    this.updateTileEvent.next(this.tiles);
+    this.update.next(this.tiles);
   }
 
   restart(): void {
@@ -62,8 +63,6 @@ export class BasicService {
       this.tiles[i].color = '';
       this.tiles[i].filled = this.variable.tileHalf;
     }
-
-    this.updateTileEvent.next(this.tiles);
   }
 
   indexToCoord(index: number): Coordonnee {
@@ -80,7 +79,5 @@ export class BasicService {
         ? this.variable.tileFull
         : this.variable.tileHalf;
     }
-
-    this.updateTileEvent.next(this.tiles);
   }
 }
