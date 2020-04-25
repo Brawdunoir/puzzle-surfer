@@ -57,8 +57,12 @@ export class GameComponent implements OnInit, OnDestroy {
     this.viewContainerArray.push(this.pieceHost1.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost3.viewContainerRef);
-    this.reloadPiece = this.gameService.reloadPiece.subscribe(() => {
-      this.loadComponent();
+    this.reloadPiece = this.gameService.reloadPiece.subscribe((value) => {
+      if (value === -1) {
+        this.loadAllComponents();
+      } else {
+        this.loadComponent(this.viewContainerArray[value]);
+      }
     });
     this.end = this.gameService.end.subscribe(() => {
       this.displayMenu = true;
@@ -75,22 +79,23 @@ export class GameComponent implements OnInit, OnDestroy {
     this.restart.unsubscribe();
   }
 
-  loadComponent() {
-    for (const i of this.viewContainerArray) {
-      // Choix aléatoire d'une pièce
-      this.pieceService.getRandomID();
-      // On enregistre son id
-      this.gameService.addPiecesID(this.pieceService.random);
-      // Préparer la recette de cette pièce
-      const ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-        CommonBlocComponent
-      );
-      // Initialiser la vue
-      const viewContainer = i;
-      // Nettoyer l'ancien component du DOM
-      viewContainer.clear();
-      // Créer la pièce
-      viewContainer.createComponent(ComponentFactory);
+  loadComponent(view: ViewContainerRef) {
+    const viewID = this.viewContainerArray.indexOf(view);
+    // Choix aléatoire d'une pièce et ajout de celle ci dans le jeu logique
+    this.gameService.addPiece(viewID);
+    // Préparer la recette de cette pièce
+    const ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      CommonBlocComponent
+    );
+    // Nettoyer l'ancien component du DOM
+    view.clear();
+    // Créer la pièce
+    view.createComponent(ComponentFactory);
+  }
+
+  loadAllComponents() {
+    for (const view of this.viewContainerArray) {
+      this.loadComponent(view);
     }
   }
 

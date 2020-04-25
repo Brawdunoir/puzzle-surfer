@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BasicService } from './basic.service';
 import { FormeService } from './forme.service';
+import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +10,8 @@ export class PieceService {
 
   dim = this.basic.dimensions;
 
-  random: number;
-
+  currentPieceID: number;
+  currentViewID: number;
   formesInGameID: number[] = [];
 
   formes = this.forme.formes;
@@ -20,17 +21,12 @@ export class PieceService {
   /** Retourne un nombre d'une pièce afin qu'elle soit créé
    *  dans GameComponent grâce à un CommonBlocComponent.
    */
-  getRandomID(): void {
-    let maxIter = 5;
-    let i: number;
-    do {
-      i = Math.floor(
-        Math.random() * Math.floor(this.formesInGameID.length)
-      );
-      maxIter--;
-    } while (i in this.formesInGameID || maxIter >= 0);
-
-    this.random = this.formesInGameID[i];
+  getRandomID(): number {
+    const i = Math.floor(
+      Math.random() * Math.floor(this.formesInGameID.length)
+    );
+    this.currentPieceID = this.formesInGameID[i];
+    return this.currentPieceID;
   }
 
   /** Garder que l'id de certaines pièces

@@ -13,7 +13,8 @@ import { VariableService } from '../variable.service';
 export class CommonBlocComponent {
   blocUnit = this.basic.blocUnit;
 
-  PIECE_ID = this.pieceService.random;
+  PIECE_ID = this.pieceService.currentPieceID;
+  VIEW_ID = this.pieceService.currentViewID;
   POSITIONS = this.pieceService.formes[this.PIECE_ID].positions;
   DIMENSIONS = this.pieceService.formes[this.PIECE_ID].dimensions;
   JUMPS = this.pieceService.formes[this.PIECE_ID].jumps;
@@ -40,7 +41,7 @@ export class CommonBlocComponent {
     const index: number[] = this.indexService.get(event, this.JUMPS);
 
     if (this.indexService.isSuitable(index)) {
-      this.gameService.uponIndexReceived(index, this.PIECE_ID, this.COLOR);
+      this.gameService.uponIndexReceived(index, this.PIECE_ID, this.VIEW_ID, this.COLOR);
       await this.variable.delay(this.variable.tilePutDelay);
       this.display = false;
     } else {
