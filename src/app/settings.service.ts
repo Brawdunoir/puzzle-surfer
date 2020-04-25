@@ -63,7 +63,7 @@ export class SettingsService {
     }
   }
 
-  setDifficulty() {
+  switchDifficulty() {
     if (!this.storage.get('difficulty') || this.storage.get('difficulty') === 'hard') {
       this.storage.store('difficulty', 'easy');
     } else {

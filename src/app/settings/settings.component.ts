@@ -39,8 +39,8 @@ export class SettingsComponent implements OnInit {
     this.settings.setAccessibility(event.currentTarget.id);
   }
 
-  selectDifficulty() {
-    this.settings.setDifficulty();
+  switchDifficulty() {
+    this.settings.switchDifficulty();
     this.game.triggerRestart();
   }
 
