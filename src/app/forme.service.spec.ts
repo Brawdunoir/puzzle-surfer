@@ -10,7 +10,12 @@ describe('FormeService', () => {
     service = TestBed.inject(FormeService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('jumps should match positions', () => {
+    service.formes.forEach(forme => {
+      forme.positions.forEach(position => {
+        const jump = service.dim * position.y + position.x;
+        expect(forme.jumps).toContain(jump);
+      });
+    });
   });
 });
