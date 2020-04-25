@@ -45,12 +45,12 @@ export class CommonBlocComponent {
       await this.variable.delay(this.variable.tilePutDelay);
       this.display = false;
     } else {
+      event.source._dragRef.reset();
       this.resetStyle(event);
     }
   }
 
   resetStyle(event: any) {
-    event.source._dragRef.reset();
     this.isScale = true;
     this.getBack = true;
   }
