@@ -17,13 +17,19 @@ export class PieceService {
 
   constructor(private basic: BasicService, private forme: FormeService) {}
 
-  /** Retourne un nombre random d'une pièce afin qu'elle soit créé
+  /** Retourne un nombre d'une pièce afin qu'elle soit créé
    *  dans GameComponent grâce à un CommonBlocComponent.
    */
   getRandomID(): void {
-    const i = Math.floor(
-      Math.random() * Math.floor(this.formesInGameID.length)
-    );
+    let maxIter = 5;
+    let i: number;
+    do {
+      i = Math.floor(
+        Math.random() * Math.floor(this.formesInGameID.length)
+      );
+      maxIter--;
+    } while (i in this.formesInGameID || maxIter >= 0);
+
     this.random = this.formesInGameID[i];
   }
 
