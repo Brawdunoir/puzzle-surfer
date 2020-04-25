@@ -44,4 +44,11 @@ export class PieceService {
       }
     }
   }
+
+  changeGridDimensions() {
+    this.dim = this.basic.dimensions;
+    this.forme.updateJumps();
+    this.formes = this.forme.formes;
+    this.init();
+  }
 }

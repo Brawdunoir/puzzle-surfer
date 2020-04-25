@@ -10,10 +10,10 @@
       <mat-slider
         [min]="min"
         [max]="max"
-        [value]="value"
+        [value]="valueDimensions"
         [color]="color"
         [thumbLabel]="true"
-        (change)="changeGridDimension($event)"
+        (change)="selectGridDimension($event)"
       ></mat-slider>
     </div>
 
@@ -52,7 +52,17 @@
           (click)="selectAccessibility($event)"
           class="settings__tile"
           id="true"
-        ></div>
+          ></div>
+        </div>
+      <div class="settings__container">
+        <h2 class="settings__title">hard mode</h2>
+        
+          <div class="settings__tile-container"></div>
+            <mat-slide-toggle
+            [color]="color"
+            [checked]="valueHard"
+            (change)="selectDifficulty($event)"
+            ></mat-slide-toggle>
       </div>
     </div>
   </div>

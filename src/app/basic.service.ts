@@ -18,7 +18,6 @@ export class BasicService {
   grid: boolean[] = [];
   tiles: Tile[] = [];
 
-  updateGridEvent: Subject<boolean[]> = new Subject();
   updateTileEvent: Subject<Tile[]> = new Subject();
 
   constructor(
@@ -27,7 +26,7 @@ export class BasicService {
   ) {}
 
   init() {
-    this.getDimensions();
+    this.dimensions = this.getDimensions();
     this.getInitUnit();
     this.initGrid();
   }
@@ -54,7 +53,7 @@ export class BasicService {
       this.tiles.push({ color: '', filled: this.variable.tileHalf });
     }
 
-    this.sendUpdates();
+    this.updateTileEvent.next(this.tiles);
   }
 
   restart(): void {
@@ -64,7 +63,7 @@ export class BasicService {
       this.tiles[i].filled = this.variable.tileHalf;
     }
 
-    this.sendUpdates();
+    this.updateTileEvent.next(this.tiles);
   }
 
   indexToCoord(index: number): Coordonnee {
@@ -82,11 +81,6 @@ export class BasicService {
         : this.variable.tileHalf;
     }
 
-    this.sendUpdates();
-  }
-
-  sendUpdates(): void {
-    this.updateGridEvent.next(this.grid);
     this.updateTileEvent.next(this.tiles);
   }
 }

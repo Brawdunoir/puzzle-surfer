@@ -39,21 +39,13 @@ export class GameComponent implements OnInit, OnDestroy {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private pieceService: PieceService,
-    private basic: BasicService,
     private gameService: GameService,
-    private settings: SettingsService
   ) {}
 
-  init() {
-    this.basic.init();
-    this.pieceService.init();
-  }
 
   ngOnInit(): void {
-    this.settings.setTheme(this.settings.getTheme());
-    this.settings.setAccessibility(this.settings.getAccessibility());
-    this.init();
+    this.gameService.initialization();
+
     this.viewContainerArray.push(this.pieceHost1.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost3.viewContainerRef);

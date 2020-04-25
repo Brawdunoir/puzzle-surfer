@@ -645,5 +645,16 @@ export class FormeService {
     },
   ];
 
-  constructor(private basic: BasicService) {}
+  constructor(private basic: BasicService) { }
+
+  updateJumps() {
+    this.dim = this.basic.dimensions;
+
+    this.formes.forEach(forme => {
+      forme.jumps = [];
+      for (const position of forme.positions) {
+        forme.jumps.push(position.x + position.y * this.dim);
+      }
+    });
+  }
 }

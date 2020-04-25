@@ -6,6 +6,7 @@ import { PieceService } from './piece.service';
 import { VariableService } from './variable.service';
 import { IndexService } from './index.service';
 import { StorageService } from './storage.service';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,7 @@ export class GameService {
     private variable: VariableService,
     private index: IndexService,
     private storage: StorageService,
+    private settings: SettingsService,
   ) {}
 
   async uponIndexReceived(
@@ -40,7 +42,7 @@ export class GameService {
 
     this.delPiecesID(idPiece);
 
-    if (this.isEasy()) {
+    if (!this.isHard()) {
       this.reloadPiece.next(idView);
     } else {
       // There are not more pieces, reload new ones
@@ -52,6 +54,13 @@ export class GameService {
     this.checkGridComplete();
     // Check if the user has lost
     this.isEnd();
+  }
+
+  initialization(): void {
+    this.basic.init();
+    this.pieceService.init();
+    this.settings.setTheme(this.settings.getTheme());
+    this.settings.setAccessibility(this.settings.getAccessibility());
   }
 
   checkGridComplete(): void {
@@ -133,21 +142,28 @@ export class GameService {
   }
 
   triggerRestart(): void {
+    // Trigger restart in basic Service
+    this.basic.restart();
     // Trigger restart in components
     // ie in GameComponent, ScoreComponent
     this.restart.next();
-    // Trigger restart in basic Service
-    this.basic.restart();
+    // Remove existing pieces and reload new
+    this.currentPiecesID.splice(0, this.currentPiecesID.length);
+    this.reloadPiece.next(-1);
+  }
+  
+  triggerChangeDimensions() {
+    // Reload dimensions in basic and change the jumps of the pieces
+    this.basic.init();
+    this.pieceService.changeGridDimensions();
+    // Trigger restart to reset score
+    this.restart.next();
     // Remove existing pieces and reload new
     this.currentPiecesID.splice(0, this.currentPiecesID.length);
     this.reloadPiece.next(-1);
   }
 
-  isEasy(): boolean {
-    if (!this.storage.get('difficulty') || this.storage.get('difficulty') === 'easy') {
-      return true;
-    } else {
-      return false;
-    }
+  isHard(): boolean {
+    return this.settings.getDifficulty();
   }
 }

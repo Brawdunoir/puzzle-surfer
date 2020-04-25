@@ -13,23 +13,22 @@ export class SettingsComponent implements OnInit {
   // Slider
   min = 8;
   max = 20;
-  value = this.basic.getDimensions();
+  valueDimensions = this.settings.getGridDimensions();
+  valueHard = this.settings.getDifficulty();
   color = 'primary';
 
   @Output() settingsState = new EventEmitter<boolean>();
 
   constructor(
-    private storage: StorageService,
-    private basic: BasicService,
     private settings: SettingsService,
-    private game: GameService
+    private game: GameService,
   ) {}
 
   ngOnInit(): void {}
 
-  changeGridDimension(event: any) {
-    this.storage.store('dimensions', event.value);
-    this.game.triggerRestart();
+  selectGridDimension(event: any) {
+    this.settings.setGridDimensions(event.value);
+    this.game.triggerChangeDimensions();
   }
 
   selectTheme(event: any): void {
@@ -38,6 +37,11 @@ export class SettingsComponent implements OnInit {
 
   selectAccessibility(event: any): void {
     this.settings.setAccessibility(event.currentTarget.id);
+  }
+
+  selectDifficulty() {
+    this.settings.setDifficulty();
+    this.game.triggerRestart();
   }
 
   close(): void {

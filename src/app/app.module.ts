@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 import { AppComponent } from './app.component';
 import { GridComponent } from './grid/grid.component';
@@ -43,6 +45,7 @@ import { SettingsComponent } from './settings/settings.component';
     DragDropModule,
     MatGridListModule,
     MatSliderModule,
+    MatSlideToggleModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'game', component: GameComponent },

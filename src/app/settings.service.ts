@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
+import { BasicService } from './basic.service';
+import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +10,15 @@ export class SettingsService {
   body = document.querySelector('body').classList;
   accessibilityClassName = 'accessibility';
 
-  constructor(private storage: StorageService) {}
+  constructor(private storage: StorageService, private basic: BasicService) { }
+
+  getGridDimensions(): number {
+    return this.basic.getDimensions();
+  }
+
+  setGridDimensions(value: number) {
+    this.storage.store('dimensions', value.toString());
+  }
 
   getTheme(): string {
     const currentTheme = this.storage.get('theme');
@@ -37,5 +47,27 @@ export class SettingsService {
       ? this.body.add(this.accessibilityClassName)
       : this.body.remove(this.accessibilityClassName);
     this.storage.store(this.accessibilityClassName, toggle);
+  }
+
+  /** return TRUE if HARD
+   * return FALSE if EASY
+   */
+  getDifficulty() {
+    if (
+      !this.storage.get('difficulty') ||
+      this.storage.get('difficulty') === 'easy'
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  setDifficulty() {
+    if (!this.storage.get('difficulty') || this.storage.get('difficulty') === 'hard') {
+      this.storage.store('difficulty', 'easy');
+    } else {
+      this.storage.store('difficulty', 'hard');
+    }
   }
 }
