@@ -44,25 +44,20 @@ export class IndexService {
     return index;
   }
 
-  isSuitable(indexArray: number[]): boolean {
+  isSuitable(indexArray: number[], i: number = 0): boolean {
+    const dim = this.basic.dimensions;
     for (const index of indexArray) {
+      const coord = this.basic.indexToCoord(index);
+
       const alreadyExisting = this.basic.grid[index];
       const negativeIndex = index < 0;
-      const outOfRange = this.outOfRange(this.basic.indexToCoord(index));
+      const outOfRangeBottom = coord.y >= dim;
+      const outOfRangeRight = Math.trunc(i / dim) * dim + coord.x >= dim;
 
-      if (alreadyExisting || negativeIndex || outOfRange) {
+      if (alreadyExisting || negativeIndex || outOfRangeRight || outOfRangeBottom) {
         return false;
       }
     }
-
     return true;
-  }
-
-  outOfRange(coord: Coordonnee): boolean {
-    if (coord.x >= this.basic.dimensions || coord.y >= this.basic.dimensions) {
-      return true;
-    }
-
-    return false;
   }
 }
