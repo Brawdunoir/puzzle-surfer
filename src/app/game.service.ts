@@ -122,8 +122,6 @@ export class GameService {
         const indexArray = this.index.getFromPiece(i, this.pieceService.formes[id].jumps);
 
         if (this.index.isSuitable(indexArray, i)) {
-          console.log(indexArray);
-          console.log(this.currentPiecesID);
           return;
         }
       }

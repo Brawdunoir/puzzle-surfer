@@ -52,9 +52,8 @@ export class IndexService {
       const alreadyExisting = this.basic.grid[index];
       const negativeIndex = index < 0;
       const outOfRangeBottom = coord.y >= dim;
-      const outOfRangeRight = Math.trunc(i / dim) * dim + coord.x >= dim;
 
-      if (alreadyExisting || negativeIndex || outOfRangeRight || outOfRangeBottom) {
+      if (alreadyExisting || negativeIndex || outOfRangeBottom) {
         return false;
       }
     }

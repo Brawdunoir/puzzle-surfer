@@ -66,8 +66,8 @@ export class BasicService {
   }
 
   indexToCoord(index: number): Coordonnee {
-    const y = index % this.dimensions;
-    const x = Math.trunc(index / this.dimensions);
+    const x = index % this.dimensions;
+    const y = Math.trunc(index / this.dimensions);
     return { x, y };
   }
 
