@@ -8,10 +8,6 @@ import { VariableService } from './variable.service';
 export class IndexService {
   constructor(private basic: BasicService, private variable: VariableService) {}
 
-  get(event: any, jumps: number[]): number[] {
-    return this.getFromPiece(this.getFirst(event), jumps);
-  }
-
   getFirst(event: any): number {
     const element = event.source.getRootElement();
     const grid = document.querySelector('.game-screen__below mat-grid-list');
@@ -34,7 +30,7 @@ export class IndexService {
     return i * this.basic.dimensions + j;
   }
 
-  getFromPiece(firstIndex: number, jumps: number[]): number[] {
+  get(firstIndex: number, jumps: number[]): number[] {
     const index: number[] = [];
 
     for (const jump of jumps) {
@@ -44,16 +40,18 @@ export class IndexService {
     return index;
   }
 
-  isSuitable(indexArray: number[], i: number = 0): boolean {
+  isSuitable(indexArray: number[], originIndex: number, pieceDimX: number): boolean {
     const dim = this.basic.dimensions;
+    const origin = this.basic.indexToCoord(originIndex);
     for (const index of indexArray) {
       const coord = this.basic.indexToCoord(index);
 
       const alreadyExisting = this.basic.grid[index];
       const negativeIndex = index < 0;
       const outOfRangeBottom = coord.y >= dim;
+      const outOfRangeRight = origin.x + pieceDimX >= dim + 1;
 
-      if (alreadyExisting || negativeIndex || outOfRangeBottom) {
+      if (alreadyExisting || negativeIndex || outOfRangeBottom || outOfRangeRight) {
         return false;
       }
     }

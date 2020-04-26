@@ -38,8 +38,10 @@ export class CommonBlocComponent {
   }
 
   async onDragEnded(event: any) {
-    const index: number[] = this.indexService.get(event, this.JUMPS);
-    if (this.indexService.isSuitable(index)) {
+    const origin = this.indexService.getFirst(event);
+    const index: number[] = this.indexService.get(origin, this.JUMPS);
+
+    if (this.indexService.isSuitable(index, origin, this.DIMENSIONS.x)) {
       this.gameService.uponIndexReceived(index, this.PIECE_ID, this.VIEW_ID, this.COLOR);
       await this.variable.delay(this.variable.tilePutDelay);
       this.display = false;

@@ -119,9 +119,10 @@ export class GameService {
   isEnd(): void {
     for (const id of this.currentPiecesID) {
       for (let i = 0; i < this.basic.grid.length; i++) {
-        const indexArray = this.index.getFromPiece(i, this.pieceService.formes[id].jumps);
+        const forme = this.pieceService.formes[id];
+        const indexArray = this.index.get(i, forme.jumps);
 
-        if (this.index.isSuitable(indexArray, i)) {
+        if (this.index.isSuitable(indexArray, i, forme.dimensions.x)) {
           return;
         }
       }
