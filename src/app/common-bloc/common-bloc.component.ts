@@ -4,6 +4,7 @@ import { BasicService } from '../basic.service';
 import { GameService } from '../game.service';
 import { PieceService } from '../piece.service';
 import { VariableService } from '../variable.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-common-bloc',
@@ -23,6 +24,7 @@ export class CommonBlocComponent {
   private isScale = true;
   private display = true;
   private getBack = false;
+  private onDrag = false;
 
   constructor(
     private indexService: IndexService,
@@ -38,6 +40,9 @@ export class CommonBlocComponent {
   }
 
   async onDragEnded(event: any) {
+    // Empêche le resetStyle par (touchend)
+    this.onDrag = true;
+
     const origin = this.indexService.getFirst(event);
     const index: number[] = this.indexService.get(origin, this.JUMPS);
 
@@ -45,15 +50,19 @@ export class CommonBlocComponent {
       this.gameService.uponIndexReceived(index, this.PIECE_ID, this.VIEW_ID, this.COLOR);
       await this.variable.delay(this.variable.tilePutDelay);
       this.display = false;
+      this.onDrag = false;
     } else {
+      this.onDrag = false;
       event.source._dragRef.reset();
       this.resetStyle(event);
     }
   }
 
   resetStyle(event: any) {
-    this.isScale = true;
-    this.getBack = true;
+    if (!this.onDrag) {
+      this.isScale = true;
+      this.getBack = true;
+    }
   }
 
   setStyleContainer() {
