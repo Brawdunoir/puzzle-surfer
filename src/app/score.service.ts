@@ -24,19 +24,23 @@ export class ScoreService {
 
   updateBest(newBest: number): void {
     // Verify this new score is better than previous
+    const dim = this.storage.get('dimensions');
+    const bestScore = 'bestScore'.concat(dim.toString());
     if (
-      !this.storage.get('bestScore') ||
-      +this.storage.get('bestScore') < newBest
+      !this.storage.get(bestScore) ||
+      +this.storage.get(bestScore) < newBest
     ) {
       // Store it
-      this.storage.store('bestScore', newBest.toString());
+      this.storage.store(bestScore, newBest.toString());
     }
   }
 
   getBest(): number {
-    if (!this.storage.get('bestScore')) {
+    const dim = this.storage.get('dimensions');
+    const bestScore = 'bestScore'.concat(dim.toString());
+    if (!this.storage.get(bestScore)) {
       return 0;
     }
-    return +this.storage.get('bestScore');
+    return +this.storage.get(bestScore);
   }
 }
