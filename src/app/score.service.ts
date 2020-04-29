@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { StorageService } from './storage.service';
+import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { StorageService } from './storage.service';
 export class ScoreService {
   update: Subject<number> = new Subject();
 
-  constructor(private storage: StorageService) {}
+  constructor(private storage: StorageService, private settings: SettingsService) {}
 
   add(score: number) {
     this.update.next(score);
@@ -18,8 +19,12 @@ export class ScoreService {
     if (combo < 1) {
       return 0;
     }
+    let resultat = Math.round(0.4 * Math.pow(combo, 2) + 1 * combo) * dim;
+    if (!this.settings.getDifficulty) {
+      resultat /= 2;
+    }
 
-    return Math.round(0.4 * Math.pow(combo, 2) + 1 * combo) * dim;
+    return resultat;
   }
 
   updateBest(newBest: number): void {
