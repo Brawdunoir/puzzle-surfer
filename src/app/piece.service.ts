@@ -31,16 +31,21 @@ export class PieceService {
 
   /** Garder que l'id de certaines pièces
    *  adpatées à la taille de la grille.
+   *  et on les rajoute un nombre de fois
+   *  selon leur priorité
    */
   init() {
     this.formesInGameID = [];
     for (let i = 0; i < this.formes.length; i++) {
       const forme = this.formes[i];
+      const priority = forme.priority;
       if (
         forme.dimensions.x <= Math.round(this.dim / 3) &&
         forme.dimensions.y <= Math.round(this.dim / 3)
       ) {
-        this.formesInGameID.push(i);
+        for (let k = 0; k < priority; k++) {
+          this.formesInGameID.push(i);
+        }
       }
     }
   }

@@ -5,7 +5,6 @@ import { BasicService } from './basic.service';
   providedIn: 'root',
 })
 export class FormeService {
-
   color = {
     tetris: '#ba68c8',
     cube: '#7986cb',
@@ -13,6 +12,13 @@ export class FormeService {
     doubleLine: '#81c784',
     crooked: '#ff8a65',
     l: '#e57373',
+  };
+
+  priority = {
+    low: 1,
+    normal: 2,
+    high: 4,
+    veryHigh: 8,
   };
   dim = this.basic.dimensions;
 
@@ -31,6 +37,7 @@ export class FormeService {
       ],
       jumps: [1, this.dim, this.dim + 1, this.dim + 2],
       color: this.color.tetris,
+      priority: this.priority.low,
     },
     {
       // * Tetris - 2
@@ -46,6 +53,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, this.dim + 1],
       color: this.color.tetris,
+      priority: this.priority.low,
     },
     {
       // * Tetris - 3
@@ -61,6 +69,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim, this.dim + 1, 2 * this.dim],
       color: this.color.tetris,
+      priority: this.priority.low,
     },
     {
       // * Tetris - 4
@@ -76,6 +85,7 @@ export class FormeService {
       ],
       jumps: [1, this.dim, this.dim + 1, 2 * this.dim + 1],
       color: this.color.tetris,
+      priority: this.priority.low,
     },
     {
       // * Small Cube
@@ -86,6 +96,7 @@ export class FormeService {
       positions: [{ x: 0, y: 0 }],
       jumps: [0],
       color: this.color.cube,
+      priority: this.priority.veryHigh,
     },
     {
       // * Medium Cube
@@ -101,6 +112,7 @@ export class FormeService {
       ],
       jumps: [0, 1, this.dim, this.dim + 1],
       color: this.color.cube,
+      priority: this.priority.normal,
     },
     {
       // * Large Cube
@@ -131,6 +143,7 @@ export class FormeService {
         2 * this.dim + 2,
       ],
       color: this.color.cube,
+      priority: this.priority.low,
     },
     {
       // * 2 Horizontal Line
@@ -144,6 +157,7 @@ export class FormeService {
       ],
       jumps: [0, 1],
       color: this.color.line,
+      priority: this.priority.high,
     },
     {
       // * 3 Horizontal Line
@@ -158,6 +172,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2],
       color: this.color.line,
+      priority: this.priority.normal,
     },
     {
       // * 3 Horizontal Line Double
@@ -175,6 +190,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, this.dim, this.dim + 1, this.dim + 2],
       color: this.color.line,
+      priority: this.priority.low,
     },
     {
       // * 4 Horizontal Line
@@ -190,6 +206,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, 3],
       color: this.color.line,
+      priority: this.priority.low,
     },
     {
       // * 4 Horizontal Line Double
@@ -209,6 +226,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, 3, this.dim, this.dim + 1, this.dim + 2, this.dim + 3],
       color: this.color.doubleLine,
+      priority: this.priority.low,
     },
     {
       // * 5 Horizontal Line
@@ -225,6 +243,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, 3, 4],
       color: this.color.line,
+      priority: this.priority.low,
     },
     {
       // * 5 Horizontal Line Double
@@ -257,6 +276,7 @@ export class FormeService {
         this.dim + 4,
       ],
       color: this.color.doubleLine,
+      priority: this.priority.low,
     },
     {
       // * 2 Vertical Line
@@ -270,6 +290,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim],
       color: this.color.line,
+      priority: this.priority.high,
     },
     {
       // * 3 Vertical Line
@@ -284,6 +305,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim, 2 * this.dim],
       color: this.color.line,
+      priority: this.priority.normal,
     },
     {
       // * 3 Vertical Line Double
@@ -301,6 +323,7 @@ export class FormeService {
       ],
       jumps: [0, 1, this.dim, this.dim + 1, 2 * this.dim, 2 * this.dim + 1],
       color: this.color.doubleLine,
+      priority: this.priority.low,
     },
     {
       // * 4 Vertical Line
@@ -316,6 +339,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim, 2 * this.dim, 3 * this.dim],
       color: this.color.line,
+      priority: this.priority.low,
     },
     {
       // * 4 Vertical Line Double
@@ -344,6 +368,7 @@ export class FormeService {
         3 * this.dim + 1,
       ],
       color: this.color.doubleLine,
+      priority: this.priority.low,
     },
     {
       // * 5 Vertical Line
@@ -360,6 +385,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim, 2 * this.dim, 3 * this.dim, 4 * this.dim],
       color: this.color.line,
+      priority: this.priority.low,
     },
     {
       // * 5 Vertical Line Double
@@ -392,6 +418,7 @@ export class FormeService {
         4 * this.dim + 1,
       ],
       color: this.color.doubleLine,
+      priority: this.priority.low,
     },
     {
       // * Medium Crooked - 1
@@ -406,6 +433,7 @@ export class FormeService {
       ],
       jumps: [0, 1, this.dim + 1],
       color: this.color.crooked,
+      priority: this.priority.normal,
     },
     {
       // * Medium Crooked - 2
@@ -420,6 +448,7 @@ export class FormeService {
       ],
       jumps: [0, 1, this.dim],
       color: this.color.crooked,
+      priority: this.priority.normal,
     },
     {
       // * Medium Crooked - 3
@@ -434,6 +463,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim, this.dim + 1],
       color: this.color.crooked,
+      priority: this.priority.normal,
     },
     {
       // * Medium Crooked - 4
@@ -448,6 +478,7 @@ export class FormeService {
       ],
       jumps: [1, this.dim, this.dim + 1],
       color: this.color.crooked,
+      priority: this.priority.normal,
     },
     {
       // * Medium Horizontal L - 1
@@ -464,6 +495,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, 3, this.dim + 3],
       color: this.color.l,
+      priority: this.priority.low,
     },
     {
       // * Medium Horizontal L - 2
@@ -480,6 +512,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, 3, this.dim],
       color: this.color.l,
+      priority: this.priority.low,
     },
     {
       // * Medium Horizontal L - 3
@@ -496,6 +529,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim, this.dim + 1, this.dim + 2, this.dim + 3],
       color: this.color.l,
+      priority: this.priority.low,
     },
     {
       // * Medium Horizontal L - 4
@@ -512,6 +546,7 @@ export class FormeService {
       ],
       jumps: [this.dim, this.dim + 1, this.dim + 2, this.dim + 3, 3],
       color: this.color.l,
+      priority: this.priority.low,
     },
     {
       // * Large Crooked - 1
@@ -528,6 +563,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, this.dim + 2, 2 * this.dim + 2],
       color: this.color.crooked,
+      priority: this.priority.low,
     },
     {
       // * Large Crooked - 2
@@ -544,6 +580,7 @@ export class FormeService {
       ],
       jumps: [0, 1, 2, this.dim, 2 * this.dim],
       color: this.color.crooked,
+      priority: this.priority.low,
     },
     {
       // * Large Crooked - 3
@@ -560,6 +597,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim, 2 * this.dim, 2 * this.dim + 1, 2 * this.dim + 2],
       color: this.color.crooked,
+      priority: this.priority.low,
     },
     {
       // * Large Crooked - 4
@@ -582,6 +620,7 @@ export class FormeService {
         2 * this.dim + 1,
       ],
       color: this.color.crooked,
+      priority: this.priority.low,
     },
     {
       // * Medium Vertical L - 1
@@ -597,6 +636,7 @@ export class FormeService {
       ],
       jumps: [0, 1, this.dim + 1, 2 * this.dim + 1],
       color: this.color.l,
+      priority: this.priority.low,
     },
     {
       // * Medium Vertical L - 2
@@ -612,6 +652,7 @@ export class FormeService {
       ],
       jumps: [0, 1, this.dim, 2 * this.dim],
       color: this.color.l,
+      priority: this.priority.low,
     },
     {
       // * Medium Vertical L - 3
@@ -627,6 +668,7 @@ export class FormeService {
       ],
       jumps: [0, this.dim, 2 * this.dim, 2 * this.dim + 1],
       color: this.color.l,
+      priority: this.priority.low,
     },
     {
       // * Medium Vertical L - 4
@@ -642,15 +684,16 @@ export class FormeService {
       ],
       jumps: [1, this.dim + 1, 2 * this.dim + 1, 2 * this.dim],
       color: this.color.l,
+      priority: this.priority.low,
     },
   ];
 
-  constructor(private basic: BasicService) { }
+  constructor(private basic: BasicService) {}
 
   updateJumps() {
     this.dim = this.basic.dimensions;
 
-    this.formes.forEach(forme => {
+    this.formes.forEach((forme) => {
       forme.jumps = [];
       for (const position of forme.positions) {
         forme.jumps.push(position.x + position.y * this.dim);
