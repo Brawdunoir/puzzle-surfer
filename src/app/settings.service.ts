@@ -21,8 +21,10 @@ export class SettingsService {
   }
 
   clearTheme(): void {
+    this.body.remove('default');
     this.body.remove('light');
     this.body.remove('dark');
     this.body.remove('amoled');
+    this.body.remove('chrome');
   }
 }
