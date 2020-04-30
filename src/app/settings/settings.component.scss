@@ -64,9 +64,8 @@
         display: flex;
         padding: 1em;
 
-        .settings__bubble + .settings__bubble,
-        .settings__tile + .settings__tile {
-          margin-left: 1.5em;
+        .settings__bubble + .settings__bubble {
+          margin-left: 0.3em;
         }
 
         .settings__bubble,
@@ -80,8 +79,14 @@
         .settings__bubble {
           border-radius: 50%;
 
+          &#default {
+            background-color: #92C4EE;
+          }
           &#light {
             background-color: #faf9f8;
+          }
+          &#chrome {
+            background-color: #C0C0C0;
           }
           &#dark {
             background-color: #11100f;
