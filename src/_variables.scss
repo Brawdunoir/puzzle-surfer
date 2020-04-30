@@ -38,7 +38,7 @@ $rainbow: rainbow 6s infinite;
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
 
   .settings__bubble#default {
-    border-color: dodgerblue !important;
+    @include rainbowBorder();
   }
 }
 .light {
@@ -63,7 +63,7 @@ $rainbow: rainbow 6s infinite;
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
 
   .settings__bubble#chrome {
-    border-color: dodgerblue !important;
+    @include rainbowBorder();
   }
 }
 
