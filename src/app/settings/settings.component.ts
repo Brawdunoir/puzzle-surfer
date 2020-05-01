@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { StorageService } from '../storage.service';
-import { BasicService } from '../basic.service';
 import { SettingsService } from '../settings.service';
 import { GameService } from '../game.service';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-settings',

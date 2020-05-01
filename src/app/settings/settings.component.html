@@ -1,6 +1,8 @@
 <div id="page">
   <div id="header">
     <h1 id="header__title">settings</h1>
+    <mat-icon-button class="close__button"
+    (click)="close()"><i class="material-icons-round">clear</i></mat-icon-button>
   </div>
 
   <div class="settings">
@@ -62,18 +64,19 @@
           (click)="selectAccessibility($event)"
           class="settings__tile"
           id="true"
-          ></div>
-        </div>
-      <div class="settings__container">
-        <h2 class="settings__title">hard mode</h2>
-        
-          <div class="settings__tile-container"></div>
-            <mat-slide-toggle
-            [color]="color"
-            [checked]="valueHard"
-            (change)="switchDifficulty()"
-            ></mat-slide-toggle>
+        ></div>
       </div>
+    </div>
+
+    <div class="settings__container">
+      <h2 class="settings__title">hard mode</h2>
+        <div class="settings__tile-container">
+          <mat-slide-toggle
+          [color]="color"
+          [checked]="valueHard"
+          (change)="switchDifficulty()"
+          ></mat-slide-toggle>
+        </div>
     </div>
   </div>
 </div>

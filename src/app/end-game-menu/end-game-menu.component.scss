@@ -10,8 +10,8 @@
   display: flex;
 
   .windows {
-    z-index: 1;
-    margin: auto;
+    z-index: 0;
+    margin: auto auto 2rem;
 
     min-height: 200px;
     width: 85%;
@@ -67,7 +67,7 @@
 
   .background {
     z-index: -1;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.60);
     position: fixed;
     top: 0;
     right: 0;
