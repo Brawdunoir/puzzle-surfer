@@ -17,8 +17,8 @@ export class FormeService {
   priority = {
     low: 1,
     normal: 2,
-    high: 4,
-    veryHigh: 8,
+    high: 3,
+    veryHigh: 5,
   };
   dim = this.basic.dimensions;
 
