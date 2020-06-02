@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BasicService } from './basic.service';
+import { GridService } from './grid.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class FormeService {
     low: 1,
     normal: 2,
     high: 3,
-    veryHigh: 5,
+    veryHigh: 4,
   };
   dim = this.basic.dimensions;
 
@@ -688,7 +688,7 @@ export class FormeService {
     },
   ];
 
-  constructor(private basic: BasicService) {}
+  constructor(private basic: GridService) {}
 
   updateJumps() {
     this.dim = this.basic.dimensions;

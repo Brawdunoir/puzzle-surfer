@@ -14,7 +14,7 @@ export class SettingsComponent implements OnInit {
   min = 8;
   max = 20;
   valueDimensions = this.settings.getGridDimensions();
-  valueHard = this.settings.getDifficulty();
+  valueHard = this.settings.isHard();
   color = 'primary';
 
   @Output() settingsState = new EventEmitter<boolean>();

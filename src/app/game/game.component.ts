@@ -12,7 +12,7 @@ import {
   PieceDirective3,
 } from '../piece.directive';
 import { PieceService } from '../piece.service';
-import { BasicService } from '../basic.service';
+import { GridService } from '../grid.service';
 import { GameService } from '../game.service';
 import { CommonBlocComponent } from '../common-bloc/common-bloc.component';
 import { SettingsService } from '../settings.service';
@@ -23,6 +23,7 @@ import { SettingsService } from '../settings.service';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit, OnDestroy {
+  // The three 'View' on the bottom : pieces left to be placed
   @ViewChild(PieceDirective1, { static: true }) pieceHost1: PieceDirective1;
   @ViewChild(PieceDirective2, { static: true }) pieceHost2: PieceDirective2;
   @ViewChild(PieceDirective3, { static: true }) pieceHost3: PieceDirective3;

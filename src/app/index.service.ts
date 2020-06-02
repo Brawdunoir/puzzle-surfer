@@ -1,35 +1,37 @@
 import { Injectable } from '@angular/core';
-import { BasicService, Coordonnee } from './basic.service';
+import { GridService, Coordonnee } from './grid.service';
 import { VariableService } from './variable.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IndexService {
-  constructor(private basic: BasicService, private variable: VariableService) {}
+  constructor(private grid: GridService, private variable: VariableService) {}
 
+  /** Get the first grid index of a piece drop */
   getFirst(event: any): number {
     const element = event.source.getRootElement();
     const grid = document.querySelector('.game-screen__below mat-grid-list');
 
     const x = Math.round(
       element.getBoundingClientRect().x +
-        this.basic.blocUnit / 2 -
+        this.grid.blocUnit / 2 -
         grid.getBoundingClientRect().x
     );
     const y =
       Math.round(
         element.getBoundingClientRect().y +
-          this.basic.blocUnit / 2 -
+          this.grid.blocUnit / 2 -
           grid.getBoundingClientRect().y
       ) - this.variable.pieceTranslate(element.offsetHeight);
 
-    const i = Math.trunc(y / this.basic.blocUnit);
-    const j = Math.trunc(x / this.basic.blocUnit);
+    const i = Math.trunc(y / this.grid.blocUnit);
+    const j = Math.trunc(x / this.grid.blocUnit);
 
-    return i * this.basic.dimensions + j;
+    return i * this.grid.dimensions + j;
   }
 
+  /** Get grid index array of a piece drop  */
   get(firstIndex: number, jumps: number[]): number[] {
     const index: number[] = [];
 
@@ -40,18 +42,28 @@ export class IndexService {
     return index;
   }
 
-  isSuitable(indexArray: number[], originIndex: number, pieceDimX: number): boolean {
-    const dim = this.basic.dimensions;
-    const origin = this.basic.indexToCoord(originIndex);
+  /** Determine whether or not a piece drop is suitable at this position */
+  isSuitable(
+    indexArray: number[],
+    originIndex: number,
+    pieceDimX: number
+  ): boolean {
+    const dim = this.grid.dimensions;
+    const origin = this.grid.indexToCoord(originIndex);
     for (const index of indexArray) {
-      const coord = this.basic.indexToCoord(index);
+      const coord = this.grid.indexToCoord(index);
 
-      const alreadyExisting = this.basic.grid[index];
+      const alreadyExisting = this.grid.grid[index];
       const negativeIndex = index < 0;
       const outOfRangeBottom = coord.y >= dim;
       const outOfRangeRight = origin.x + pieceDimX >= dim + 1;
 
-      if (alreadyExisting || negativeIndex || outOfRangeBottom || outOfRangeRight) {
+      if (
+        alreadyExisting ||
+        negativeIndex ||
+        outOfRangeBottom ||
+        outOfRangeRight
+      ) {
         return false;
       }
     }

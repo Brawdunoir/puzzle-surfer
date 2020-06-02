@@ -1,42 +1,46 @@
 import { Injectable } from '@angular/core';
-import { BasicService } from './basic.service';
+import { GridService } from './grid.service';
 import { ScoreService } from './score.service';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { PieceService } from './piece.service';
 import { VariableService } from './variable.service';
 import { IndexService } from './index.service';
-import { StorageService } from './storage.service';
 import { SettingsService } from './settings.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
-  currentPiecesID: number[] = []; // ID de chaque pièce présente sur l'écran
+  currentPiecesID: number[] = []; // Pieces ID left on the bottom
 
-  end: Subject<boolean> = new Subject(); // Permet de savoir quand le jeu est terminé
-  restart: Subject<boolean> = new Subject(); // Permet de savoir quand le jeu est terminé
-  /* Permet de charger de nouvelles pièces
-    -1 permet de recharger toutes les pièces */
+  end: Subject<boolean> = new Subject(); // Trigger end in observers
+  restart: Subject<boolean> = new Subject(); // Trigger restart in observers
+
+  /* Reload new pieces on the bottom. -1 reload all. */
   reloadPiece: BehaviorSubject<number> = new BehaviorSubject(-1);
 
   constructor(
-    private basic: BasicService,
+    private grid: GridService,
     private score: ScoreService,
     private pieceService: PieceService,
     private variable: VariableService,
     private index: IndexService,
-    private storage: StorageService,
     private settings: SettingsService,
   ) {}
 
+  /** Trigger each time a piece is dropped and accepted in the grid
+   * @param indexArray index occupied by the piece
+   * @param idPiece piece ID
+   * @param idView view ID (bottom with pieces left)
+   * @param color color of the dropped piece
+   */
   async uponIndexReceived(
     indexArray: number[],
     idPiece: number,
     idView: number,
     color: string
   ): Promise<void> {
-    this.basic.updateGrid(indexArray, true, color);
+    this.grid.updateFromIndex(indexArray, true, color);
 
     await this.variable.delay(this.variable.tileDeleteDelay);
 
@@ -45,7 +49,7 @@ export class GameService {
     if (!this.isHard()) {
       this.reloadPiece.next(idView);
     } else {
-      // There are not more pieces, reload new ones
+      // There are no pieces left, reload new ones
       if (this.currentPiecesID.length === 0) {
         this.reloadPiece.next(-1);
       }
@@ -53,38 +57,40 @@ export class GameService {
     // Check if the user has completed a row/column
     this.checkComplete();
     // Check if the user has lost
-    this.isEnd();
+    this.checkEnd();
   }
 
+  /** Initialize a game */
   initialization(): void {
-    this.basic.init();
+    this.grid.init();
     this.pieceService.init();
     this.settings.setTheme(this.settings.getTheme());
     this.settings.setAccessibility(this.settings.getAccessibility());
   }
 
+  /** Check if a row/column is complete and update grid */
   checkComplete(): void {
-    const dim = this.basic.dimensions;
-    const grid = this.basic.grid;
+    const dim = this.grid.dimensions;
+    const grid = this.grid.grid;
     const rows = [];
     const columns = [];
     let combo = 0;
 
-    // Check si une ligne/complète est finie
+    // Check if a row/column if complete
     for (let i = 0; i < grid.length; i++) {
       if (!grid[i]) {
         rows[Math.trunc(i / dim)] = true;
         columns[i % dim] = true;
       }
     }
-    // Enlève les lignes/colonnes complètes
+    // Update grid in consequence
     for (let i = 0; i < dim; i++) {
       if (!rows[i]) {
-        this.basic.updateGridFromIndex('row', i, false);
+        this.grid.updateFromDim('row', i, false);
         combo++;
       }
       if (!columns[i]) {
-        this.basic.updateGridFromIndex('column', i, false);
+        this.grid.updateFromDim('column', i, false);
         combo++;
       }
     }
@@ -93,32 +99,41 @@ export class GameService {
     }
   }
 
-  addPiecesID(id: number) {
+  /** Add a piece ID in currentPiecesID */
+  private addPiecesID(id: number): void {
     this.currentPiecesID.push(id);
   }
 
-  delPiecesID(id: number) {
+  /** Delete a piece ID in currentPiecesID */
+  delPiecesID(id: number): void {
     const index = this.currentPiecesID.indexOf(id, 0);
     if (index > -1) {
       this.currentPiecesID.splice(index, 1);
     }
   }
 
+  /** Add a new piece in the view (pieces left on the bottom)
+   * It'll get a new random piece ID while this piece ID is already in the view
+   * with a cap of max itérations maxIter
+   */
   addPiece(viewID: number): void {
+    const maxIter = 3;
+    let iter = 0;
     let newID: number;
-    for (let iter = 0; iter < 5; iter++) {
+
+    do {
       newID = this.pieceService.getRandomID();
-      if (!this.currentPiecesID.includes(newID)) {
-        break;
-      }
-    }
+      iter++;
+    } while (iter < maxIter && this.currentPiecesID.includes(newID));
+
     this.addPiecesID(newID);
     this.pieceService.currentViewID = viewID;
   }
 
-  isEnd(): void {
+  /** Check if it's game over and throws end if it is */
+  checkEnd(): void {
     for (const id of this.currentPiecesID) {
-      for (let i = 0; i < this.basic.grid.length; i++) {
+      for (let i = 0; i < this.grid.grid.length; i++) {
         const forme = this.pieceService.formes[id];
         const indexArray = this.index.get(i, forme.jumps);
 
@@ -130,9 +145,10 @@ export class GameService {
     this.end.next();
   }
 
+  /** Trigger restart */
   triggerRestart(): void {
     // Trigger restart in basic Service
-    this.basic.restart();
+    this.grid.restart();
     // Trigger restart in components
     // ie in GameComponent, ScoreComponent
     this.restart.next();
@@ -141,9 +157,10 @@ export class GameService {
     this.reloadPiece.next(-1);
   }
 
-  triggerChangeDimensions() {
+  /** Trigger a change in dimension */
+  triggerChangeDimensions(): void {
     // Reload dimensions in basic and change the jumps of the pieces
-    this.basic.init();
+    this.grid.init();
     this.pieceService.changeGridDimensions();
     // Trigger restart to reset score
     this.restart.next();
@@ -152,7 +169,8 @@ export class GameService {
     this.reloadPiece.next(-1);
   }
 
+  /** Return the difficulty */
   isHard(): boolean {
-    return this.settings.getDifficulty();
+    return this.settings.isHard();
   }
 }

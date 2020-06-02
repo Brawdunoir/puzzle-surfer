@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IndexService } from '../index.service';
-import { BasicService } from '../basic.service';
+import { GridService } from '../grid.service';
 import { GameService } from '../game.service';
 import { PieceService } from '../piece.service';
 import { VariableService } from '../variable.service';
@@ -28,7 +28,7 @@ export class CommonBlocComponent {
 
   constructor(
     private indexService: IndexService,
-    private basic: BasicService,
+    private basic: GridService,
     private gameService: GameService,
     private pieceService: PieceService,
     private variable: VariableService
@@ -40,7 +40,7 @@ export class CommonBlocComponent {
   }
 
   async onDragEnded(event: any) {
-    // Empêche le resetStyle par (touchend)
+    // Prevent resetStyle by (touchend)
     this.onDrag = true;
 
     const origin = this.indexService.getFirst(event);

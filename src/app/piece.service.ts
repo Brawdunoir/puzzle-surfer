@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BasicService } from './basic.service';
+import { GridService } from './grid.service';
 import { FormeService } from './forme.service';
 import { GameService } from './game.service';
 
@@ -8,7 +8,7 @@ import { GameService } from './game.service';
 })
 export class PieceService {
 
-  dim = this.basic.dimensions;
+  dim = this.grid.dimensions;
 
   currentPieceID: number;
   currentViewID: number;
@@ -16,11 +16,9 @@ export class PieceService {
 
   formes = this.forme.formes;
 
-  constructor(private basic: BasicService, private forme: FormeService) {}
+  constructor(private grid: GridService, private forme: FormeService) {}
 
-  /** Retourne un nombre d'une pièce afin qu'elle soit créé
-   *  dans GameComponent grâce à un CommonBlocComponent.
-   */
+  /** Return a random piece ID */
   getRandomID(): number {
     const i = Math.floor(
       Math.random() * Math.floor(this.formesInGameID.length)
@@ -29,10 +27,8 @@ export class PieceService {
     return this.currentPieceID;
   }
 
-  /** Garder que l'id de certaines pièces
-   *  adpatées à la taille de la grille.
-   *  et on les rajoute un nombre de fois
-   *  selon leur priorité
+  /** Initialize forms depending on their and the grid dimensions
+   * It'll add n times the form depending on its priority
    */
   init() {
     this.formesInGameID = [];
@@ -50,8 +46,9 @@ export class PieceService {
     }
   }
 
+  /** Change pieces array related with grid dimensions */
   changeGridDimensions() {
-    this.dim = this.basic.dimensions;
+    this.dim = this.grid.dimensions;
     this.forme.updateJumps();
     this.formes = this.forme.formes;
     this.init();

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tile } from '../tile-item';
-import { BasicService } from '../basic.service';
+import { GridService } from '../grid.service';
 
 @Component({
   selector: 'app-grid',
@@ -14,7 +14,7 @@ export class GridComponent implements OnInit, OnDestroy {
 
   update: any;
 
-  constructor(private basic: BasicService) {}
+  constructor(private basic: GridService) {}
 
   ngOnInit(): void {
     this.tiles = this.basic.tiles;
