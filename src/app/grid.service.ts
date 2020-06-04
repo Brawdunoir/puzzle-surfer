@@ -3,6 +3,7 @@ import { Tile } from './tile-item';
 import { Subject } from 'rxjs';
 import { VariableService } from './variable.service';
 import { StorageService } from './storage.service';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 export interface Coordonnee {
   x: number;
@@ -13,7 +14,7 @@ export interface Coordonnee {
   providedIn: 'root',
 })
 export class GridService {
-  dimensions = this.getDimensions();
+  dimensions: number;
   blocUnit: number;
   grid: boolean[] = [];
   tiles: Tile[] = [];
@@ -23,23 +24,15 @@ export class GridService {
 
   constructor(
     private variable: VariableService,
-    private storage: StorageService
+    private storage: LocalStorage,
+    private storageService: StorageService,
   ) { }
 
   /** Initialize basic variables for grid and display */
   init(): void {
-    this.dimensions = this.getDimensions();
+    this.dimensions = +this.storageService.getSync(this.storageService.gridDimensionStorageName);
     this.getInitUnit();
     this.initGrid();
-  }
-
-  /** Get grid dimensions according to local storage */
-  getDimensions(): number {
-    if (!this.storage.get('dimensions')) {
-      return this.variable.defaultGridSize;
-    }
-
-    return +this.storage.get('dimensions');
   }
 
   /** Get bloc unit for one unit on the grid to be a square */
@@ -50,6 +43,7 @@ export class GridService {
 
   /** Initialize grid */
   initGrid(): void {
+    // TODO: La grille peut déjà être sauvegardée, check avant de l'initialiser.
     this.tiles = [];
     this.grid = [];
 
