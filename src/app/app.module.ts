@@ -49,6 +49,7 @@ import { SettingsComponent } from './settings/settings.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'game', component: GameComponent },
+      { path: 'settings', component: SettingsComponent},
     ]),
     BrowserAnimationsModule,
   ],

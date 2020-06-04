@@ -1,28 +1,6 @@
 @import "../../variables";
 
-.background {
-  z-index: 1;
-    background-color: rgba(0, 0, 0, 0.50);
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
 #page {
-  z-index: 2;
-  margin: auto;
-  width: 90%;
-  max-width: $max-width;
-  border-radius: $border-radius;
-  overflow: hidden;
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
   #header {
     background-color: var(--background-secondary);
     box-shadow: var(--shadow);

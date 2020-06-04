@@ -2,7 +2,7 @@
   <div id="header">
     <h1 id="header__title">settings</h1>
     <button mat-icon-button class="close__button"
-    (click)="close()"><i class="material-icons-round">clear</i></button>
+    routerLink="../game"><i class="material-icons-round">clear</i></button>
   </div>
 
   <div class="settings">
@@ -68,12 +68,10 @@
         <div class="settings__tile-container">
           <mat-slide-toggle
           [color]="color"
-          [checked]="valueHard"
+          [checked]="isHard"
           (change)="switchDifficulty()"
           ></mat-slide-toggle>
         </div>
     </div>
   </div>
 </div>
-
-<div class="background" (click)="close()"></div>
