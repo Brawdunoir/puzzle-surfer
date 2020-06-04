@@ -13,69 +13,38 @@ export class ScoreService {
   gridDimension = this.variables.defaultGridSize;
   isHard = this.variables.defaultDifficulty === 'hard';
 
+  currentScore: number;
+  bestScore: number;
+
   constructor(
-    private storNames: StorageService,
+    private storageService: StorageService,
     private storage: StorageMap,
     private variables: VariableService
   ) {}
 
   init(): void {
-    // ? Grid dimension / Update key
-    this.storage.watch(this.storNames.gridDimensionStorageName).subscribe(
-      (dim: number) => {
-        this.gridDimension = dim;
-        this.updateKey();
-      },
-      () => {
-        console.warn('Can not access grid dimensions in score service');
-      }
-    );
+    this.gridDimension = +this.storageService.getSync(this.storageService.gridDimensionStorageName);
+    this.isHard = this.storageService.getSync(this.storageService.difficultyStorageName) === 'hard';
 
-    // ? Difficulty / Update key
-    this.storage.watch(this.storNames.difficultyStorageName).subscribe(
-      (isHard: boolean) => {
-        this.isHard = isHard;
-        this.updateKey();
-      },
-      () => {
-        console.warn('Can not access difficulty in score service');
-      }
-    );
+    this.updateKey();
+
+    this.storage.get(this.currentScoreStorageKey).subscribe((current: number) => {
+      this.currentScore = current;
+    });
+    this.storage.get(this.bestScoreStorageKey).subscribe((best: number) => {
+      this.bestScore = best;
+    });
   }
 
   private updateKey() {
     // ? Local update
-    this.currentScoreStorageKey = this.getCurrentScoreKey();
-    this.bestScoreStorageKey = this.getBestScoreKey();
-
-    // ? Update to storage new current score key
-    this.storage
-      .set(this.storNames.currentScoreStorageKey, this.currentScoreStorageKey)
-      .subscribe(
-        () => {
-          console.log('Successfully updated current score storage key');
-        },
-        () => {
-          console.warn('Can not update current score storage key');
-        }
-      );
-
-    // ? Update to storage new best score key
-    this.storage
-      .set(this.storNames.bestScoreStorageKey, this.bestScoreStorageKey)
-      .subscribe(
-        () => {
-          console.log('Successfully updated best score storage key');
-        },
-        () => {
-          console.warn('Can not update best score storage key');
-        }
-      );
+    this.currentScoreStorageKey = this.storageService.getCurrentScoreKey(this.isHard, this.gridDimension);
+    this.bestScoreStorageKey = this.storageService.getBestScoreKey(this.isHard, this.gridDimension);
   }
 
   /** Add delta to the current score */
   add(delta: number): void {
-    const oldCurrent = this.getCurrent();
+    const oldCurrent = this.currentScore;
     const newCurrent = oldCurrent + delta;
     this.storage.set(this.currentScoreStorageKey, newCurrent).subscribe(() => {
       console.log(
@@ -83,16 +52,12 @@ export class ScoreService {
       );
       this.updateBest(newCurrent);
     });
+    this.currentScore = newCurrent;
   }
 
   /** Update the best score to the local storage */
   private updateBest(newCurrent: number): void {
-    let currentBest: number;
-    this.storage.get(this.bestScoreStorageKey).subscribe((best: number) => {
-      currentBest = best;
-    });
-
-    if (newCurrent > currentBest) {
+    if (newCurrent > this.bestScore) {
       this.storage.set(this.bestScoreStorageKey, newCurrent).subscribe(() => {
         console.log(
           'New best score (' +
@@ -100,6 +65,7 @@ export class ScoreService {
             ') saved for ' +
             this.bestScoreStorageKey
         );
+        this.bestScore = newCurrent;
       });
     }
   }
@@ -131,31 +97,6 @@ export class ScoreService {
 
   /** Get current score of the game */
   private getCurrent(): number {
-    let current: number;
-    this.storage.get(this.currentScoreStorageKey).subscribe((data: number) => {
-      if (data != null) {
-        current = data;
-      } else {
-        console.warn('Tried to get null current score from storage');
-      }
-    });
-
-    return current;
-  }
-
-  /**  Get the storage current score ID thanks to difficulty and dimension */
-  private getCurrentScoreKey(): string {
-    const dimension: string = '-' + this.gridDimension.toString();
-    let difficulty: string;
-    this.isHard ? (difficulty = '-hard') : (difficulty = '-easy');
-    return this.storNames.currentScoreBaseStorageName + difficulty + dimension;
-  }
-
-  /**  Get the storage best score ID thanks to difficulty and dimension */
-  private getBestScoreKey(): string {
-    const dimension: string = '-' + this.gridDimension.toString();
-    let difficulty: string;
-    this.isHard ? (difficulty = '-hard') : (difficulty = '-easy');
-    return this.storNames.bestScoreBaseStorageName + difficulty + dimension;
+    return +this.storageService.getSync(this.currentScoreStorageKey);
   }
 }

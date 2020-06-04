@@ -7,19 +7,16 @@ import {
 } from '@angular/core';
 import { ScoreService } from '../score.service';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-score',
   templateUrl: './score.component.html',
   styleUrls: ['./score.component.scss'],
 })
-export class ScoreComponent implements OnInit, OnDestroy {
-  currentScore = 0;
-  bestScore = 0;
-
-  currentSub: Subscription;
-  bestSub: Subscription;
+export class ScoreComponent implements OnInit {
+  currentScore$: Observable<number>;
+  bestScore$: Observable<number>;
 
   @Output() menuState = new EventEmitter<boolean>();
 
@@ -30,41 +27,14 @@ export class ScoreComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // ? Update current score
-    this.currentSub = this.storage
-      .watch(this.scoreService.currentScoreStorageKey)
-      .subscribe(
-        (current: number) => {
-          if (current !== undefined) {
-            this.currentScore = current;
-          } else {
-            this.currentScore = 0;
-          }
-        },
-        () => {
-          console.warn('Can not access current score in score component');
-        }
-      );
+    this.currentScore$ = this.storage.watch(
+      this.scoreService.currentScoreStorageKey,
+      { type: 'number' }
+    );
 
     // ? Update best score
-    this.bestSub = this.storage
-      .watch(this.scoreService.bestScoreStorageKey)
-      .subscribe(
-        (best: number) => {
-          if (best !== undefined) {
-            this.bestScore = best;
-          } else {
-            this.bestScore = 0;
-          }
-        },
-        () => {
-          console.warn('Can not access best score in score component');
-        }
-      );
-  }
-
-  ngOnDestroy(): void {
-    this.currentSub.unsubscribe();
-    this.bestSub.unsubscribe();
+    this.bestScore$ = this.storage.watch(this.scoreService.bestScoreStorageKey,
+      { type: 'number' });
   }
 
   restart(): void {
