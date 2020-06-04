@@ -20,7 +20,8 @@ export class FormeService {
     high: 3,
     veryHigh: 4,
   };
-  dim = this.basic.dimensions;
+
+  dim = this.grid.dimensions;
 
   formes = [
     {
@@ -688,10 +689,10 @@ export class FormeService {
     },
   ];
 
-  constructor(private basic: GridService) {}
+  constructor(private grid: GridService) {}
 
   updateJumps() {
-    this.dim = this.basic.dimensions;
+    this.dim = this.grid.dimensions;
 
     this.formes.forEach((forme) => {
       forme.jumps = [];
