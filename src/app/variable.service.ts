@@ -5,6 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class VariableService {
   defaultGridSize = 12;
+  minGridSize = 8;
+  maxGridSize = 15;
+  defaultDifficulty = 'easy';
+  defaultTheme = 'light';
+  defaultAccessibilityValue = false;
 
   tileHalf = 0.5; // scale css property
   tileFull = 0.9;
