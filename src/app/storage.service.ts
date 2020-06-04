@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { VariableService } from './variable.service';
+import { ScoreService } from './score.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  constructor(private storage: StorageMap, private variable: VariableService) { }
+  constructor(private storage: StorageMap, private variable: VariableService) {}
 
   syncStorage = window.localStorage;
 
@@ -30,7 +31,6 @@ export class StorageService {
   pieceIDViewStorageKey = 'key-view';
   gridStorageKey = 'key-grid';
 
-
   init(): void {
     const initDone = this.getSync(this.initCompleteStorageName) === 'true';
 
@@ -38,7 +38,10 @@ export class StorageService {
       console.log('Local storage init');
 
       // Grid dimensions
-      this.setSync(this.gridDimensionStorageName, this.variable.defaultGridSize.toString());
+      this.setSync(
+        this.gridDimensionStorageName,
+        this.variable.defaultGridSize.toString()
+      );
       console.log('grid dimension stored.');
 
       // Difficulty
@@ -46,18 +49,39 @@ export class StorageService {
       console.log('difficulty successully stored.');
 
       // Theme
-      this.storage.set(this.themeStorageName, this.variable.defaultTheme).subscribe(() => {
-        console.log('theme successfully stored.');
-      }, () => {
-        console.error('theme storage initialization failed.');
-      });
+      this.storage
+        .set(this.themeStorageName, this.variable.defaultTheme)
+        .subscribe(
+          () => {
+            console.log('theme successfully stored.');
+          },
+          () => {
+            console.error('theme storage initialization failed.');
+          }
+        );
 
       // Accessibility mode
-      this.storage.set(this.accessibilityStorageName, this.variable.defaultAccessibilityValue).subscribe(() => {
-        console.log('accessibility mode successfully stored.');
-      }, () => {
-        console.error('accessibility mode storage initialization failed.');
-      });
+      this.storage
+        .set(
+          this.accessibilityStorageName,
+          this.variable.defaultAccessibilityValue
+        )
+        .subscribe(
+          () => {
+            console.log('accessibility mode successfully stored.');
+          },
+          () => {
+            console.error('accessibility mode storage initialization failed.');
+          }
+      );
+
+      // Scores
+      for (let dim = this.variable.minGridSize; dim <= this.variable.maxGridSize; dim++) {
+        this.storage.set(this.getCurrentScoreKey(true, dim), 0).subscribe();
+        this.storage.set(this.getBestScoreKey(true, dim), 0).subscribe();
+        this.storage.set(this.getCurrentScoreKey(false, dim), 0).subscribe();
+        this.storage.set(this.getBestScoreKey(false, dim), 0).subscribe();
+      }
 
       // Init ok
       window.localStorage.setItem(this.initCompleteStorageName, 'true');
@@ -71,5 +95,21 @@ export class StorageService {
 
   setSync(key: string, value: string): void {
     this.syncStorage.setItem(key, value);
+  }
+
+  /**  Get the storage current score ID thanks to difficulty and dimension */
+  getCurrentScoreKey(isHard: boolean, dim: number): string {
+    const dimension: string = '-' + dim;
+    let difficulty: string;
+    isHard ? (difficulty = '-hard') : (difficulty = '-easy');
+    return this.currentScoreBaseStorageName + difficulty + dimension;
+  }
+
+  /**  Get the storage best score ID thanks to difficulty and dimension */
+  getBestScoreKey(isHard: boolean, dim: number): string {
+    const dimension: string = '-' + dim;
+    let difficulty: string;
+    isHard ? (difficulty = '-hard') : (difficulty = '-easy');
+    return this.bestScoreBaseStorageName + difficulty + dimension;
   }
 }
