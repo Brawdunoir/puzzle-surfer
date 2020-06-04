@@ -1,12 +1,13 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   Output,
   EventEmitter,
+  OnDestroy,
 } from '@angular/core';
 import { ScoreService } from '../score.service';
-import { GameService } from '../game.service';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-score',
@@ -14,47 +15,63 @@ import { GameService } from '../game.service';
   styleUrls: ['./score.component.scss'],
 })
 export class ScoreComponent implements OnInit, OnDestroy {
-  bestScore = this.scoreService.getBest();
   currentScore = 0;
+  bestScore = 0;
 
-  update: any;
-  myRestart: any;
+  currentSub: Subscription;
+  bestSub: Subscription;
 
   @Output() menuState = new EventEmitter<boolean>();
 
   constructor(
     private scoreService: ScoreService,
-    private gameService: GameService
+    private storage: StorageMap
   ) {}
 
   ngOnInit(): void {
-    this.update = this.scoreService.update.subscribe((value) => {
-      this.currentScore += value;
+    // ? Update current score
+    this.currentSub = this.storage
+      .watch(this.scoreService.currentScoreStorageKey)
+      .subscribe(
+        (current: number) => {
+          if (current !== undefined) {
+            this.currentScore = current;
+          } else {
+            this.currentScore = 0;
+          }
+        },
+        () => {
+          console.warn('Can not access current score in score component');
+        }
+      );
 
-      if (this.currentScore > this.bestScore) {
-        this.scoreService.updateBest(this.currentScore);
-        this.bestScore = this.scoreService.getBest();
-      }
-    });
-
-    this.myRestart = this.gameService.restart.subscribe(() => {
-      this.bestScore = this.scoreService.getBest();
-      this.currentScore = 0;
-    });
+    // ? Update best score
+    this.bestSub = this.storage
+      .watch(this.scoreService.bestScoreStorageKey)
+      .subscribe(
+        (best: number) => {
+          if (best !== undefined) {
+            this.bestScore = best;
+          } else {
+            this.bestScore = 0;
+          }
+        },
+        () => {
+          console.warn('Can not access best score in score component');
+        }
+      );
   }
 
   ngOnDestroy(): void {
-    this.update.unsubscribe();
-    this.myRestart.unsubscribe();
+    this.currentSub.unsubscribe();
+    this.bestSub.unsubscribe();
   }
 
   restart(): void {
-    if (this.currentScore > this.bestScore) {
-      this.bestScore = this.currentScore;
-    }
-    this.currentScore = 0;
+    this.scoreService.restart();
   }
 
+  /** Button to Menu access (Yes it's on the scorebar !) */
   showMenu(): void {
     this.menuState.emit(true);
   }
