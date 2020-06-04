@@ -9,7 +9,7 @@ import { StorageService } from '../storage.service';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent implements OnInit {
   // Dimension slider
   min = this.variable.minGridSize;
   max = this.variable.maxGridSize;
