@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../storage.service';
+import { SettingsService } from '../settings.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(private storage: StorageService, private settings: SettingsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.storage.init();
+    this.settings.setAppareance();
+  }
 }
