@@ -21,7 +21,7 @@ export class FormeService {
     veryHigh: 4,
   };
 
-  dim = this.grid.dimensions;
+  dim = this.grid.getDimensions();
 
   formes = [
     {
@@ -692,7 +692,7 @@ export class FormeService {
   constructor(private grid: GridService) {}
 
   updateJumps() {
-    this.dim = this.grid.dimensions;
+    this.dim = this.grid.getDimensions();
 
     this.formes.forEach((forme) => {
       forme.jumps = [];
@@ -700,5 +700,6 @@ export class FormeService {
         forme.jumps.push(position.x + position.y * this.dim);
       }
     });
+    console.log('Sucessfully updated jumps to grid dimension ' + this.dim);
   }
 }
