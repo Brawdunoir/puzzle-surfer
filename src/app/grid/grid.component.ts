@@ -8,21 +8,21 @@ import { GridService } from '../grid.service';
   styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent implements OnInit, OnDestroy {
-  dimensions = this.basic.dimensions;
-  blocUnit = this.basic.blocUnit;
+  dimensions = this.grid.getDimensions();
+  blocUnit: number;
   tiles: Tile[] = [];
 
   update: any;
 
-  constructor(private basic: GridService) {}
+  constructor(private grid: GridService) {}
 
   ngOnInit(): void {
-    this.tiles = this.basic.tiles;
+    this.tiles = this.grid.tiles;
 
-    this.update = this.basic.update.subscribe((value) => {
+    this.update = this.grid.update.subscribe((value) => {
       this.tiles = value;
-      this.dimensions = this.basic.dimensions;
-      this.blocUnit = this.basic.blocUnit;
+      this.dimensions = this.grid.getDimensions();
+      this.blocUnit = this.grid.getInitUnit();
     });
   }
 
