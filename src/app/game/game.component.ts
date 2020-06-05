@@ -40,9 +40,8 @@ export class GameComponent implements OnInit, OnDestroy {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private gameService: GameService,
+    private gameService: GameService
   ) {}
-
 
   ngOnInit(): void {
     this.gameService.initialization();
@@ -64,6 +63,10 @@ export class GameComponent implements OnInit, OnDestroy {
     this.restart = this.gameService.restart.subscribe(() => {
       this.displayMenu = false;
     });
+
+    console.log('Restore game...');
+    this.restore();
+    console.log('Game restored.');
   }
 
   ngOnDestroy(): void {
@@ -72,24 +75,41 @@ export class GameComponent implements OnInit, OnDestroy {
     this.restart.unsubscribe();
   }
 
-  loadComponent(view: ViewContainerRef) {
-    const viewID = this.viewContainerArray.indexOf(view);
-    // Choix aléatoire d'une pièce et ajout de celle ci dans le jeu logique
-    this.gameService.addPiece(viewID);
-    // Préparer la recette de cette pièce
-    const ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      CommonBlocComponent
-    );
-    // Nettoyer l'ancien component du DOM
-    view.clear();
-    // Créer la pièce
-    view.createComponent(ComponentFactory);
-  }
-
   loadAllComponents() {
     for (const view of this.viewContainerArray) {
       this.loadComponent(view);
     }
+  }
+
+  loadComponent(view: ViewContainerRef) {
+    const viewID = this.viewContainerArray.indexOf(view);
+    // Choix aléatoire d'une pièce et ajout de celle ci dans le jeu logique
+    this.gameService.addPiece(viewID);
+    // Building component
+    this.buildComponent(view);
+  }
+
+  restore(): void {
+    for (const view of this.viewContainerArray) {
+      const viewID = this.viewContainerArray.indexOf(view);
+      // Restores in a logic way the piece
+      const build = this.gameService.restores(viewID);
+      if (build) {
+        // Build the component (piece)
+        this.buildComponent(view);
+      }
+    }
+  }
+
+  buildComponent(view: ViewContainerRef): void {
+    // Prepare the recipy for a CommonBlocComponent
+    const ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      CommonBlocComponent
+    );
+    // Clear DOM from previous object
+    view.clear();
+    // Create Component
+    view.createComponent(ComponentFactory);
   }
 
   menu(event: boolean): void {

@@ -1,23 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { GridService } from './grid.service';
 import { ScoreService } from './score.service';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { PieceService } from './piece.service';
 import { VariableService } from './variable.service';
 import { IndexService } from './index.service';
-import { SettingsService } from './settings.service';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
+  // ! Variables
+  isHard: boolean;
+  gridDimension: number;
+
   currentPiecesID: number[] = []; // Pieces ID left on the bottom
 
   end: Subject<boolean> = new Subject(); // Trigger end in observers
   restart: Subject<boolean> = new Subject(); // Trigger restart in observers
 
   /* Reload new pieces on the bottom. -1 reload all. */
-  reloadPiece: BehaviorSubject<number> = new BehaviorSubject(-1);
+  reloadPiece: Subject<number> = new Subject();
 
   constructor(
     private grid: GridService,
@@ -25,8 +30,17 @@ export class GameService {
     private pieceService: PieceService,
     private variable: VariableService,
     private index: IndexService,
-    private settings: SettingsService,
+    private storage: StorageMap,
+    private storNames: StorageService
   ) {}
+
+  /** Initialize a game */
+  initialization(): void {
+    this.initVariables();
+    this.grid.init();
+    this.pieceService.init();
+    this.score.init();
+  }
 
   /** Trigger each time a piece is dropped and accepted in the grid
    * @param indexArray index occupied by the piece
@@ -44,33 +58,19 @@ export class GameService {
 
     await this.variable.delay(this.variable.tileDeleteDelay);
 
-    this.delPiecesID(idPiece);
-
-    if (!this.isHard()) {
-      this.reloadPiece.next(idView);
-    } else {
-      // There are no pieces left, reload new ones
-      if (this.currentPiecesID.length === 0) {
-        this.reloadPiece.next(-1);
-      }
-    }
+    this.delPiecesID(idView);
+    // Reload pieces in the view if needed
+    // ? every single time in easy mode, and
+    // ? when none are left in hard mode
+    this.checkPieces(idView);
     // Check if the user has completed a row/column
     this.checkComplete();
     // Check if the user has lost
     this.checkEnd();
   }
 
-  /** Initialize a game */
-  initialization(): void {
-    this.grid.init();
-    this.pieceService.init();
-    this.settings.setTheme(this.settings.getTheme());
-    this.settings.setAccessibility(this.settings.getAccessibility());
-  }
-
   /** Check if a row/column is complete and update grid */
-  checkComplete(): void {
-    const dim = this.grid.dimensions;
+  private checkComplete(): void {
     const grid = this.grid.grid;
     const rows = [];
     const columns = [];
@@ -79,12 +79,12 @@ export class GameService {
     // Check if a row/column if complete
     for (let i = 0; i < grid.length; i++) {
       if (!grid[i]) {
-        rows[Math.trunc(i / dim)] = true;
-        columns[i % dim] = true;
+        rows[Math.trunc(i / this.gridDimension)] = true;
+        columns[i % this.gridDimension] = true;
       }
     }
     // Update grid in consequence
-    for (let i = 0; i < dim; i++) {
+    for (let i = 0; i < this.gridDimension; i++) {
       if (!rows[i]) {
         this.grid.updateFromDim('row', i, false);
         combo++;
@@ -95,28 +95,55 @@ export class GameService {
       }
     }
     if (combo > 0) {
-      this.score.add(this.score.calculate(dim, combo));
+      this.score.add(this.score.calculate(combo));
+    }
+  }
+
+  private checkPieces(idView: number): void {
+    if (!this.isHard) {
+      this.reloadPiece.next(idView);
+    } else {
+      if (this.currentPiecesID.every(el => el === null)) {
+        this.reloadPiece.next(-1);
+      }
     }
   }
 
   /** Add a piece ID in currentPiecesID */
-  private addPiecesID(id: number): void {
-    this.currentPiecesID.push(id);
+  private addPiecesID(idPiece: number, idView: number): void {
+    this.currentPiecesID[idView] = idPiece;
+    console.log('Piece ID was added, new array: ' + this.currentPiecesID);
+    const data = JSON.stringify(this.currentPiecesID);
+    this.storNames.setSync(
+      this.storNames.getPieceIDViewStorageKey(this.isHard, this.gridDimension),
+      data
+    );
   }
 
   /** Delete a piece ID in currentPiecesID */
-  delPiecesID(id: number): void {
-    const index = this.currentPiecesID.indexOf(id, 0);
-    if (index > -1) {
-      this.currentPiecesID.splice(index, 1);
-    }
+  private delPiecesID(idView: number): void {
+    this.currentPiecesID[idView] = null;
+    console.log('Piece ID was deleted, new array: ' + this.currentPiecesID);
+    const data = JSON.stringify(this.currentPiecesID);
+    this.storNames.setSync(
+      this.storNames.getPieceIDViewStorageKey(this.isHard, this.gridDimension),
+      data
+    );
   }
 
-  /** Add a new piece in the view (pieces left on the bottom)
-   * It'll get a new random piece ID while this piece ID is already in the view
-   * with a cap of max itérations maxIter
+  /** Add a new piece in the logic game */
+  addPiece(idView: number): void {
+    const newID = this.getRandomPieceID();
+    // ? Add this new ID to the logic game
+    this.addPiecesID(newID, idView);
+    // ! So that the future real piece can know it's info
+    this.pieceService.currentViewID = idView;
+  }
+
+  /** Get a new random piece ID while this piece ID is already in the view
+   *  with a cap of max itérations maxIter
    */
-  addPiece(viewID: number): void {
+  private getRandomPieceID(): number {
     const maxIter = 3;
     let iter = 0;
     let newID: number;
@@ -126,23 +153,25 @@ export class GameService {
       iter++;
     } while (iter < maxIter && this.currentPiecesID.includes(newID));
 
-    this.addPiecesID(newID);
-    this.pieceService.currentViewID = viewID;
+    return newID;
   }
 
   /** Check if it's game over and throws end if it is */
-  checkEnd(): void {
+  private checkEnd(): void {
     for (const id of this.currentPiecesID) {
-      for (let i = 0; i < this.grid.grid.length; i++) {
-        const forme = this.pieceService.formes[id];
-        const indexArray = this.index.get(i, forme.jumps);
+      // ? Because we set piece id to null in hard mode
+      if (id != null) {
+        for (let i = 0; i < this.grid.grid.length; i++) {
+          const forme = this.pieceService.formes[id];
+          const indexArray = this.index.get(i, forme.jumps);
 
-        if (this.index.isSuitable(indexArray, i, forme.dimensions.x)) {
-          return;
+          if (this.index.isSuitable(indexArray, i, forme.dimensions.x)) {
+            return;
+          }
         }
+        this.end.next();
       }
     }
-    this.end.next();
   }
 
   /** Trigger restart */
@@ -157,20 +186,50 @@ export class GameService {
     this.reloadPiece.next(-1);
   }
 
-  /** Trigger a change in dimension */
-  triggerChangeDimensions(): void {
-    // Reload dimensions in basic and change the jumps of the pieces
-    this.grid.init();
-    this.pieceService.changeGridDimensions();
-    // Trigger restart to reset score
-    this.restart.next();
-    // Remove existing pieces and reload new
-    this.currentPiecesID.splice(0, this.currentPiecesID.length);
-    this.reloadPiece.next(-1);
+  /** Restore previous state of piece ID in the View (bottom)
+   *  Called in the Game Component
+   * @param idView represents the view currently initializing in Game Component
+   * @returns if Game Component should create or not the piece from Common-Bloc Component
+   */
+  restores(idView: number): boolean {
+    const JSONStoredData = this.storNames.getSync(this.storNames.getPieceIDViewStorageKey(this.isHard, this.gridDimension));
+    const savedPieceID = JSON.parse(JSONStoredData);
+    let ID = savedPieceID[idView];
+    // The value is -1 when we start a new game
+    if (ID === -1) {
+      ID = this.getRandomPieceID();
+      this.currentPiecesID[idView] = ID;
+      console.log('New game is started, piece ID ' + ID +
+        ' has been added');
+      }
+      // Maybe it can be null
+      else if (ID == null) {
+        if (this.isHard && savedPieceID.length !== 0) {
+          return false; // so we won't build the component
+        }
+        else {
+          ID = this.getRandomPieceID();
+          this.currentPiecesID[idView] = ID;
+          console.log('Oh, we got here ? Strange, but piece ID ' + ID +
+            ' has been added');
+      }
+    }
+    else {
+      console.log('Will restore piece ID ' + ID +
+      ' from array ' + savedPieceID);
+    }
+    this.currentPiecesID[idView] = ID;
+    this.pieceService.currentPieceID = ID;
+    this.pieceService.currentViewID = idView;
+    return true; // so we will build the component
   }
 
-  /** Return the difficulty */
-  isHard(): boolean {
-    return this.settings.isHard();
+  /** Get common variables */
+  private initVariables(): void {
+    this.gridDimension = +this.storNames.getSync(
+      this.storNames.gridDimensionStorageName
+    );
+    this.isHard =
+      this.storNames.getSync(this.storNames.difficultyStorageName) === 'hard';
   }
 }
