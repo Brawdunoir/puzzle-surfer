@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { GridService } from './grid.service';
 import { FormeService } from './forme.service';
-import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PieceService {
-
-  dim = this.grid.dimensions;
 
   currentPieceID: number;
   currentViewID: number;
@@ -31,26 +28,20 @@ export class PieceService {
    * It'll add n times the form depending on its priority
    */
   init() {
+    const dim = this.grid.getDimensions();
+    this.forme.updateJumps();
     this.formesInGameID = [];
     for (let i = 0; i < this.formes.length; i++) {
       const forme = this.formes[i];
       const priority = forme.priority;
       if (
-        forme.dimensions.x <= Math.round(this.dim / 3) &&
-        forme.dimensions.y <= Math.round(this.dim / 3)
+        forme.dimensions.x <= Math.round(dim / 3) &&
+        forme.dimensions.y <= Math.round(dim / 3)
       ) {
         for (let k = 0; k < priority; k++) {
           this.formesInGameID.push(i);
         }
       }
     }
-  }
-
-  /** Change pieces array related with grid dimensions */
-  changeGridDimensions() {
-    this.dim = this.grid.dimensions;
-    this.forme.updateJumps();
-    this.formes = this.forme.formes;
-    this.init();
   }
 }
