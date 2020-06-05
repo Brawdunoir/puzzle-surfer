@@ -36,7 +36,7 @@ export class GridService {
   /** Initialize basic variables for grid and display */
   init(): void {
     this.dimensions = this.getDimensions();
-    this.blocUnit = this.getInitUnit();
+    this.blocUnit = this.getWidth();
 
     this.initGrid();
   }
@@ -55,9 +55,14 @@ export class GridService {
   }
 
   /** Get bloc unit for one unit on the grid to be a square */
-  getInitUnit(): number {
-    // const gridEl: any = document.querySelector('app-grid mat-grid-list');
-    return (this.blocUnit = window.screen.width / this.dimensions);
+  getWidth(): number {
+    const gridEl: any = document.querySelector('app-grid mat-grid-list');
+    return (this.blocUnit = gridEl.offsetWidth / this.dimensions);
+  }
+
+  getHeight(): number {
+    const gridEl: any = document.querySelector('app-grid mat-grid-list');
+    return (this.blocUnit = gridEl.offsetHeight / this.dimensions);
   }
 
   /** Initialize grid */

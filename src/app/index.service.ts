@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GridService, Coordonnee } from './grid.service';
+import { GridService } from './grid.service';
 import { VariableService } from './variable.service';
 
 @Injectable({
@@ -12,16 +12,18 @@ export class IndexService {
   getFirst(event: any): number {
     const element = event.source.getRootElement();
     const grid = document.querySelector('.game-screen__below mat-grid-list');
+    const sizeGridX = this.grid.blocUnit + 20; // Because of the margin in .scss of grid
+    const sizeGridY = this.grid.getHeight();
 
     const x = Math.round(
       element.getBoundingClientRect().x +
-        this.grid.blocUnit / 2 -
+        sizeGridX / 2 -
         grid.getBoundingClientRect().x
     );
     const y =
       Math.round(
         element.getBoundingClientRect().y +
-          this.grid.blocUnit / 2 -
+          sizeGridY / 2 -
           grid.getBoundingClientRect().y
       ) - this.variable.pieceTranslate(element.offsetHeight);
 

@@ -22,7 +22,7 @@ export class GridComponent implements OnInit, OnDestroy {
     this.update = this.grid.update.subscribe((value) => {
       this.tiles = value;
       this.dimensions = this.grid.getDimensions();
-      this.blocUnit = this.grid.getInitUnit();
+      this.blocUnit = this.grid.getWidth();
     });
   }
 
