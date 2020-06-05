@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { VariableService } from './variable.service';
-import { ScoreService } from './score.service';
+import { Tile } from './tile-item';
 
 @Injectable({
   providedIn: 'root',
@@ -77,10 +77,9 @@ export class StorageService {
 
       // Scores
       for (let dim = this.variable.minGridSize; dim <= this.variable.maxGridSize; dim++) {
-        this.storage.set(this.getCurrentScoreKey(true, dim), 0).subscribe();
-        this.storage.set(this.getBestScoreKey(true, dim), 0).subscribe();
-        this.storage.set(this.getCurrentScoreKey(false, dim), 0).subscribe();
-        this.storage.set(this.getBestScoreKey(false, dim), 0).subscribe();
+        this.initScores(dim);
+        this.initViewID(dim);
+        this.initGrid(dim);
       }
 
       // Init ok
@@ -97,6 +96,34 @@ export class StorageService {
     this.syncStorage.setItem(key, value);
   }
 
+  initScores(dim: number): void {
+    this.storage.set(this.getCurrentScoreKey(true, dim), 0).subscribe();
+    this.storage.set(this.getBestScoreKey(true, dim), 0).subscribe();
+    this.storage.set(this.getCurrentScoreKey(false, dim), 0).subscribe();
+    this.storage.set(this.getBestScoreKey(false, dim), 0).subscribe();
+  }
+
+  initViewID(dim: number): void {
+    const data: number[] = [-1, -1, -1];
+    this.setSync(this.getPieceIDViewStorageKey(true, dim), JSON.stringify(data));
+    this.setSync(this.getPieceIDViewStorageKey(false, dim), JSON.stringify(data));
+  }
+
+  initGrid(dim: number): void {
+    // tslint:disable-next-line: prefer-const
+    let tiles: Tile[] = [];
+    // tslint:disable-next-line: prefer-const
+    let grid: boolean[] = [];
+    for (let i = 0; i < dim * dim; i++) {
+      tiles.push({ color: '', filled: this.variable.tileHalf });
+      grid.push(false);
+    }
+    this.storage.set(this.getGridStorageKey(true, dim), { Tiles: tiles, Grid: grid }).subscribe();
+    this.storage
+      .set(this.getGridStorageKey(false, dim), { Tiles: tiles, Grid: grid })
+      .subscribe();
+  }
+
   /**  Get the storage current score ID thanks to difficulty and dimension */
   getCurrentScoreKey(isHard: boolean, dim: number): string {
     const dimension: string = '-' + dim;
@@ -111,5 +138,19 @@ export class StorageService {
     let difficulty: string;
     isHard ? (difficulty = '-hard') : (difficulty = '-easy');
     return this.bestScoreBaseStorageName + difficulty + dimension;
+  }
+
+  getPieceIDViewStorageKey(isHard: boolean, dim: number): string {
+    const dimension: string = '-' + dim;
+    let difficulty: string;
+    isHard ? (difficulty = '-hard') : (difficulty = '-easy');
+    return this.pieceIDViewStorageKey + difficulty + dimension;
+  }
+
+  getGridStorageKey(isHard: boolean, dim: number): string {
+    const dimension: string = '-' + dim;
+    let difficulty: string;
+    isHard ? (difficulty = '-hard') : (difficulty = '-easy');
+    return this.gridStorageBaseName + difficulty + dimension;
   }
 }
