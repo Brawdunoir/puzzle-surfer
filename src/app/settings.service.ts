@@ -23,7 +23,7 @@ export class SettingsService {
   /** Change difficulty to easy if hard, to hard if easy */
   switchDifficulty(currentMode: boolean): void {
     let difficulty: string;
-    !currentMode ? (difficulty = 'hard') : (difficulty = 'easy');
+    !currentMode ? (difficulty = 'easy') : (difficulty = 'hard');
     this.storageService.setSync(this.storageService.difficultyStorageName, difficulty);
     console.log('Diffuculty changed to ' + difficulty);
   }
