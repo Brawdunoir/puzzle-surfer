@@ -37,10 +37,6 @@ export class ScoreComponent implements OnInit {
       { type: 'number' });
   }
 
-  restart(): void {
-    this.scoreService.restart();
-  }
-
   /** Button to Menu access (Yes it's on the scorebar !) */
   showMenu(): void {
     this.menuState.emit(true);

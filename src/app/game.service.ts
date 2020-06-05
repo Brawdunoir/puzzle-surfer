@@ -178,11 +178,13 @@ export class GameService {
   triggerRestart(): void {
     // Trigger restart in basic Service
     this.grid.restart();
+    // Reset current score
+    this.score.restart();
     // Trigger restart in components
-    // ie in GameComponent, ScoreComponent
+    // ie in GameComponent
     this.restart.next();
     // Remove existing pieces and reload new
-    this.currentPiecesID.splice(0, this.currentPiecesID.length);
+    this.currentPiecesID.every(el => el = null);
     this.reloadPiece.next(-1);
   }
 

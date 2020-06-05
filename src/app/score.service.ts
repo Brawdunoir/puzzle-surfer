@@ -84,7 +84,7 @@ export class ScoreService {
     );
   }
 
-  restart(): void {
+  reset(): void {
     this.storage.set(this.currentScoreStorageKey, 0).subscribe(
       () => {
         console.log('Current score has been reinitialized');
