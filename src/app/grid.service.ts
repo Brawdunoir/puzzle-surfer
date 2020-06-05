@@ -3,11 +3,16 @@ import { Tile } from './tile-item';
 import { Subject } from 'rxjs';
 import { VariableService } from './variable.service';
 import { StorageService } from './storage.service';
-import { LocalStorage } from '@ngx-pwa/local-storage';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 export interface Coordonnee {
   x: number;
   y: number;
+}
+
+interface GridData {
+  Tiles: Tile[];
+  Grid: boolean[];
 }
 
 @Injectable({
@@ -24,35 +29,61 @@ export class GridService {
 
   constructor(
     private variable: VariableService,
-    private storage: LocalStorage,
     private storageService: StorageService,
-  ) { }
+    private storage: StorageMap
+  ) {}
 
   /** Initialize basic variables for grid and display */
   init(): void {
-    this.dimensions = +this.storageService.getSync(this.storageService.gridDimensionStorageName);
-    this.getInitUnit();
+    this.dimensions = this.getDimensions();
+    this.blocUnit = this.getInitUnit();
+
     this.initGrid();
   }
 
+  getDimensions(): number {
+    return +this.storageService.getSync(
+      this.storageService.gridDimensionStorageName
+    );
+  }
+
+  getDifficulty(): boolean {
+    return (
+      this.storageService.getSync(this.storageService.difficultyStorageName) ===
+      'hard'
+    );
+  }
+
   /** Get bloc unit for one unit on the grid to be a square */
-  getInitUnit(): void {
-    const gridEl: any = document.querySelector('app-grid mat-grid-list');
-    this.blocUnit = gridEl.offsetWidth / this.dimensions;
+  getInitUnit(): number {
+    // const gridEl: any = document.querySelector('app-grid mat-grid-list');
+    return (this.blocUnit = window.screen.width / this.dimensions);
   }
 
   /** Initialize grid */
   initGrid(): void {
+    this.storage
+      .get(
+        this.storageService.getGridStorageKey(
+          this.getDifficulty(),
+          this.dimensions
+        )
+      )
+      .subscribe((data: GridData) => {
+        if (data !== undefined) {
+          this.tiles = data.Tiles;
+          this.grid = data.Grid;
+          this.update.next(this.tiles);
+        } else {
+          this.tiles = [];
+          this.grid = [];
+          for (let i = 0; i < this.dimensions * this.dimensions; i++) {
+            this.grid[i] = false;
+            this.tiles.push({ color: '', filled: this.variable.tileHalf });
+          }
+        }
+      });
     // TODO: La grille peut déjà être sauvegardée, check avant de l'initialiser.
-    this.tiles = [];
-    this.grid = [];
-
-    for (let i = 0; i < this.dimensions * this.dimensions; i++) {
-      this.grid[i] = false;
-      this.tiles.push({ color: '', filled: this.variable.tileHalf });
-    }
-
-    this.update.next(this.tiles);
   }
 
   /** Reinitialize the grid */
@@ -76,13 +107,20 @@ export class GridService {
    * @param filled filled or not
    * @param color color of the tile (eg color of the piece dropped)
    */
-  updateFromIndex(indexArray: number[], filled: boolean, color: string = ''): void {
+  updateFromIndex(
+    indexArray: number[],
+    filled: boolean,
+    color: string = ''
+  ): void {
     for (const index of indexArray) {
       this.grid[index] = filled;
       this.tiles[index].color = color;
       this.tiles[index].filled = filled
         ? this.variable.tileFull
         : this.variable.tileHalf;
+      // ? Save this move in the data storage
+      const data: GridData = { Tiles: this.tiles, Grid : this.grid };
+      this.storage.set(this.storageService.getGridStorageKey(this.getDifficulty(), this.dimensions), data).subscribe();
     }
   }
 
@@ -93,7 +131,12 @@ export class GridService {
    * @param filled filled or not
    * @param color color of the tile (eg color of the piece dropped)
    */
-  updateFromDim(dim: string = '', ind: number, filled: boolean, color: string = ''): void {
+  updateFromDim(
+    dim: string = '',
+    ind: number,
+    filled: boolean,
+    color: string = ''
+  ): void {
     const index = [];
     for (let i = 0; i < this.dimensions; i++) {
       if (dim === 'row') {
