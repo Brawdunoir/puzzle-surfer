@@ -179,7 +179,7 @@ export class GameService {
     // Trigger restart in basic Service
     this.grid.restart();
     // Reset current score
-    this.score.restart();
+    this.score.reset();
     // Trigger restart in components
     // ie in GameComponent
     this.restart.next();
