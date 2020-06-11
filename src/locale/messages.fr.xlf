@@ -34,7 +34,7 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4cea62593345302be9d4b3d2b07a96b2ad55e667" datatype="html">
+      <trans-unit id="17db2c1eafc8f0916d3832c5b0dc3438fca427b2" datatype="html">
         <source>{VAR_PLURAL, plural, =0 {keep going} =1 {game over} =2 {new best : <x id="INTERPOLATION" equiv-text="{{newBestScore}}"/>} }</source>
         <target>{VAR_PLURAL, plural, =0 {continuez!} =1 {vous avez perdu} =2 {nouveau record : <x id="INTERPOLATION" equiv-text="{{newBestScore}}"/>} }</target>
         <context-group purpose="location">
