@@ -11,11 +11,9 @@ import {
   PieceDirective2,
   PieceDirective3,
 } from '../piece.directive';
-import { PieceService } from '../piece.service';
-import { GridService } from '../grid.service';
 import { GameService } from '../game.service';
 import { CommonBlocComponent } from '../common-bloc/common-bloc.component';
-import { SettingsService } from '../settings.service';
+import { ScoreService } from '../score.service';
 
 @Component({
   selector: 'app-game',
@@ -32,7 +30,9 @@ export class GameComponent implements OnInit, OnDestroy {
 
   displaySettings: boolean;
   displayMenu: boolean;
-  messageMenu: string;
+  messageMenuCode: number; // 0 pause, 1 game over, 2 congrats
+  oldBestScore: number;
+  newBestScore: number;
 
   reloadPiece: any;
   end: any;
@@ -40,11 +40,13 @@ export class GameComponent implements OnInit, OnDestroy {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private gameService: GameService
+    private gameService: GameService,
+    private scoreService: ScoreService,
   ) {}
 
   ngOnInit(): void {
     this.gameService.initialization();
+    this.oldBestScore = this.scoreService.bestScore;
 
     this.viewContainerArray.push(this.pieceHost1.viewContainerRef);
     this.viewContainerArray.push(this.pieceHost2.viewContainerRef);
@@ -57,11 +59,17 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     });
     this.end = this.gameService.end.subscribe(() => {
-      this.displayMenu = true;
-      this.messageMenu = 'vous avez perdu';
+      this.newBestScore = this.scoreService.bestScore;
+      if (this.newBestScore > this.oldBestScore) {
+        // Congrats
+        this.showMenu(true, 2);
+      } else {
+        // Simple Game Over
+        this.showMenu(true, 1);
+      }
     });
     this.restart = this.gameService.restart.subscribe(() => {
-      this.displayMenu = false;
+      this.showMenu(false);
     });
 
     console.log('Restore game...');
@@ -112,8 +120,9 @@ export class GameComponent implements OnInit, OnDestroy {
     view.createComponent(ComponentFactory);
   }
 
-  menu(event: boolean): void {
-    this.messageMenu = 'pause';
+  showMenu(event: boolean, code = 0): void {
+
+    this.messageMenuCode = code;
     this.displayMenu = event;
   }
 

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="e34eff42ae81555bf3d36e785a61676a8ac179e1" datatype="html">
+        <source>
+    Best : <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ bestScore$ | async }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+  </source>
+        <target>
+    Record : <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ bestScore$ | async }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/score/score.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bd711fbc71ad8f55d24bcd5da86b5344c2609ad3" datatype="html">
+        <source>
+    Score : <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ currentScore$ | async }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+  </source>
+        <target>
+    Score : <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ currentScore$ | async }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
+  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/score/score.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="41aac9cecddc9f345c263d3742192e68e227e413" datatype="html">
+        <source>Menu</source>
+        <target>Menu</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/score/score.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4cea62593345302be9d4b3d2b07a96b2ad55e667" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {keep going} =1 {game over} =2 {new best : <x id="INTERPOLATION" equiv-text="{{newBestScore}}"/>} }</source>
+        <target>{VAR_PLURAL, plural, =0 {continuez!} =1 {vous avez perdu} =2 {nouveau record : <x id="INTERPOLATION" equiv-text="{{newBestScore}}"/>} }</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/end-game-menu/end-game-menu.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8f63587295e9cc6b75f662d2343f1c0da85adc8e" datatype="html">
+        <source>settings</source>
+        <target>Paramètres</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="91c7da31f5268f686942bea864ecf1295250564a" datatype="html">
+        <source>grid dimensions</source>
+        <target>dimensions de la grille</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0f6f5bc1d9e83b758dd60bc6dc7aad7d2cb7f600" datatype="html">
+        <source>theme</source>
+        <target>thème</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3f24d81733d4b433a9cce4abd9a573890cd633a5" datatype="html">
+        <source>accessibility</source>
+        <target>accessibilité</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ea7c746552ae6d86a9907e49d5fb75c4da09cd1c" datatype="html">
+        <source>hard mode</source>
+        <target>mode difficile</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

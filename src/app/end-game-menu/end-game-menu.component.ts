@@ -7,7 +7,8 @@ import { GameService } from '../game.service';
   styleUrls: ['./end-game-menu.component.scss'],
 })
 export class EndGameMenuComponent {
-  @Input() message: string;
+  @Input() code: number; // 0 pause, 1 game over, 2 congrats
+  @Input() newBestScore: number;
   @Output() menuState = new EventEmitter<boolean>();
   @Output() settingsState = new EventEmitter<boolean>();
 
