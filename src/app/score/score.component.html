@@ -1,11 +1,11 @@
 <div class="score">
-  <p class="score__text">
+  <p i18n class="score__text">
     Best : <strong class="score__text_bold">{{ bestScore$ | async }}</strong>
   </p>
 
-  <p class="score__text">
+  <p i18n class="score__text">
     Score : <strong class="score__text_bold">{{ currentScore$ | async }}</strong>
   </p>
 
-  <button class="score__menu" (click)="showMenu()">Menu</button>
+  <button i18n class="score__menu" (click)="showMenu()">Menu</button>
 </div>

@@ -1,13 +1,13 @@
 <div id="page">
   <div id="header">
-    <h1 id="header__title">settings</h1>
+    <h1 i18n id="header__title">settings</h1>
     <button mat-icon-button class="close__button"
     routerLink="../game"><i class="material-icons-round">clear</i></button>
   </div>
 
   <div class="settings">
     <div class="settings__container">
-      <h2 class="settings__title">grid dimensions</h2>
+      <h2 i18n class="settings__title">grid dimensions</h2>
 
       <mat-slider
         [min]="min"
@@ -20,7 +20,7 @@
     </div>
 
     <div class="settings__container">
-      <h2 class="settings__title">theme</h2>
+      <h2 i18n class="settings__title">theme</h2>
 
       <div class="settings__bubble-container">
         <div
@@ -47,7 +47,7 @@
     </div>
 
     <div class="settings__container">
-      <h2 class="settings__title">accessibility</h2>
+      <h2 i18n class="settings__title">accessibility</h2>
 
       <div class="settings__tile-container">
         <div
@@ -64,7 +64,7 @@
     </div>
 
     <div class="settings__container">
-      <h2 class="settings__title">hard mode</h2>
+      <h2 i18n class="settings__title">hard mode</h2>
         <div class="settings__tile-container">
           <mat-slide-toggle
           [color]="color"
