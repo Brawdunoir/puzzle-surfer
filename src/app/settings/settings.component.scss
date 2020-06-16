@@ -3,28 +3,34 @@
 #page {
   #header {
     background-color: var(--background-secondary);
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: row;
+    
+    &__center {
+      max-width: $max-width;
+      margin: auto;
+      display: flex;
+      flex-direction: row;
 
-    &__title {
-      padding: 0.6em 0.8em;
-      text-transform: uppercase;
-      color: var(--font);
-      letter-spacing: 0.05em;
-      font-size: 1.2rem;
-      font-weight: 900;
-      margin: 0;
-    }
+      &__title {
+        padding: 0.6em 0.8em;
+        text-transform: uppercase;
+        color: var(--font);
+        letter-spacing: 0.05em;
+        font-size: 1.2rem;
+        font-weight: 900;
+        margin: 0;
+      }
 
-    .close__button {
-      position: relative;
-      margin: auto 1rem auto auto;
+      .close__button {
+        position: relative;
+        margin: auto 1rem auto auto;
+      }
     }
   }
-
+  
   .settings {
     background-color: var(--background);
+    max-width: $max-width;
+    margin: auto;
     padding: 0 1em;
 
     &__container {
