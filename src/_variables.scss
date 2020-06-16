@@ -16,16 +16,6 @@ $rainbow: rainbow 6s infinite;
   max-width: $max-width;
 }
 
-@mixin rainbowBorder {
-  border-color: dodgerblue !important;
-  animation: $rainbow;
-}
-
-@mixin rainbowBackground {
-  background-color: dodgerblue !important;
-  animation: $rainbow;
-}
-
 /*
 * * THEMES
 */
@@ -38,7 +28,7 @@ $rainbow: rainbow 6s infinite;
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
 
   .settings__bubble#light {
-    @include rainbowBorder();
+    border-color: dodgerblue !important;
   }
 }
 
@@ -51,7 +41,7 @@ $rainbow: rainbow 6s infinite;
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
 
   .settings__bubble#chrome {
-    @include rainbowBorder();
+    border-color: dodgerblue !important;
   }
 }
 
@@ -64,7 +54,7 @@ $rainbow: rainbow 6s infinite;
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.208);
 
   .settings__bubble#dark {
-    @include rainbowBorder();
+    border-color: dodgerblue !important;
   }
 }
 
@@ -76,40 +66,21 @@ body.amoled {
   --shadow: 0;
 
   .settings__bubble#amoled {
-    @include rainbowBorder();
+    border-color: dodgerblue !important;
   }
 }
 
 body.accessibility .settings__tile#true {
-  @include rainbowBorder();
+  border-color: dodgerblue !important;
 }
 
 body:not(.accessibility) .settings__tile#false {
-  @include rainbowBorder();
+  border-color: dodgerblue !important;
 }
 
 /*
 * * KEYFRAMES
 */
-@keyframes rainbow {
-  from {
-    filter: hue-rotate(0deg);
-  }
-
-  to {
-    filter: hue-rotate(360deg);
-  }
-}
-
-@keyframes rainbowLessSaturate {
-  from {
-    filter: hue-rotate(0deg) saturate(40%) brightness(8%);
-  }
-
-  to {
-    filter: hue-rotate(360deg) saturate(40%) brightness(8%);
-  }
-}
 
 @keyframes scaling {
   0% {

@@ -5,8 +5,7 @@
     background-color: var(--background-secondary);
     
     &__center {
-      max-width: $max-width;
-      margin: auto;
+      @include responsiveContainer;
       display: flex;
       flex-direction: row;
 
@@ -28,9 +27,8 @@
   }
   
   .settings {
+    @include responsiveContainer;
     background-color: var(--background);
-    max-width: $max-width;
-    margin: auto;
     padding: 0 1em;
 
     &__container {

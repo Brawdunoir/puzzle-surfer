@@ -18,7 +18,7 @@
     background-size: cover;
     background-position: center;
     z-index: -1;
-    animation: rainbowLessSaturate 6s infinite, scaling 30s infinite;
+    // animation: rainbowLessSaturate 6s infinite, scaling 30s infinite;
   }
 
   #app_name {
@@ -40,7 +40,7 @@
     padding: 0.15em 0.75em;
     border-radius: 5px;
     background-color: rgb(6, 26, 49);
-    animation: rainbow 6s infinite;
+    // animation: rainbow 6s infinite;
 
     i {
       color: dodgerblue;
