@@ -18,6 +18,7 @@ export class StorageService {
 
   // Async storage
   themeStorageName = 'theme';
+  colorStorageName = 'color';
   accessibilityStorageName = 'accessibility';
   currentScoreBaseStorageName = 'current-score';
   bestScoreBaseStorageName = 'best-score';
@@ -57,6 +58,17 @@ export class StorageService {
           },
           () => {
             console.error('theme storage initialization failed.');
+          }
+      );
+
+      this.storage
+        .set(this.colorStorageName, this.variable.defaultColor)
+        .subscribe(
+          () => {
+            console.log('color successfully stored.');
+          },
+          () => {
+            console.error('color storage initialization failed.');
           }
         );
 

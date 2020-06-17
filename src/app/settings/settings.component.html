@@ -10,15 +10,26 @@
   <div class="settings">
     <div class="settings__container">
       <h2 i18n class="settings__title">grid dimensions</h2>
-
+      
       <mat-slider
+        color="primary"
         [min]="min"
         [max]="max"
         [value]="valueDimensions"
-        [color]="color"
         [thumbLabel]="true"
         (change)="selectGridDimension($event)"
       ></mat-slider>
+    </div>
+
+    <div class="settings__container">
+      <h2 i18n class="settings__title">hard mode</h2>
+        <div class="settings__tile-container">
+          <mat-slide-toggle
+          color="primary"
+          [checked]="isHard"
+          (change)="switchDifficulty()"
+          ></mat-slide-toggle>
+        </div>
     </div>
 
     <div class="settings__container">
@@ -49,6 +60,49 @@
     </div>
 
     <div class="settings__container">
+      <h2 i18n class=settings__title>color</h2>
+
+      <div class="settings__bubble-container">
+        <div
+        (click)="selectColor($event)"
+        class="settings__bubble"
+        id="multicolor"></div>
+
+        <div
+        (click)="selectColor($event)"
+        class="settings__bubble"
+        id="light-blue"></div>
+
+        <div
+        (click)="selectColor($event)"
+        class="settings__bubble"
+        id="red"></div>
+
+        <div
+        (click)="selectColor($event)"
+        class="settings__bubble"
+        id="orange"></div>
+
+        <div
+        (click)="selectColor($event)"
+        class="settings__bubble"
+        id="green"></div>
+
+        <div
+        (click)="selectColor($event)"
+        class="settings__bubble"
+        id="indigo"></div>
+
+        <div
+        (click)="selectColor($event)"
+        class="settings__bubble"
+        id="purple"></div>
+
+
+      </div>
+    </div>
+
+    <div class="settings__container">
       <h2 i18n class="settings__title">accessibility</h2>
 
       <div class="settings__tile-container">
@@ -63,17 +117,6 @@
           id="true"
         ></div>
       </div>
-    </div>
-
-    <div class="settings__container">
-      <h2 i18n class="settings__title">hard mode</h2>
-        <div class="settings__tile-container">
-          <mat-slide-toggle
-          [color]="color"
-          [checked]="isHard"
-          (change)="switchDifficulty()"
-          ></mat-slide-toggle>
-        </div>
     </div>
   </div>
 </div>

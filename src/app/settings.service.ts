@@ -41,6 +41,19 @@ export class SettingsService {
           console.warn('The selected theme is undefined ?');
         }
       });
+    }
+
+    /** Set color */
+  setColor(color: string): void {
+    this.storage.set(this.storageService.colorStorageName, color, { type: 'string' }).subscribe(() => {
+      if (color !== undefined) {
+        this.clearColor();
+        this.body.add(color);
+        console.log('Color has been changed to ' + color);
+      } else {
+        console.warn('The selected color is undefined ?');
+      }
+    });
   }
 
   /** Set accessibility mode */
@@ -59,7 +72,7 @@ export class SettingsService {
       });
   }
 
-  // Set theme and accesibility on startup
+  // Set theme, color and accesibility on startup
   setAppareance(): void {
     this.storage
       .get(this.storageService.themeStorageName, { type: 'string' })
@@ -69,6 +82,17 @@ export class SettingsService {
           this.body.add(theme);
         } else {
           console.warn('Stored theme is undefinied ?');
+        }
+      });
+
+    this.storage
+      .get(this.storageService.colorStorageName, { type: 'string' })
+      .subscribe((color) => {
+        if (color !== undefined) {
+          this.clearColor();
+          this.body.add(color);
+        } else {
+          console.warn('Stored color is undefinied ?');
         }
       });
 
@@ -91,5 +115,16 @@ export class SettingsService {
     this.body.remove('dark');
     this.body.remove('amoled');
     this.body.remove('chrome');
+  }
+
+  /** Clear all color */
+  private clearColor(): void {
+    this.body.remove('multicolor');
+    this.body.remove('light-blue');
+    this.body.remove('red');
+    this.body.remove('orange');
+    this.body.remove('green');
+    this.body.remove('indigo');
+    this.body.remove('purple');
   }
 }

@@ -9,6 +9,7 @@ export class VariableService {
   maxGridSize = 15;
   defaultDifficulty = 'easy';
   defaultTheme = 'light';
+  defaultColor = 'multicolor';
   defaultAccessibilityValue = false;
 
   tileHalf = 0.5; // scale css property

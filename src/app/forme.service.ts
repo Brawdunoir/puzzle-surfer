@@ -6,9 +6,9 @@ import { GridService } from './grid.service';
 })
 export class FormeService {
   color = {
+    line: '#4fc3f7',
     tetris: '#ba68c8',
     cube: '#7986cb',
-    line: '#4fc3f7',
     doubleLine: '#81c784',
     crooked: '#ff8a65',
     l: '#e57373',

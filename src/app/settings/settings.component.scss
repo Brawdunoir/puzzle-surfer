@@ -42,8 +42,9 @@
         padding-top: 0.9em;
       }
 
-      mat-slider {
+      .mat-slider {
         align-items: center;
+        color: var(--bubble-color) !important;
         width: 100%;
         margin: auto;
         padding: 0;
@@ -82,6 +83,27 @@
           }
           &#amoled {
             background-color: #000;
+          }
+          &#multicolor {
+            background: linear-gradient(110deg, #4fc3f7 16%, #e57373 33%, #ff8a65 44%, #81c784 66%, #7986cb 83%, #ba68c8 100%)
+          }
+          &#light-blue {
+            background-color: #4fc3f7;
+          }
+          &#red {
+            background-color: #e57373;
+          }
+          &#orange {
+            background-color: #ff8a65;
+          }
+          &#green {
+            background-color: #81c784;
+          }
+          &#indigo {
+            background-color: #7986cb;
+          }
+          &#purple {
+            background-color: #ba68c8;
           }
         }
         
