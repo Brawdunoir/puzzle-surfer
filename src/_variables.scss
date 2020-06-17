@@ -27,7 +27,7 @@ $tile-transition: transform 100ms ease-in-out;
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
 
   .settings__bubble#light {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
@@ -40,7 +40,7 @@ $tile-transition: transform 100ms ease-in-out;
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
 
   .settings__bubble#chrome {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
@@ -53,7 +53,7 @@ $tile-transition: transform 100ms ease-in-out;
     0 0.3px 0.9px 0 rgba(0, 0, 0, 0.208);
 
   .settings__bubble#dark {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
@@ -65,16 +65,16 @@ $tile-transition: transform 100ms ease-in-out;
   --shadow: 0;
 
   .settings__bubble#amoled {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
 body.accessibility .settings__tile#true {
-  border-color: var(--buble-color) !important;
+  border-color: var(--bubble-color) !important;
 }
 
 body:not(.accessibility) .settings__tile#false {
-  border-color: var(--buble-color) !important;
+  border-color: var(--bubble-color) !important;
 }
 
 /*
@@ -85,25 +85,30 @@ body:not(.accessibility) .settings__tile#false {
 @include mat-core();
 
 .multicolor {
-
-  @extend light-blue;
-
-  .settings__bubble#multicolor {
-    border-color: var(--buble-color) !important;
-  }
-}
-
-%light-blue {
   $light-blue-primary: mat-palette($mat-light-blue, 300);
   $light-blue-accent: mat-palette($mat-light-blue, 300);
   
-  --buble-color: #4fc3f7;
+  --bubble-color: #4fc3f7;
+  
+  $light-blue: mat-light-theme($light-blue-primary, $light-blue-accent);
+  @include angular-material-theme($light-blue);
+
+  .settings__bubble#multicolor {
+    border-color: var(--bubble-color) !important;
+  }
+}
+
+.light-blue {
+  $light-blue-primary: mat-palette($mat-light-blue, 300);
+  $light-blue-accent: mat-palette($mat-light-blue, 300);
+  
+  --bubble-color: #4fc3f7;
   
   $light-blue: mat-light-theme($light-blue-primary, $light-blue-accent);
   @include angular-material-theme($light-blue);
 
   .settings__bubble#light-blue {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
@@ -111,13 +116,13 @@ body:not(.accessibility) .settings__tile#false {
   $red-primary: mat-palette($mat-red, 300);
   $red-accent: mat-palette($mat-red, 300);
   
-  --buble-color: #e57373;
+  --bubble-color: #e57373;
   
   $red: mat-light-theme($red-primary, $red-accent);
   @include angular-material-theme($red);
 
   .settings__bubble#red {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
@@ -125,13 +130,13 @@ body:not(.accessibility) .settings__tile#false {
   $orange-primary: mat-palette($mat-deep-orange, 300);
   $orange-accent: mat-palette($mat-deep-orange, 300);
   
-  --buble-color: #ff8a65;
+  --bubble-color: #ff8a65;
   
   $orange: mat-light-theme($orange-primary, $orange-accent);
   @include angular-material-theme($orange);
 
   .settings__bubble#orange {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
@@ -139,13 +144,13 @@ body:not(.accessibility) .settings__tile#false {
   $green-primary: mat-palette($mat-green, 300);
   $green-accent: mat-palette($mat-green, 300);
   
-  --buble-color: #81c784;
+  --bubble-color: #81c784;
   
   $green: mat-light-theme($green-primary, $green-accent);
   @include angular-material-theme($green);
 
   .settings__bubble#green {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
@@ -153,13 +158,13 @@ body:not(.accessibility) .settings__tile#false {
   $indigo-primary: mat-palette($mat-indigo, 300);
   $indigo-accent: mat-palette($mat-indigo, 300);
 
-  --buble-color: #7986cb;
+  --bubble-color: #7986cb;
 
   $indigo: mat-light-theme($indigo-primary, $indigo-accent);
   @include angular-material-theme($indigo);
 
   .settings__bubble#indigo {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 
@@ -167,13 +172,13 @@ body:not(.accessibility) .settings__tile#false {
   $purple-primary: mat-palette($mat-purple, 300);
   $purple-accent: mat-palette($mat-purple, 300);
 
-  --buble-color: #ba68c8;
+  --bubble-color: #ba68c8;
 
   $purple: mat-light-theme($purple-primary, $purple-accent);
   @include angular-material-theme($purple);
 
   .settings__bubble#purple {
-    border-color: var(--buble-color) !important;
+    border-color: var(--bubble-color) !important;
   }
 }
 

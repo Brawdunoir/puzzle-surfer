@@ -28,7 +28,7 @@ body {
 
   .mat-slider-thumb,
   .mat-slider-track-fill {
-    background-color: dodgerblue !important;
+    background-color: var(--bubble-color) !important;
   }
 
   .mat-slider-track-background,

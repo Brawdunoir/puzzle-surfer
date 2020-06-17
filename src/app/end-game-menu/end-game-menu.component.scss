@@ -60,7 +60,7 @@
       button:nth-child(3) {
         grid-row: 2;
         grid-column: 1 / span 2;
-        background-color: dodgerblue !important;
+        background-color: var(--bubble-color) !important;
       }
     }
   }
