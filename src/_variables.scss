@@ -84,7 +84,21 @@ body:not(.accessibility) .settings__tile#false {
 @import '~@angular/material/theming';
 @include mat-core();
 
-.multicolor {
+// .multicolor {
+//   $light-blue-primary: mat-palette($mat-light-blue, 300);
+//   $light-blue-accent: mat-palette($mat-light-blue, 300);
+  
+//   --bubble-color: #4fc3f7;
+  
+//   $light-blue: mat-light-theme($light-blue-primary, $light-blue-accent);
+//   @include angular-material-theme($light-blue);
+
+//   .settings__bubble#multicolor {
+//     border-color: var(--bubble-color) !important;
+//   }
+// }
+
+.light-blue, .multicolor {
   $light-blue-primary: mat-palette($mat-light-blue, 300);
   $light-blue-accent: mat-palette($mat-light-blue, 300);
   
@@ -93,21 +107,7 @@ body:not(.accessibility) .settings__tile#false {
   $light-blue: mat-light-theme($light-blue-primary, $light-blue-accent);
   @include angular-material-theme($light-blue);
 
-  .settings__bubble#multicolor {
-    border-color: var(--bubble-color) !important;
-  }
-}
-
-.light-blue {
-  $light-blue-primary: mat-palette($mat-light-blue, 300);
-  $light-blue-accent: mat-palette($mat-light-blue, 300);
-  
-  --bubble-color: #4fc3f7;
-  
-  $light-blue: mat-light-theme($light-blue-primary, $light-blue-accent);
-  @include angular-material-theme($light-blue);
-
-  .settings__bubble#light-blue {
+  .settings__bubble#light-blue, .settings__bubble#multicolor {
     border-color: var(--bubble-color) !important;
   }
 }

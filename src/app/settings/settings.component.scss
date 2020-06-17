@@ -8,6 +8,7 @@
       @include responsiveContainer;
       display: flex;
       flex-direction: row;
+      flex-flow: wrap;
 
       &__title {
         padding: 0.6em 0.8em;
@@ -56,7 +57,8 @@
         padding: 1em;
 
         .settings__bubble + .settings__bubble {
-          margin-left: 0.3em;
+          margin-right: 0.3em;
+          margin-bottom: 0.3em;
         }
 
         .settings__bubble,
@@ -82,7 +84,7 @@
             background-color: #11100f;
           }
           &#amoled {
-            background-color: #000;
+            background-color: #000000;
           }
           &#multicolor {
             background: linear-gradient(110deg, #4fc3f7 16%, #e57373 33%, #ff8a65 44%, #81c784 66%, #7986cb 83%, #ba68c8 100%)
