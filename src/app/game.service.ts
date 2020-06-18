@@ -1,7 +1,7 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { GridService } from './grid.service';
 import { ScoreService } from './score.service';
-import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { PieceService } from './piece.service';
 import { VariableService } from './variable.service';
 import { IndexService } from './index.service';
@@ -30,7 +30,6 @@ export class GameService {
     private pieceService: PieceService,
     private variable: VariableService,
     private index: IndexService,
-    private storage: StorageMap,
     private storNames: StorageService
   ) {}
 
@@ -50,7 +49,6 @@ export class GameService {
    */
   async uponIndexReceived(
     indexArray: number[],
-    idPiece: number,
     idView: number,
     color: string
   ): Promise<void> {
@@ -166,12 +164,14 @@ export class GameService {
           const indexArray = this.index.get(i, forme.jumps);
 
           if (this.index.isSuitable(indexArray, i, forme.dimensions.x)) {
+            // ? Uncomment to logP
+            // this.grid.logIndex(indexArray);
             return;
           }
         }
-        this.end.next();
       }
     }
+    this.end.next();
   }
 
   /** Trigger restart */

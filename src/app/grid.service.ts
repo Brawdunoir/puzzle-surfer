@@ -178,4 +178,20 @@ export class GridService {
       });
     }
   }
+
+  logIndex(indexArray: number[]): void {
+    const grid = [];
+    for (let i = 0; i < this.dimensions; i++) {
+      grid[i] = [];
+      for (let j = 0; j < this.dimensions; j++) {
+        grid[i][j] = ['o'];
+      }
+    }
+    indexArray.forEach(index => {
+      const { x, y } = this.indexToCoord(index);
+      grid[y][x] = 'x';
+    });
+
+    console.table(grid);
+  }
 }
