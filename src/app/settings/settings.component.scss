@@ -7,8 +7,6 @@
     &__center {
       @include responsiveContainer;
       display: flex;
-      flex-direction: row;
-      flex-flow: wrap;
 
       &__title {
         padding: 0.6em 0.8em;
@@ -54,12 +52,10 @@
       .settings__bubble-container,
       .settings__tile-container {
         display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         padding: 1em;
 
-        .settings__bubble + .settings__bubble {
-          margin-right: 0.3em;
-          margin-bottom: 0.3em;
-        }
 
         .settings__bubble,
         .settings__tile {
@@ -73,6 +69,7 @@
           border-radius: 50%;
           height: 3em;
           width: 3em;
+          margin: 0 0.3em 0.3em 0;
 
           &#light {
             background-color: #faf9f8;
@@ -111,7 +108,7 @@
         
         .settings__tile {
           border-radius: $border-radius;
-          margin-right: 0.3em;
+          margin: 0 0.3em 0.3em 0;
           height: 3em;
           width: 3em;
 
