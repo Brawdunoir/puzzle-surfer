@@ -18,6 +18,6 @@
 - In full page
 - Add button to access this Scoreboard component in the Menu
 
-## Add pieces color in the settings menu
+## **DONE** Add pieces color in the settings menu
 
-## Delete rainbow effect and change default theme with one with colors
+## **DONE** Delete rainbow effect and change default theme with one with colors
