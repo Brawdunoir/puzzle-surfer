@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { GridService } from './grid.service';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormeService {
   color = {
-    line: '#4fc3f7',
-    tetris: '#ba68c8',
-    cube: '#7986cb',
-    doubleLine: '#81c784',
-    crooked: '#ff8a65',
-    l: '#e57373',
+    'light-blue': '#4fc3f7',
+    purple: '#ba68c8',
+    indigo: '#7986cb',
+    green: '#81c784',
+    orange: '#ff8a65',
+    red: '#e57373',
   };
 
   priority = {
@@ -21,7 +23,9 @@ export class FormeService {
     veryHigh: 4,
   };
 
-  dim = this.grid.getDimensions();
+  dim = +this.storageService.getSync(
+    this.storageService.gridDimensionStorageName
+  );
 
   formes = [
     {
@@ -37,7 +41,7 @@ export class FormeService {
         { x: 2, y: 1 },
       ],
       jumps: [1, this.dim, this.dim + 1, this.dim + 2],
-      color: this.color.tetris,
+      color: this.color.purple,
       priority: this.priority.low,
     },
     {
@@ -53,7 +57,7 @@ export class FormeService {
         { x: 2, y: 0 },
       ],
       jumps: [0, 1, 2, this.dim + 1],
-      color: this.color.tetris,
+      color: this.color.purple,
       priority: this.priority.low,
     },
     {
@@ -69,7 +73,7 @@ export class FormeService {
         { x: 1, y: 1 },
       ],
       jumps: [0, this.dim, this.dim + 1, 2 * this.dim],
-      color: this.color.tetris,
+      color: this.color.purple,
       priority: this.priority.low,
     },
     {
@@ -85,7 +89,7 @@ export class FormeService {
         { x: 0, y: 1 },
       ],
       jumps: [1, this.dim, this.dim + 1, 2 * this.dim + 1],
-      color: this.color.tetris,
+      color: this.color.purple,
       priority: this.priority.low,
     },
     {
@@ -96,7 +100,7 @@ export class FormeService {
       },
       positions: [{ x: 0, y: 0 }],
       jumps: [0],
-      color: this.color.cube,
+      color: this.color.indigo,
       priority: this.priority.veryHigh,
     },
     {
@@ -112,7 +116,7 @@ export class FormeService {
         { x: 1, y: 0 },
       ],
       jumps: [0, 1, this.dim, this.dim + 1],
-      color: this.color.cube,
+      color: this.color.indigo,
       priority: this.priority.normal,
     },
     {
@@ -143,7 +147,7 @@ export class FormeService {
         2 * this.dim + 1,
         2 * this.dim + 2,
       ],
-      color: this.color.cube,
+      color: this.color.indigo,
       priority: this.priority.low,
     },
     {
@@ -157,7 +161,7 @@ export class FormeService {
         { x: 1, y: 0 },
       ],
       jumps: [0, 1],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.high,
     },
     {
@@ -172,7 +176,7 @@ export class FormeService {
         { x: 2, y: 0 },
       ],
       jumps: [0, 1, 2],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.normal,
     },
     {
@@ -190,7 +194,7 @@ export class FormeService {
         { x: 2, y: 1 },
       ],
       jumps: [0, 1, 2, this.dim, this.dim + 1, this.dim + 2],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.low,
     },
     {
@@ -206,7 +210,7 @@ export class FormeService {
         { x: 3, y: 0 },
       ],
       jumps: [0, 1, 2, 3],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.low,
     },
     {
@@ -226,7 +230,7 @@ export class FormeService {
         { x: 3, y: 1 },
       ],
       jumps: [0, 1, 2, 3, this.dim, this.dim + 1, this.dim + 2, this.dim + 3],
-      color: this.color.doubleLine,
+      color: this.color.green,
       priority: this.priority.low,
     },
     {
@@ -243,7 +247,7 @@ export class FormeService {
         { x: 4, y: 0 },
       ],
       jumps: [0, 1, 2, 3, 4],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.low,
     },
     {
@@ -276,7 +280,7 @@ export class FormeService {
         this.dim + 3,
         this.dim + 4,
       ],
-      color: this.color.doubleLine,
+      color: this.color.green,
       priority: this.priority.low,
     },
     {
@@ -290,7 +294,7 @@ export class FormeService {
         { x: 0, y: 1 },
       ],
       jumps: [0, this.dim],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.high,
     },
     {
@@ -305,7 +309,7 @@ export class FormeService {
         { x: 0, y: 2 },
       ],
       jumps: [0, this.dim, 2 * this.dim],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.normal,
     },
     {
@@ -323,7 +327,7 @@ export class FormeService {
         { x: 1, y: 2 },
       ],
       jumps: [0, 1, this.dim, this.dim + 1, 2 * this.dim, 2 * this.dim + 1],
-      color: this.color.doubleLine,
+      color: this.color.green,
       priority: this.priority.low,
     },
     {
@@ -339,7 +343,7 @@ export class FormeService {
         { x: 0, y: 3 },
       ],
       jumps: [0, this.dim, 2 * this.dim, 3 * this.dim],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.low,
     },
     {
@@ -368,7 +372,7 @@ export class FormeService {
         3 * this.dim,
         3 * this.dim + 1,
       ],
-      color: this.color.doubleLine,
+      color: this.color.green,
       priority: this.priority.low,
     },
     {
@@ -385,7 +389,7 @@ export class FormeService {
         { x: 0, y: 4 },
       ],
       jumps: [0, this.dim, 2 * this.dim, 3 * this.dim, 4 * this.dim],
-      color: this.color.line,
+      color: this.color['light-blue'],
       priority: this.priority.low,
     },
     {
@@ -418,7 +422,7 @@ export class FormeService {
         4 * this.dim,
         4 * this.dim + 1,
       ],
-      color: this.color.doubleLine,
+      color: this.color.green,
       priority: this.priority.low,
     },
     {
@@ -433,7 +437,7 @@ export class FormeService {
         { x: 1, y: 1 },
       ],
       jumps: [0, 1, this.dim + 1],
-      color: this.color.crooked,
+      color: this.color.orange,
       priority: this.priority.normal,
     },
     {
@@ -448,7 +452,7 @@ export class FormeService {
         { x: 0, y: 1 },
       ],
       jumps: [0, 1, this.dim],
-      color: this.color.crooked,
+      color: this.color.orange,
       priority: this.priority.normal,
     },
     {
@@ -463,7 +467,7 @@ export class FormeService {
         { x: 1, y: 1 },
       ],
       jumps: [0, this.dim, this.dim + 1],
-      color: this.color.crooked,
+      color: this.color.orange,
       priority: this.priority.normal,
     },
     {
@@ -478,7 +482,7 @@ export class FormeService {
         { x: 1, y: 1 },
       ],
       jumps: [1, this.dim, this.dim + 1],
-      color: this.color.crooked,
+      color: this.color.orange,
       priority: this.priority.normal,
     },
     {
@@ -495,7 +499,7 @@ export class FormeService {
         { x: 3, y: 1 },
       ],
       jumps: [0, 1, 2, 3, this.dim + 3],
-      color: this.color.l,
+      color: this.color.red,
       priority: this.priority.low,
     },
     {
@@ -512,7 +516,7 @@ export class FormeService {
         { x: 0, y: 1 },
       ],
       jumps: [0, 1, 2, 3, this.dim],
-      color: this.color.l,
+      color: this.color.red,
       priority: this.priority.low,
     },
     {
@@ -529,7 +533,7 @@ export class FormeService {
         { x: 0, y: 0 },
       ],
       jumps: [0, this.dim, this.dim + 1, this.dim + 2, this.dim + 3],
-      color: this.color.l,
+      color: this.color.red,
       priority: this.priority.low,
     },
     {
@@ -546,7 +550,7 @@ export class FormeService {
         { x: 3, y: 0 },
       ],
       jumps: [this.dim, this.dim + 1, this.dim + 2, this.dim + 3, 3],
-      color: this.color.l,
+      color: this.color.red,
       priority: this.priority.low,
     },
     {
@@ -563,7 +567,7 @@ export class FormeService {
         { x: 2, y: 2 },
       ],
       jumps: [0, 1, 2, this.dim + 2, 2 * this.dim + 2],
-      color: this.color.crooked,
+      color: this.color.orange,
       priority: this.priority.low,
     },
     {
@@ -580,7 +584,7 @@ export class FormeService {
         { x: 0, y: 2 },
       ],
       jumps: [0, 1, 2, this.dim, 2 * this.dim],
-      color: this.color.crooked,
+      color: this.color.orange,
       priority: this.priority.low,
     },
     {
@@ -597,7 +601,7 @@ export class FormeService {
         { x: 2, y: 2 },
       ],
       jumps: [0, this.dim, 2 * this.dim, 2 * this.dim + 1, 2 * this.dim + 2],
-      color: this.color.crooked,
+      color: this.color.orange,
       priority: this.priority.low,
     },
     {
@@ -620,7 +624,7 @@ export class FormeService {
         2 * this.dim,
         2 * this.dim + 1,
       ],
-      color: this.color.crooked,
+      color: this.color.orange,
       priority: this.priority.low,
     },
     {
@@ -636,7 +640,7 @@ export class FormeService {
         { x: 1, y: 2 },
       ],
       jumps: [0, 1, this.dim + 1, 2 * this.dim + 1],
-      color: this.color.l,
+      color: this.color.red,
       priority: this.priority.low,
     },
     {
@@ -652,7 +656,7 @@ export class FormeService {
         { x: 0, y: 2 },
       ],
       jumps: [0, 1, this.dim, 2 * this.dim],
-      color: this.color.l,
+      color: this.color.red,
       priority: this.priority.low,
     },
     {
@@ -668,7 +672,7 @@ export class FormeService {
         { x: 1, y: 2 },
       ],
       jumps: [0, this.dim, 2 * this.dim, 2 * this.dim + 1],
-      color: this.color.l,
+      color: this.color.red,
       priority: this.priority.low,
     },
     {
@@ -684,15 +688,17 @@ export class FormeService {
         { x: 0, y: 2 },
       ],
       jumps: [1, this.dim + 1, 2 * this.dim + 1, 2 * this.dim],
-      color: this.color.l,
+      color: this.color.red,
       priority: this.priority.low,
     },
   ];
 
-  constructor(private grid: GridService) {}
+  constructor(private storageService: StorageService) {}
 
-  updateJumps() {
-    this.dim = this.grid.getDimensions();
+  updateJumps(): void {
+    this.dim = +this.storageService.getSync(
+      this.storageService.gridDimensionStorageName
+    );
 
     this.formes.forEach((forme) => {
       forme.jumps = [];

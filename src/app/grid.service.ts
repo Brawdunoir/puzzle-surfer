@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { VariableService } from './variable.service';
 import { StorageService } from './storage.service';
 import { StorageMap } from '@ngx-pwa/local-storage';
+import { FormeService } from './forme.service';
 
 export interface Coordonnee {
   x: number;
@@ -30,7 +31,8 @@ export class GridService {
   constructor(
     private variable: VariableService,
     private storageService: StorageService,
-    private storage: StorageMap
+    private storage: StorageMap,
+    private formeService: FormeService,
   ) {}
 
   /** Initialize basic variables for grid and display */
@@ -88,7 +90,6 @@ export class GridService {
           }
         }
       });
-    // TODO: La grille peut déjà être sauvegardée, check avant de l'initialiser.
   }
 
   /** Reinitialize the grid */
@@ -124,8 +125,16 @@ export class GridService {
         ? this.variable.tileFull
         : this.variable.tileHalf;
       // ? Save this move in the data storage
-      const data: GridData = { Tiles: this.tiles, Grid : this.grid };
-      this.storage.set(this.storageService.getGridStorageKey(this.getDifficulty(), this.dimensions), data).subscribe();
+      const data: GridData = { Tiles: this.tiles, Grid: this.grid };
+      this.storage
+        .set(
+          this.storageService.getGridStorageKey(
+            this.getDifficulty(),
+            this.dimensions
+          ),
+          data
+        )
+        .subscribe();
     }
   }
 
@@ -151,5 +160,22 @@ export class GridService {
       }
     }
     this.updateFromIndex(index, filled, color);
+  }
+
+  changeColor(color: string): void {
+    if (color !== 'multicolor') {
+      const dim = this.dimensions;
+      const key = this.storageService.getGridStorageKey(this.getDifficulty(), dim);
+
+      this.storage.get(key).subscribe((data: GridData) => {
+        for (let index = 0; index < dim * dim; index++) {
+          if (data.Tiles[index] !== undefined && data.Grid[index]) {
+            data.Tiles[index].color = this.formeService.color[color];
+            data.Tiles[index].filled = this.variable.tileFull;
+          }
+        }
+        this.storage.set(key, data).subscribe();
+      });
+    }
   }
 }

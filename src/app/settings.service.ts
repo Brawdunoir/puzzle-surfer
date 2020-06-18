@@ -1,6 +1,8 @@
-import { Injectable, ComponentFactoryResolver } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
 import { StorageService } from './storage.service';
+import { PieceService } from './piece.service';
+import { GridService } from './grid.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +14,8 @@ export class SettingsService {
   constructor(
     private storageService: StorageService,
     private storage: StorageMap,
+    private pieceService: PieceService,
+    private grid: GridService,
   ) {}
 
   /** Set grid dimensions */
@@ -49,6 +53,8 @@ export class SettingsService {
       if (color !== undefined) {
         this.clearColor();
         this.body.add(color);
+        this.pieceService.changeColor(color);
+        this.grid.changeColor(color);
         console.log('Color has been changed to ' + color);
       } else {
         console.warn('The selected color is undefined ?');
@@ -91,6 +97,7 @@ export class SettingsService {
         if (color !== undefined) {
           this.clearColor();
           this.body.add(color);
+          this.pieceService.changeColor(color);
         } else {
           console.warn('Stored color is undefinied ?');
         }

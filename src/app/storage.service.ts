@@ -128,6 +128,7 @@ export class StorageService {
     let grid: boolean[] = [];
     for (let i = 0; i < dim * dim; i++) {
       tiles.push({ color: '', filled: this.variable.tileHalf });
+      // Because during init there is not piece in the grid
       grid.push(false);
     }
     this.storage.set(this.getGridStorageKey(true, dim), { Tiles: tiles, Grid: grid }).subscribe();

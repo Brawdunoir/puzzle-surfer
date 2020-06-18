@@ -11,9 +11,9 @@ export class PieceService {
   currentViewID: number;
   formesInGameID: number[] = [];
 
-  formes = this.forme.formes;
+  formes = this.formeService.formes;
 
-  constructor(private grid: GridService, private forme: FormeService) {}
+  constructor(private grid: GridService, private formeService: FormeService) {}
 
   /** Return a random piece ID */
   getRandomID(): number {
@@ -27,9 +27,9 @@ export class PieceService {
   /** Initialize forms depending on their and the grid dimensions
    * It'll add n times the form depending on its priority
    */
-  init() {
+  init(): void {
     const dim = this.grid.getDimensions();
-    this.forme.updateJumps();
+    this.formeService.updateJumps();
     this.formesInGameID = [];
     for (let i = 0; i < this.formes.length; i++) {
       const forme = this.formes[i];
@@ -42,6 +42,25 @@ export class PieceService {
           this.formesInGameID.push(i);
         }
       }
+    }
+  }
+
+  changeColor(color: string): void {
+    // ? We take default values for pieces
+    if (color === 'multicolor') {
+      this.formes = this.formeService.formes;
+    }
+    // ? We change color for pieces
+    else {
+      const temp: any[] = [];
+      for (const forme of this.formes) {
+        const formeTemp = Object.assign({}, forme);
+        formeTemp.color = this.formeService.color[color];
+        temp.push(formeTemp);
+      }
+      this.formes = temp;
+      console.table(this.formes);
+      console.table(this.formeService.formes);
     }
   }
 }
