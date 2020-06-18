@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "puzzle-surfer": {
+    "basic-block-puzzle": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/puzzle-surfer",
+            "outputPath": "dist/basic-block-puzzle",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,21 +73,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "puzzle-surfer:build"
+            "browserTarget": "basic-block-puzzle:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "puzzle-surfer:build:production"
+              "browserTarget": "basic-block-puzzle:build:production"
             },
             "fr": {
-              "browserTarget": "puzzle-surfer:build:fr"
+              "browserTarget": "basic-block-puzzle:build:fr"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "puzzle-surfer:build"
+            "browserTarget": "basic-block-puzzle:build"
           }
         },
         "test": {
@@ -120,11 +120,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "puzzle-surfer:serve"
+            "devServerTarget": "basic-block-puzzle:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "puzzle-surfer:serve:production"
+              "devServerTarget": "basic-block-puzzle:serve:production"
             }
           }
         },
@@ -141,7 +141,7 @@
       }
     }
   },
-  "defaultProject": "puzzle-surfer",
+  "defaultProject": "basic-block-puzzle",
   "cli": {
     "analytics": false
   }
