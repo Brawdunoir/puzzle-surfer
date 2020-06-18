@@ -4,7 +4,6 @@ import { GridService } from '../grid.service';
 import { GameService } from '../game.service';
 import { PieceService } from '../piece.service';
 import { VariableService } from '../variable.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-common-bloc',
