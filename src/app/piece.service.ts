@@ -59,8 +59,6 @@ export class PieceService {
         temp.push(formeTemp);
       }
       this.formes = temp;
-      console.table(this.formes);
-      console.table(this.formeService.formes);
     }
   }
 }
