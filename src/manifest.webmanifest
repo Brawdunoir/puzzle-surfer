@@ -1,8 +1,8 @@
 {
   "name": "basic-block-puzzle",
   "short_name": "basic-block-puzzle",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#4fc3f7",
+  "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "./",
