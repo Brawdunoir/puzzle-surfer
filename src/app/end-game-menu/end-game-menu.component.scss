@@ -49,15 +49,10 @@
 
       button:nth-child(1) {
         grid-row: 1;
-        grid-column: 1;
+        grid-column: 1 / span 2;
       }
 
       button:nth-child(2) {
-        grid-row: 1;
-        grid-column: 2;
-      }
-
-      button:nth-child(3) {
         grid-row: 2;
         grid-column: 1 / span 2;
         background-color: var(--bubble-color) !important;
