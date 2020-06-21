@@ -25,6 +25,7 @@ import { EndGameMenuComponent } from './end-game-menu/end-game-menu.component';
 import { SettingsComponent } from './settings/settings.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ScoreBoardComponent } from './score-board/score-board.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { environment } from '../environments/environment';
     CommonBlocComponent,
     EndGameMenuComponent,
     SettingsComponent,
+    ScoreBoardComponent,
   ],
   imports: [
     BrowserModule,
