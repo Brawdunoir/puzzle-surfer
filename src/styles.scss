@@ -86,8 +86,16 @@ body {
     }
 
     .close__button {
+      color: var(--font);
       position: relative;
       margin: auto 1rem auto auto;
+      cursor: pointer;
+      transition: color 200ms ease-in-out;
+
+      &:hover,
+      &:focus {
+        color: var(--bubble-color);
+      }
     }
   }
 }
