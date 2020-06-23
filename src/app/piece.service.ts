@@ -6,7 +6,6 @@ import { FormeService } from './forme.service';
   providedIn: 'root',
 })
 export class PieceService {
-
   currentPieceID: number;
   currentViewID: number;
   formesInGameID: number[] = [];
@@ -29,7 +28,7 @@ export class PieceService {
    */
   init(): void {
     const dim = this.grid.getDimensions();
-    this.formeService.updateJumps();
+    this.updateJumps(dim);
     this.formesInGameID = [];
     for (let i = 0; i < this.formes.length; i++) {
       const forme = this.formes[i];
@@ -60,5 +59,15 @@ export class PieceService {
       }
       this.formes = temp;
     }
+  }
+
+  private updateJumps(dim: number): void {
+    this.formes.forEach((forme) => {
+      forme.jumps = [];
+      for (const position of forme.positions) {
+        forme.jumps.push(position.x + position.y * dim);
+      }
+    });
+    console.log('Sucessfully updated jumps to grid dimension ' + dim);
   }
 }

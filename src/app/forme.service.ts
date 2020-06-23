@@ -694,18 +694,4 @@ export class FormeService {
   ];
 
   constructor(private storageService: StorageService) {}
-
-  updateJumps(): void {
-    this.dim = +this.storageService.getSync(
-      this.storageService.gridDimensionStorageName
-    );
-
-    this.formes.forEach((forme) => {
-      forme.jumps = [];
-      for (const position of forme.positions) {
-        forme.jumps.push(position.x + position.y * this.dim);
-      }
-    });
-    console.log('Sucessfully updated jumps to grid dimension ' + this.dim);
-  }
 }
