@@ -54,6 +54,7 @@ import { ScoreBoardComponent } from './score-board/score-board.component';
       { path: '', component: HomeComponent },
       { path: 'game', component: GameComponent },
       { path: 'settings', component: SettingsComponent},
+      { path: 'scores', component: ScoreBoardComponent},
     ]),
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
