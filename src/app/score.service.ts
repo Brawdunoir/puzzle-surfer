@@ -27,15 +27,21 @@ export class ScoreService {
   ) {}
 
   init(): void {
-    this.gridDimension = +this.storageService.getSync(this.storageService.gridDimensionStorageName);
-    this.isHard = this.storageService.getSync(this.storageService.difficultyStorageName) === 'hard';
+    this.gridDimension = +this.storageService.getSync(
+      this.storageService.gridDimensionStorageName
+    );
+    this.isHard =
+      this.storageService.getSync(this.storageService.difficultyStorageName) ===
+      'hard';
 
     this.updateKey();
     this.loadBestScoreArray();
 
-    this.storage.get(this.currentScoreStorageKey).subscribe((current: number) => {
-      this.currentScore = current;
-    });
+    this.storage
+      .get(this.currentScoreStorageKey)
+      .subscribe((current: number) => {
+        this.currentScore = current;
+      });
     this.storage.get(this.bestScoreStorageKey).subscribe((best: number) => {
       this.bestScore = best;
     });
@@ -43,8 +49,14 @@ export class ScoreService {
 
   private updateKey() {
     // ? Local update
-    this.currentScoreStorageKey = this.storageService.getCurrentScoreKey(this.isHard, this.gridDimension);
-    this.bestScoreStorageKey = this.storageService.getBestScoreKey(this.isHard, this.gridDimension);
+    this.currentScoreStorageKey = this.storageService.getCurrentScoreKey(
+      this.isHard,
+      this.gridDimension
+    );
+    this.bestScoreStorageKey = this.storageService.getBestScoreKey(
+      this.isHard,
+      this.gridDimension
+    );
   }
 
   /** Add delta to the current score */
@@ -63,6 +75,13 @@ export class ScoreService {
   /** Update the best score to the local storage */
   private updateBest(newCurrent: number): void {
     if (newCurrent > this.bestScore) {
+      this.isHard
+        ? (this.bestScoreHard[
+            this.gridDimension - this.variables.minGridSize
+          ] = newCurrent)
+        : (this.bestScoreEasy[
+            this.gridDimension - this.variables.minGridSize
+          ] = newCurrent);
       this.storage.set(this.bestScoreStorageKey, newCurrent).subscribe(() => {
         console.log(
           'New best score (' +
@@ -116,15 +135,15 @@ export class ScoreService {
     const max = this.variables.maxGridSize;
 
     for (let i = min; i <= max; i++) {
-        const keyHard = this.storageService.getBestScoreKey(true, i);
-        this.storage.get(keyHard).subscribe((score: number) => {
-          this.bestScoreHard[i - min] = score;
-        });
+      const keyHard = this.storageService.getBestScoreKey(true, i);
+      this.storage.get(keyHard).subscribe((score: number) => {
+        this.bestScoreHard[i - min] = score;
+      });
 
-        const keyEasy = this.storageService.getBestScoreKey(false, i);
-        this.storage.get(keyEasy).subscribe((score: number) => {
-          this.bestScoreEasy[i - min] = score;
-        });
-      }
+      const keyEasy = this.storageService.getBestScoreKey(false, i);
+      this.storage.get(keyEasy).subscribe((score: number) => {
+        this.bestScoreEasy[i - min] = score;
+      });
+    }
   }
 }

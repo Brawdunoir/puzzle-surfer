@@ -16,16 +16,17 @@ export class ScoreBoardComponent implements OnInit {
   min = this.variable.minGridSize;
   max = this.variable.maxGridSize;
 
-  bestScoreEasy: number[];
-  bestScoreHard: number[];
+  bestScoreEasy: number[] = [];
+  bestScoreHard: number[] = [];
 
   ngOnInit(): void {
     this.loadScores();
   }
 
   loadScores(): void {
-    this.bestScoreEasy = this.scoreService.bestScoreEasy;
-    this.bestScoreHard = this.scoreService.bestScoreHard;
+    for (let i = 0; i <= this.max - this.min; i++) {
+      this.bestScoreEasy[i] = this.scoreService.bestScoreEasy[i];
+      this.bestScoreHard[i] = this.scoreService.bestScoreHard[i];
+    }
   }
-
 }
