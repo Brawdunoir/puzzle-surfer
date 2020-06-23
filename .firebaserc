@@ -1,14 +1,5 @@
 {
-  "targets": {
-    "puzzle-surfer": {
-      "hosting": {
-        "puzzle-surfer": [
-          "puzzle-surfer"
-        ]
-      }
-    }
-  },
   "projects": {
-    "default": "puzzle-surfer"
+    "default": "basic-block-puzzle"
   }
 }

@@ -1,16 +1,10 @@
 {
   "hosting": {
-    "public": "dist/puzzle-surfer",
+    "public": "dist/basic-block-puzzle",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }
