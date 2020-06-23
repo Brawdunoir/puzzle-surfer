@@ -68,6 +68,30 @@ body {
   height: 100vh;
 }
 
+#header {
+  background-color: var(--background-secondary);
+  
+  &__center {
+    @include responsiveContainer;
+    display: flex;
+
+    &__title {
+      padding: 0.6em 0.8em;
+      text-transform: uppercase;
+      color: var(--font);
+      letter-spacing: 0.05em;
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin: 0;
+    }
+
+    .close__button {
+      position: relative;
+      margin: auto 1rem auto auto;
+    }
+  }
+}
+
 @media (min-width: 550px) {
   html {
     font-size: 2.5vw !important;
