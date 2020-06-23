@@ -1,1 +1,29 @@
-<p>score-board works!</p>
+<div id="page">
+  <div id="header">
+    <div id="header__center">
+      <h1 i18n id="header__center__title">score board</h1>
+      <button mat-icon-button class="close__button"
+      routerLink="../game"><i class="material-icons-round">clear</i></button>
+    </div>
+  </div>
+
+  <div class="scoreboard">
+    <div class="scoreboard__grid">
+      <div><strong i18n>grid size</strong></div>
+      <div class="scoreboard__grid__size" *ngFor="let score of bestScoreEasy; let i = index">
+        {{i + min}}
+      </div>
+
+      
+      <div><strong i18n>easy</strong></div>
+      <div class="scoreboard__grid__score-easy" *ngFor="let score of bestScoreEasy; let i = index">
+        {{score}}
+      </div>
+      
+      <div><strong i18n>hard</strong></div>
+      <div class="scoreboard__grid__score-hard" *ngFor="let score of bestScoreHard; let i = index">
+        {{score}}
+      </div>
+    </div>
+  </div>
+</div>

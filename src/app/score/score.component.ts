@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ScoreService } from '../score.service';
 import { StorageMap } from '@ngx-pwa/local-storage';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-score',
