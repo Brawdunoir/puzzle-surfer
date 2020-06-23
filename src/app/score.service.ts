@@ -16,6 +16,10 @@ export class ScoreService {
   currentScore: number;
   bestScore: number;
 
+  // For score board
+  bestScoreEasy: number[] = [];
+  bestScoreHard: number[] = [];
+
   constructor(
     private storageService: StorageService,
     private storage: StorageMap,
@@ -27,6 +31,7 @@ export class ScoreService {
     this.isHard = this.storageService.getSync(this.storageService.difficultyStorageName) === 'hard';
 
     this.updateKey();
+    this.loadBestScoreArray();
 
     this.storage.get(this.currentScoreStorageKey).subscribe((current: number) => {
       this.currentScore = current;
@@ -67,6 +72,12 @@ export class ScoreService {
         );
         this.bestScore = newCurrent;
       });
+
+      if (this.isHard) {
+        this.bestScoreHard[this.gridDimension] = newCurrent;
+      } else {
+        this.bestScoreEasy[this.gridDimension] = newCurrent;
+      }
     }
   }
 
@@ -98,5 +109,22 @@ export class ScoreService {
   /** Get current score of the game */
   private getCurrent(): number {
     return +this.storageService.getSync(this.currentScoreStorageKey);
+  }
+
+  loadBestScoreArray(): void {
+    const min = this.variables.minGridSize;
+    const max = this.variables.maxGridSize;
+
+    for (let i = min; i <= max; i++) {
+        const keyHard = this.storageService.getBestScoreKey(true, i);
+        this.storage.get(keyHard).subscribe((score: number) => {
+          this.bestScoreHard[i - min] = score;
+        });
+
+        const keyEasy = this.storageService.getBestScoreKey(false, i);
+        this.storage.get(keyEasy).subscribe((score: number) => {
+          this.bestScoreEasy[i - min] = score;
+        });
+      }
   }
 }
