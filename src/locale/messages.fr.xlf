@@ -6,7 +6,7 @@
         <source>
     Best : <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ bestScore$ | async }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
   </source>
-        <target>
+  <target>
     Record : <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ bestScore$ | async }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
   </target>
         <context-group purpose="location">
@@ -18,7 +18,7 @@
         <source>
     Score : <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ currentScore$ | async }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
   </source>
-        <target>
+  <target>
     Score : <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/><x id="INTERPOLATION" equiv-text="{{ currentScore$ | async }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>
   </target>
         <context-group purpose="location">
@@ -44,10 +44,10 @@
       </trans-unit>
       <trans-unit id="8f63587295e9cc6b75f662d2343f1c0da85adc8e" datatype="html">
         <source>settings</source>
-        <target>Paramètres</target>
+        <target>paramètres</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="91c7da31f5268f686942bea864ecf1295250564a" datatype="html">
@@ -55,23 +55,7 @@
         <target>dimensions de la grille</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings.component.html</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="0f6f5bc1d9e83b758dd60bc6dc7aad7d2cb7f600" datatype="html">
-        <source>theme</source>
-        <target>thème</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3f24d81733d4b433a9cce4abd9a573890cd633a5" datatype="html">
-        <source>accessibility</source>
-        <target>accessibilité</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="ea7c746552ae6d86a9907e49d5fb75c4da09cd1c" datatype="html">
@@ -79,7 +63,63 @@
         <target>mode difficile</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0f6f5bc1d9e83b758dd60bc6dc7aad7d2cb7f600" datatype="html">
+        <source>theme</source>
+        <target>thème</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3e36184dcc4fdb0735510af7a8789ba949ce92a9" datatype="html">
+        <source>color</source>
+        <target>couleur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3f24d81733d4b433a9cce4abd9a573890cd633a5" datatype="html">
+        <source>accessibility</source>
+        <target>accessibilité</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/settings/settings.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b62f566b72de7cbc5adcd5ee83ad7912b0f05504" datatype="html">
+        <source>score board</source>
+        <target>records</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/score-board/score-board.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="35bbc23f36ac00b166124f1a06203bbc67e72d28" datatype="html">
+        <source>grid size</source>
+        <target>taille</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/score-board/score-board.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f805eea0e48b2f9596d8d21f6f7461576f84e36c" datatype="html">
+        <source>easy</source>
+        <target>facile</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/score-board/score-board.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="991418e400b8643e481780cb36e95fd48442a3c4" datatype="html">
+        <source>hard</source>
+        <target>difficile</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/score-board/score-board.component.html</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
     </body>
