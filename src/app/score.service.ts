@@ -123,6 +123,7 @@ export class ScoreService {
         console.log('Current score can not be reinitialized');
       }
     );
+    this.currentScore = 0;
   }
 
   /** Get current score of the game */
