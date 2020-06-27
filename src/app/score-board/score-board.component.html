@@ -10,25 +10,19 @@
   <div class="scoreboard">
     <div class="scoreboard__grid">
       <div><strong i18n>grid size</strong></div>
-      <div *ngFor="let score of bestScoreEasy; let i = index">
-        <div class="scoreboard__grid__size" *ngIf="i >= 0 && i <= max-min">
-          {{i + min}}
-        </div>
+      <div class="scoreboard__grid__size" *ngFor="let score of bestScoreEasy; let i = index">
+        {{i + min}}
       </div>
 
       
       <div><strong i18n>easy</strong></div>
-      <div *ngFor="let score of bestScoreEasy; let i = index">
-        <div class="scoreboard__grid__score-easy" *ngIf="i >= 0 && i <= max-min">
-          {{score}}
-        </div>
+      <div class="scoreboard__grid__score-easy" *ngFor="let score of bestScoreEasy; let i = index">
+        {{score}}
       </div>
       
       <div><strong i18n>hard</strong></div>
-      <div *ngFor="let score of bestScoreHard; let i = index">
-        <div class="scoreboard__grid__score-hard" *ngIf="i >= 0 && i <= max-min">
-          {{score}}
-        </div>
+      <div class="scoreboard__grid__score-hard" *ngFor="let score of bestScoreHard; let i = index">
+        {{score}}
       </div>
     </div>
   </div>
