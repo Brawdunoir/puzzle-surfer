@@ -1,3 +1,5 @@
+<app-welcome (welcomeShow)="hideWelcome($event)" *ngIf="welcomeState"></app-welcome>
+
 <h1 id="app_name">
   Basic Block
   Puzzle</h1>
@@ -6,3 +8,4 @@
 <button mat-raised-button id="start_button" routerLink="game">
   <i class="material-icons-round">play_arrow</i>
 </button>
+

@@ -8,10 +8,18 @@ import { SettingsService } from '../settings.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private storage: StorageService, private settings: SettingsService) {}
+
+  welcomeState = true;
+
+  constructor(private storage: StorageService, private settings: SettingsService) { }
+
 
   ngOnInit(): void {
     this.storage.init();
     this.settings.setAppareance();
+  }
+
+  hideWelcome(event: boolean): void {
+    this.welcomeState = event;
   }
 }

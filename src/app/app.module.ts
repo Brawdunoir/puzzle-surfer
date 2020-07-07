@@ -26,6 +26,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ScoreBoardComponent } from './score-board/score-board.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ScoreBoardComponent } from './score-board/score-board.component';
     EndGameMenuComponent,
     SettingsComponent,
     ScoreBoardComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
