@@ -2,8 +2,8 @@
 
 .over {
   @include responsiveContainer;
-  position: absolute;
-  height: fit-content;;
+  position: fixed;
+  height: fit-content;
   top: 0;
   bottom: 0;
   left: 0;
