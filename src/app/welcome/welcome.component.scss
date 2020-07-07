@@ -1,7 +1,6 @@
 @import "../../variables";
 
 .over {
-  @include responsiveContainer;
   position: fixed;
   height: fit-content;
   top: 0;
