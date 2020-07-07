@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-welcome',
@@ -8,11 +9,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class WelcomeComponent implements OnInit {
   @Output() welcomeShow = new EventEmitter<boolean>();
 
-  constructor() {}
+  constructor(private storage: StorageService) {}
 
   ngOnInit(): void { }
 
   hide(): void {
     this.welcomeShow.emit(false);
+    this.storage.setSync(this.storage.welcomeStateStorageName, 'false');
   }
 }
