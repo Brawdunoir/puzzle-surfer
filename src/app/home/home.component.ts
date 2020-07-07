@@ -9,7 +9,7 @@ import { SettingsService } from '../settings.service';
 })
 export class HomeComponent implements OnInit {
 
-  welcomeState = true;
+  welcomeState = this.storage.getSync(this.storage.welcomeStateStorageName) !== 'false';
 
   constructor(private storage: StorageService, private settings: SettingsService) { }
 

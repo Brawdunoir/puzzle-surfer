@@ -15,6 +15,7 @@ export class StorageService {
   gridDimensionStorageName = 'grid-dimension';
   difficultyStorageName = 'difficulty';
   initCompleteStorageName = 'init-ok';
+  welcomeStateStorageName = 'welcome';
 
   // Async storage
   themeStorageName = 'theme';
