@@ -1,10 +1,15 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "xyz.appmaker.pfqbxs",
-      "sha256_cert_fingerprints": ["37:66:F8:DB:1B:32:6D:D3:BA:6C:4D:EA:AE:E0:8D:F4:F4:59:8C:4A:BF:FA:0E:3C:6F:2B:CF:86:8A:A0:19:A6","SHA256: F0:15:12:37:AA:07:54:36:A2:9D:1B:BC:BB:BA:4E:87:B8:98:73:18:C2:2B:99:A1:E8:B5:47:74:88:03:60:2A"]
+      "sha256_cert_fingerprints": [
+        "37:66:F8:DB:1B:32:6D:D3:BA:6C:4D:EA:AE:E0:8D:F4:F4:59:8C:4A:BF:FA:0E:3C:6F:2B:CF:86:8A:A0:19:A6",
+        "F0:15:12:37:AA:07:54:36:A2:9D:1B:BC:BB:BA:4E:87:B8:98:73:18:C2:2B:99:A1:E8:B5:47:74:88:03:60:2A"
+      ]
     }
   }
 ]
